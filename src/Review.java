@@ -20,12 +20,12 @@ public class Review {
      * Instantiates a new Review object.
      * If {@code rating} is not a valid value (not in range of 0 to 10) the default value '0' is used
      *
-     * @param author                        the author of the review
-     * @param reviewedDocument              the document the review is about
-     * @param language                      language review is written in
-     * @param releaseDate                   release date of the review
-     * @param rating                        rating of the review. Only values from 0 to 10 are allowed!
-     * @param content                       the content of the review
+     * @param author            the author of the review
+     * @param reviewedDocument  the document the review is about
+     * @param language          language review is written in
+     * @param releaseDate       release date of the review
+     * @param rating            rating of the review. Only values from 0 to 10 are allowed!
+     * @param content           the content of the review
      */
     public Review(Author author, Document reviewedDocument, String language, Date releaseDate,
                   int rating, String content) {
@@ -76,7 +76,7 @@ public class Review {
      * Sets the rating for the review.
      * If the rating is not in the range of 0 to 10 no change is done.
      *
-     * @param rating                        rating of the review. Only values from 0 to 10 are allowed!
+     * @param rating    rating of the review. Only values from 0 to 10 are allowed!
      */
     public void setRating(int rating) {
         if (rating < 0 || rating > 10)

@@ -18,9 +18,9 @@ public class Date {
      * Instantiates a new Date object.
      * If day, month or year are invalid values day is set to 1, month to 1 and year to the current year!
      *
-     * @param day                           an {@code int} representing the day of month
-     * @param month                         an {@code int} representing the month of year
-     * @param year                          an {@code int} representing the year
+     * @param day   an {@code int} representing the day of month
+     * @param month an {@code int} representing the month of year
+     * @param year  an {@code int} representing the year
      */
     public Date(int day, int month, int year) {
         // using setter methods to check for illegal values
@@ -54,7 +54,7 @@ public class Date {
      * If the {@code day} is not a valid day for the current {@code month}
      * and {@code year} no change is done.
      *
-     * @param day                           an {@code int} representing the day of month
+     * @param day   an {@code int} representing the day of month
      */
     public void setDay(int day) {
         switch (month) {
@@ -91,7 +91,7 @@ public class Date {
      * Sets the month of the {@code Date} object.
      * If the {@code month} is not in the range of 1 to 12 no change is done.
      *
-     * @param month                         an {@code int} representing the month of year
+     * @param month an {@code int} representing the month of year
      */
     public void setMonth(int month) {
         if (month < 1 || month > 12)
