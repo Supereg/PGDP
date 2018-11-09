@@ -1,0 +1,21 @@
+# intellij
+.idea/
+*.iml
+out/
+
+# maven
+build.xml
+target/
+dependency-reduced-pom.xml
+
+# Mac filesystem
+**/.DS_Store
+
+# Potential build files
+build/
+bin/
+dist/
+manifest.mf
+
+# other files
+*.log*
