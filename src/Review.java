@@ -104,7 +104,6 @@ public class Review {
     @Override
     public String toString() {
         return "Review{" +
-                "language='" + language + '\'' +
                 ", rating=" + rating +
                 ", releaseDate=" + releaseDate +
                 ", author=" + author +

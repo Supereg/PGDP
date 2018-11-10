@@ -81,7 +81,6 @@ public class Author {
                 "firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", birthday=" + birthday +
-                ", residence='" + residence + '\'' +
                 ", email='" + email + '\'' +
                 '}';
     }
