@@ -25,6 +25,18 @@ class StringulinaTest {
             success = false;
         }
 
+        int result3 = Stringulina.substringPos("", "");
+        if (result3 != -1) {
+            System.out.println("substringPos2 test failed. result was " + result3);
+            success = false;
+        }
+
+        int result4 = Stringulina.substringPos("", "Needle to find");
+        if (result4 != -1) {
+            System.out.println("substringPos3 test failed. result was " + result4);
+            success  = false;
+        }
+
         if (success)
             System.out.println("substringPos test succeeded!");
     }
@@ -42,6 +54,18 @@ class StringulinaTest {
         if (result1 != 0) {
             System.out.println("countSubstring1 test failed. result was " + result1);
             success = false;
+        }
+
+        int result3 = Stringulina.countSubstring("", "");
+        if (result3 != -1) {
+            System.out.println("countSubstring2 test failed. result was " + result3);
+            success = false;
+        }
+
+        int result4 = Stringulina.countSubstring("", "Needle to find");
+        if (result4 != 0) {
+            System.out.println("countSubstring3 test failed. result was " + result4);
+            success  = false;
         }
 
         if (success)
@@ -75,6 +99,12 @@ class StringulinaTest {
             success = false;
         }
 
+        boolean result4 = Stringulina.correctlyBracketed("");
+        if (!result4) {
+            System.out.println("correctlyBracketed4 test failed.");
+            success = false;
+        }
+
         if (success)
             System.out.println("correctlyBracketed test succeeded!");
     }
@@ -100,6 +130,12 @@ class StringulinaTest {
         boolean result1 = Stringulina.matches("Haloo123", "Hal{2}o.{3}");
         if (result1) {
             System.out.println("matches1 test failed.");
+            success = false;
+        }
+
+        boolean result2 = Stringulina.matches("", "");
+        if (!result2) {
+            System.out.println("matches2 test failed.");
             success = false;
         }
 

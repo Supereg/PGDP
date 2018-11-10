@@ -1,6 +1,17 @@
 public class Stringulina {
 
+    /**
+     * Returns the index at which the String {@code needle} occurs the first time in the String {@code haystack}.
+     *
+     * @param haystack  the {@code String} to search in
+     * @param needle    the {@code String} to search for in {@code haystack}
+     * @return          index of {@code needle} in {@code haystack}.
+     *                  If {@code needle} is empty or not found {@code -1} is returned
+     */
     public static int substringPos(String haystack, String needle) {
+        if (needle.length() == 0)
+            return -1;
+
         int max = haystack.length() - needle.length(); // this is the maximum index we need to reach
 
         char first = needle.charAt(0);
@@ -25,7 +36,18 @@ public class Stringulina {
         return -1;
     }
 
+    /**
+     * Counts how many times {@code needle} appears in {@code haystack}
+     *
+     * @param haystack  the {@code String} to search in
+     * @param needle    the {@code String} to search for
+     * @return          how often {@code needle} appeared in {@code haystack}.
+     *                  If {@code needle} is empty {@code -1} is returned
+     */
     public static int countSubstring(String haystack, String needle) {
+        if (needle.length() == 0)
+            return -1;
+
         int count = 0;
 
         int max = haystack.length() - needle.length();
@@ -50,6 +72,13 @@ public class Stringulina {
         return count;
     }
 
+    /**
+     * Checks if {@code str} is correctly bracketed
+     *
+     * @param str   the {@code String} to check
+     * @return      if {@code str} is correctly bracketed {@code true} is returned otherwise {@code false} is returned.
+     *              A empty {@code str} is considered correctly bracketed!
+     */
     public static boolean correctlyBracketed(String str) {
         boolean bracketWasOpened = false;
 
