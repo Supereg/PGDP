@@ -25,6 +25,12 @@ public class WordCountTest {
             success = false;
         }
 
+        WordCount wordCount1 = new WordCount("test", -123);
+        if (wordCount1.getCount() != 0) {
+            System.out.println("setCount test failed. Constructor allowed negative values!");
+            success = false;
+        }
+
         if (success)
             System.out.println("setCount test succeeded!");
     }

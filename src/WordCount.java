@@ -3,9 +3,15 @@ public class WordCount {
     private String word;
     private int count;
 
+    /**
+     * Instantiates a new WordCount object
+     *
+     * @param word  a {@code String} with the word
+     * @param count an non negative {@code int}. If {@code count} is negative the default value {@code 0} is used
+     */
     public WordCount(String word, int count) {
         this.word = word;
-        this.count = count;
+        this.setCount(count);
     }
 
     public String getWord() {
