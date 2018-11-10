@@ -107,14 +107,14 @@ public class Date {
      * @param year  an {@code int} representing the year
      */
     public void setYear(int year) {
-        if (this.year <= 0)
+        if (year <= 0)
             return;
 
         this.year = year;
     }
 
     private int daysSince1970() {
-        return getAgeInDaysAt(new Date(1, 1, 1970));
+        return new Date(1, 1, 1970).getAgeInDaysAt(this);
     }
 
     /**
