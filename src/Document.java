@@ -16,7 +16,6 @@ public class Document {
 
     private String title;
 
-    private String content;
     private String summary;
     private WordCountsArray wordCounts;
 
@@ -28,22 +27,19 @@ public class Document {
     public Document(String title, String language, String summary, Date releaseDate, Author author, String content) {
         this.title = title;
 
-        this.content = content;
         this.summary = summary;
 
         this.language = language;
 
         this.author = author;
         this.releaseDate = releaseDate;
+
+        this.addContent(content);
     }
 
 
     public String getTitle() {
         return title;
-    }
-
-    public String getContent() {
-        return content;
     }
 
     public String getSummary() {
@@ -70,8 +66,20 @@ public class Document {
         this.title = title;
     }
 
-    public void setContent(String content) {
-        this.content = content;
+    private void addContent(String content) {
+        String[] contentParts = tokenize(content);
+
+        for (String part: contentParts) {
+            String suffix = findSuffix(part);
+
+            if (!suffix.isEmpty())
+                part = cutSuffix(part, suffix);
+
+            // TODO WordCountsArray does currently NOT handle word which are added a second time
+            // TODO exercise says we will implement this in a further chapter
+            // TODO as a result i won't handle that right here ?!?
+            this.wordCounts.add(part, 1); // #add ignores empty words
+        }
     }
 
     public void setSummary(String summary) {
@@ -169,6 +177,31 @@ public class Document {
         }
 
         return matchesSuffix;
+    }
+
+    private static String findSuffix(String word) {
+        for (String suffix: SUFFICES) {
+            if (sufficesEqual(word, suffix, suffix.length()))
+                return suffix;
+        }
+
+        return "";
+    }
+
+    private static String cutSuffix(String word, String suffix) {
+        if (!sufficesEqual(word, suffix, suffix.length()))
+            return word;
+        // above we ensured that the word ends with the suffix
+
+        String newWord = "";
+
+        int loopEnd = word.length() - suffix.length();
+        for (int i = 0; i < loopEnd; i++) {
+            //noinspection StringConcatenationInLoop
+            newWord += word.charAt(i);
+        }
+
+        return newWord;
     }
 
 }
