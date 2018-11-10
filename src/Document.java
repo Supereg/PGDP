@@ -1,7 +1,7 @@
 /**
  * The class {@code Document} represents a document.
  * 
- * @author Florian Kelbert, Andreas Bauer
+ * @author Florian Kelbert
  *
  */
 public class Document {

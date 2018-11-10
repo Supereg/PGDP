@@ -1,7 +1,7 @@
 /**
  * The class {@code Review} represents a review of a {@see Document}.
  * 
- * @author Florian Kelbert, Andreas Bauer
+ * @author Florian Kelbert
  *
  */
 public class Review {

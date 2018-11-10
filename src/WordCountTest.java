@@ -1,6 +1,3 @@
-/**
- * Created by Andi on 09.11.18.
- */
 public class WordCountTest {
 
     public static void main(String[] args) {

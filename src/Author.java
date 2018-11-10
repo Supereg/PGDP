@@ -2,7 +2,7 @@
  * The class {@code Author} represents an author of a {@see Document} or a
  * {@see Review}.
  * 
- * @author Florian Kelbert, Andreas Bauer
+ * @author Florian Kelbert
  *
  */
 public class Author {

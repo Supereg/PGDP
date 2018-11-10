@@ -1,6 +1,3 @@
-/**
- * Created by Andi on 05.11.18.
- */
 public class WordCount {
 
     private String word;

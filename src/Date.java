@@ -1,7 +1,7 @@
 /**
  * The class {@code Date} represents a date.
  * 
- * @author Florian Kelbert, Andreas Bauer
+ * @author Florian Kelbert
  *
  */
 public class Date {
