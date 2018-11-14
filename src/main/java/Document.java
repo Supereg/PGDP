@@ -46,6 +46,12 @@ public class Document {
         return summary;
     }
 
+    /**
+     * Returns the {@link WordCountsArray} object of this object
+     *
+     * @return  the {@link WordCountsArray} if it exists.
+     *          {@code null} when no valid content was added yet!
+     */
     public WordCountsArray getWordCounts() {
         return wordCounts;
     }
@@ -66,8 +72,25 @@ public class Document {
         this.title = title;
     }
 
+    /**
+     * Parses the {@code content} for words to add.
+     *
+     * If the {@code content} is {@code null} or empty nothing will be done
+     *
+     * @param content   a {@link String} with the content to scan
+     */
     private void addContent(String content) {
+        if (content == null || content.isEmpty())
+            return;
+
         String[] contentParts = tokenize(content);
+
+        if (this.wordCounts == null) {
+            // we use contentParts.length as initial size so we do not have unnecessary array copies in the constructor
+            // wordCounts is not necessarily completely filled since some empty words
+            //      (after removing suffix) are left out
+            this.wordCounts = new WordCountsArray(contentParts.length);
+        }
 
         for (String part: contentParts) {
             String suffix = findSuffix(part);
@@ -75,9 +98,7 @@ public class Document {
             if (!suffix.isEmpty())
                 part = cutSuffix(part, suffix);
 
-            // TODO WordCountsArray does currently NOT handle word which are added a second time
-            // TODO exercise says we will implement this in a further chapter
-            // TODO as a result i won't handle that right here ?!?
+            // TODO words added a second time are currently not handled (as the exercise states to do so)
             this.wordCounts.add(part, 1); // #add ignores empty words
         }
     }
@@ -165,27 +186,27 @@ public class Document {
 
             if (c1 != c2) {
                 matchesSuffix = false;
-                //System.out.println(c1 + " " +c2 + " do not match");
                 break;
             }
         }
 
-        if (matchesSuffix) {
+        if (matchesSuffix) // ensure both indices are "finished"
             matchesSuffix = index1 == w1.length() && index2 == w2.length();
-            // if (!matchesSuffix)
-            //    System.out.println("One of the indices did not finish (" + index1 + "," + index2 + ")");
-        }
 
         return matchesSuffix;
     }
 
     private static String findSuffix(String word) {
+        String longestSuffix = ""; // we need to find the longest one,
+                                   //   since the suffix 'haltig' has also the suffix 'ig'
+
         for (String suffix: SUFFICES) {
-            if (sufficesEqual(word, suffix, suffix.length()))
-                return suffix;
+            if (sufficesEqual(word, suffix, suffix.length())
+                    && suffix.length() > longestSuffix.length())
+                longestSuffix = suffix;
         }
 
-        return "";
+        return longestSuffix;
     }
 
     private static String cutSuffix(String word, String suffix) {
