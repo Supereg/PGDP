@@ -101,8 +101,8 @@ public class WordCountsArray {
     public void setCount(int index, int count) {
         WordCount wordCount = this.getWordCount(index);
 
-        if (wordCount != null) { // TODO specify
-            wordCount.setCount(count); // illegal count is handled by the setter // TODO specify
+        if (wordCount != null) {
+            wordCount.setCount(count); // illegal count is handled by the setter
         }
     }
 
