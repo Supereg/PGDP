@@ -1,146 +1,232 @@
-class StringulinaTest {
+import org.junit.Test;
 
-    public static void main(String[] args) {
-        StringulinaTest test = new StringulinaTest();
+import static org.junit.Assert.*;
 
-        test.testSubstringPos();
-        test.testCountSubstring();
-        test.testCorrectlyBracketed();
-        test.testResolvePattern();
-        test.testMatches();
-    }
+public class StringulinaTest {
+  /*
+   * Tests für Teilaufgabe 1
+   */
 
-    private void testSubstringPos() {
-        boolean success = true;
+  // 0.5P
+  @Test
+  public void testSubstringPosStandard() {
+    assertEquals(0, Stringulina.substringPos("halloduda", "halloduda"));
+    assertEquals(2, Stringulina.substringPos("halloduda", "llo"));
+    assertEquals(2, Stringulina.substringPos("hallodudahalloduda", "llo"));
+  }
 
-        int result0 = Stringulina.substringPos("haalloal", "al");
-        if (result0 != 2) {
-            System.out.println("substringPos0 test failed. result was " + result0);
-            success = false;
-        }
+  // 0.2P
+  @Test
+  public void testSubstringPosNotFound() {
+    assertEquals(-1, Stringulina.substringPos("halloduda", "alli"));
+  }
 
-        int result1 = Stringulina.substringPos("hallo", "x12");
-        if (result1 != -1) {
-            System.out.println("substringPos1 test failed. result was  " + result1);
-            success = false;
-        }
+  // 0.2P
+  @Test
+  public void testSubstringPosNotFoundEmpty() {
+    assertEquals(-1, Stringulina.substringPos("", "alli"));
+  }
 
-        int result3 = Stringulina.substringPos("", "");
-        if (result3 != -1) {
-            System.out.println("substringPos2 test failed. result was " + result3);
-            success = false;
-        }
+  // 0.1P
+  @Test
+  public void testSubstringPosLonger() {
+    assertEquals(-1, Stringulina.substringPos("halloduda", "hallodudax"));
+  }
 
-        int result4 = Stringulina.substringPos("", "Needle to find");
-        if (result4 != -1) {
-            System.out.println("substringPos3 test failed. result was " + result4);
-            success  = false;
-        }
+  /*
+   * Tests für Teilaufgabe 2
+   */
 
-        if (success)
-            System.out.println("substringPos test succeeded!");
-    }
+  // 0.2P
+  @Test
+  public void testCountSubstringZero() {
+    assertEquals(0, Stringulina.countSubstring("halloduhalloda", "llox"));
+  }
 
-    private void testCountSubstring() {
-        boolean success = true;
+  // 0.2P
+  @Test
+  public void testCountSubstringOne() {
+    assertEquals(1, Stringulina.countSubstring("halloduhalloda", "du"));
+  }
 
-        int result0 = Stringulina.countSubstring("haalloal", "al");
-        if (result0 != 2) {
-            System.out.println("countSubstring0 test failed. result was " + result0);
-            success = false;
-        }
+  // 0.2P
+  @Test
+  public void testCountSubstringTwo() {
+    assertEquals(2, Stringulina.countSubstring("halloduhalloda", "hall"));
+  }
 
-        int result1 = Stringulina.countSubstring("hallo", "x12");
-        if (result1 != 0) {
-            System.out.println("countSubstring1 test failed. result was " + result1);
-            success = false;
-        }
+  // 0.2P
+  @Test
+  public void testCountSubstringEmpty() {
+    assertEquals(0, Stringulina.countSubstring("", "hall"));
+  }
+  
+  // 0.2P
+  @Test
+  public void testCountSubstringSame() {
+    assertEquals(3, Stringulina.countSubstring("bxxxxxz", "xxx"));
+  }
 
-        int result3 = Stringulina.countSubstring("", "");
-        if (result3 != -1) {
-            System.out.println("countSubstring2 test failed. result was " + result3);
-            success = false;
-        }
+  /*
+   * Tests für Teilaufgabe 3
+   */
 
-        int result4 = Stringulina.countSubstring("", "Needle to find");
-        if (result4 != 0) {
-            System.out.println("countSubstring3 test failed. result was " + result4);
-            success  = false;
-        }
+  // 0.5P
+  @Test
+  public void testcorrectlyBracketedSimple() {
+    assertTrue(Stringulina.correctlyBracketed("hall()"));
+    assertTrue(Stringulina.correctlyBracketed("hall(x)"));
+    assertFalse(Stringulina.correctlyBracketed("hall(x"));
+    assertFalse(Stringulina.correctlyBracketed("hallx)"));
+    assertFalse(Stringulina.correctlyBracketed("(hallx"));
+  }
 
-        if (success)
-            System.out.println("countSubstring test succeeded!");
-    }
+  // 0.5P
+  @Test
+  public void testcorrectlyBracketedMultipleTypes() {
+    assertTrue(Stringulina.correctlyBracketed("{hal]l()"));
+    assertTrue(Stringulina.correctlyBracketed("ha[]ll(x)"));
+    assertFalse(Stringulina.correctlyBracketed("{hall(x}"));
+    assertFalse(Stringulina.correctlyBracketed("ha{l]lx)"));
+    assertFalse(Stringulina.correctlyBracketed("(h[[[allx"));
+  }
 
-    private void testCorrectlyBracketed() {
-        boolean success = true;
+  // 0.5P
+  @Test
+  public void testcorrectlyBracketedComplex() {
+    assertTrue(Stringulina.correctlyBracketed("{(hal]l((())()))["));
+    assertTrue(Stringulina.correctlyBracketed("{()()(hal]l((()abc)(x)()))[()"));
+    assertFalse(Stringulina.correctlyBracketed("{()()(hal]l((()))))[()"));
+    assertFalse(Stringulina.correctlyBracketed("{()()()hal]l((())()))[()"));
+    assertFalse(Stringulina.correctlyBracketed("{()()(hal]l((())()))[("));
+    assertFalse(Stringulina.correctlyBracketed("{)()()(hal]l((())()))[()"));
+  }
 
-        boolean result0 = Stringulina.correctlyBracketed("a(xx(]))");
-        if (!result0) {
-            System.out.println("correctlyBracketed0 test failed.");
-            success = false;
-        }
+  // 0.5P
+  @Test
+  public void testcorrectlyBracketedNoBrackets() {
+    assertTrue(Stringulina.correctlyBracketed("Pinguin"));
+    assertTrue(Stringulina.correctlyBracketed(""));
+  }
 
-        boolean result1 = Stringulina.correctlyBracketed("a(xx))");
-        if (result1) {
-            System.out.println("correctlyBracketed1 test failed.");
-            success = false;
-        }
+  /*
+   * Tests für Teilaufgabe 4
+   */
 
-        boolean result2 = Stringulina.correctlyBracketed("a(xx)(");
-        if (result2) {
-            System.out.println("correctlyBracketed2 test failed.");
-            success = false;
-        }
+  // 0.25P
+  @Test
+  public void testMatchesEqual() {
+    assertTrue(Stringulina.matches("Foo", "Foo"));
+  }
 
-        boolean result3 = Stringulina.correctlyBracketed("a)xx()(");
-        if (result3) {
-            System.out.println("correctlyBracketed3 test failed.");
-            success = false;
-        }
+  // 0.5P
+  @Test
+  public void testMatchesSimple() {
+    assertTrue(Stringulina.matches("Foo", "Fo{2}"));
+  }
 
-        boolean result4 = Stringulina.correctlyBracketed("");
-        if (!result4) {
-            System.out.println("correctlyBracketed4 test failed.");
-            success = false;
-        }
+  // 0.25P für Gruppe 1 {
+  @Test
+  public void testMatchesDot() {
+    assertTrue(Stringulina.matches("Foo", "F.o"));
+  }
 
-        if (success)
-            System.out.println("correctlyBracketed test succeeded!");
-    }
+  @Test
+  public void testMatchesDotNoMatch() {
+    assertFalse(Stringulina.matches("Foo", "F..o"));
+  }
+  // } (Ende Gruppe 1)
 
-    private void testResolvePattern() {
-        String result = Stringulina.resolvePattern("ab{4}.{3}jasd{1}");
+  // 2P für Gruppe 2, 0.25 Abzug pro Fehlschlag {
+  @Test
+  public void testMatchesTwo() {
+    assertTrue(Stringulina.matches("FoooBaaaaar", "Fo{3}Baa{4}r"));
+  }
 
-        if (!result.equals("abbbb...jasd"))
-            System.out.println("resolvePattern test failed.");
-        else
-            System.out.println("resolvePattern test succeeded!");
-    }
+  @Test
+  public void testMatchesMissingEnd() {
+    assertFalse(Stringulina.matches("FoooBaaaaar", "Fo{3}Baa{4}"));
+  }
 
-    private void testMatches() {
-        boolean success = true;
+  @Test
+  public void testMatchesMissingStart() {
+    assertFalse(Stringulina.matches("FoooBaaaaar", "o{3}Baa{4}r"));
+  }
 
-        boolean result0 = Stringulina.matches("Hallo123", "Hal{2}o.{3}");
-        if (!result0) {
-            System.out.println("matches0 test failed.");
-            success = false;
-        }
+  @Test
+  public void testMatchesMultiOne() {
+    assertTrue(Stringulina.matches("FoooBaaaaar", "F{1}o{3}Baa{4}r"));
+  }
 
-        boolean result1 = Stringulina.matches("Haloo123", "Hal{2}o.{3}");
-        if (result1) {
-            System.out.println("matches1 test failed.");
-            success = false;
-        }
+  @Test
+  public void testMatchesMultiDoubleDigitTrue() {
+    assertTrue(Stringulina.matches("FoooBaaaaaaaaaaar", "F{1}o{3}Baa{10}r"));
+  }
 
-        boolean result2 = Stringulina.matches("", "");
-        if (!result2) {
-            System.out.println("matches2 test failed.");
-            success = false;
-        }
+  @Test
+  public void testMatchesMultiDoubleDigitFalse() {
+    assertFalse(Stringulina.matches("FoooBaaaaaaaaaaaar", "F{1}o{3}Baa{10}r"));
+  }
 
-        if (success)
-            System.out.println("matches test succeeded!");
-    }
+  @Test
+  public void testMatchesMultiDoubleDigitDot() {
+    assertTrue(Stringulina.matches("FoooBaaaaaaaaaaar", "F{1}.{3}B.a{10}r"));
+  }
 
+  @Test
+  public void testMatchesMultiDoubleDigitDotFalse() {
+    assertFalse(Stringulina.matches("FoooBaaaaaaaaaaar", "F{1}.{2}B.a{10}r"));
+  }
+  // } (Ende Gruppe 2)
+
+  // 1P für Gruppe 3, alles oder nichts {
+  @Test
+  public void testMatchesLongTrue() {
+    int n = 124356;
+    String pattern = "F{" + n + "}.{" + (2 * n) + "}r";
+    StringBuilder inputBuilder = new StringBuilder();
+    for (int i = 0; i < n; i++)
+      inputBuilder.append("F");
+    String baz = "PinguineSindSoSuperSuess";
+    for (int i = 0; i < 2 * n; i++)
+      inputBuilder.append(baz.charAt(i % baz.length()));
+    inputBuilder.append('r');
+    assertTrue(Stringulina.matches(inputBuilder.toString(), pattern));
+  }
+
+  @Test
+  public void testMatchesLongFalse1() {
+    int n = 124356;
+    String pattern = "F{" + n + "}.{" + (2 * n + 1) + "}r";
+    StringBuilder inputBuilder = new StringBuilder();
+    for (int i = 0; i < n; i++)
+      inputBuilder.append("F");
+    String baz = "PinguineSindSoSuperSuess";
+    for (int i = 0; i < 2 * n; i++)
+      inputBuilder.append(baz.charAt(i % baz.length()));
+    inputBuilder.append('r');
+    assertFalse(Stringulina.matches(inputBuilder.toString(), pattern));
+  }
+
+  @Test
+  public void testMatchesLongFalse2() {
+    int n = 124356;
+    String pattern = "F{" + (2 * n) + "}.{" + (2 * n) + "}r";
+    StringBuilder inputBuilder = new StringBuilder();
+    for (int i = 0; i < n; i++)
+      inputBuilder.append("F");
+    String baz = "PinguineSindSoSuperSuess";
+    for (int i = 0; i < 2 * n; i++)
+      inputBuilder.append(baz.charAt(i % baz.length()));
+    inputBuilder.append('r');
+    assertFalse(Stringulina.matches(inputBuilder.toString(), pattern));
+  }
+  // } (Ende Gruppe 3)
+
+  // 0.5P Abzug, falls dieser Test nicht durchläuft
+  @Test
+  public void testMatchesZero() {
+    assertTrue(Stringulina.matches("Pinguin", "X{0}y{0}P.{1}nge{0}ui{1}.w{0}"));
+    assertFalse(Stringulina.matches("Pingeuin", "X{0}y{0}P.{1}nge{0}ui{1}.w{0}"));
+  }
 }

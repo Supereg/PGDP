@@ -121,7 +121,7 @@ public class Stringulina {
         return true;
     }
 
-    static String resolvePattern(String pattern) {
+    private static String resolvePattern(String pattern) {
         String resolvedPattern = "";
 
         for (int i = 0; i < pattern.length(); i++) {
@@ -129,15 +129,7 @@ public class Stringulina {
 
             // we probably should check that the pattern has valid characters however we don't need to
 
-            /*
-                string concatenation in a loop is bad. However I don't know if we are allowed to use a class
-                like StringBuilder in this exercise. Are we???
-                But because this isn't explicitly allowed we use the bad method :(
-             */
-            //noinspection StringConcatenationInLoop
-            resolvedPattern += c;
-
-            if (pattern.charAt(i + 1) == '{') { // check if the next char is an bracket expression
+            if (i + 1 < pattern.length() && pattern.charAt(i + 1) == '{') { // check if the next char is an bracket expression
                 String digits = "";
 
                 for (int d = i + 2; d < pattern.length(); d++) {
@@ -145,21 +137,19 @@ public class Stringulina {
 
                     if (digit == '}')
                         break;
-                    else {
-                        // we should probably check if this is indeed a digit.
-                        // However exercise tells us we can expect those
 
-                        // same as above
-                        //noinspection StringConcatenationInLoop
-                        digits += digit;
-                    }
+                    // we should probably check if this is indeed a digit.
+                    // However exercise tells us we can expect those
+
+                    // same as above
+                    //noinspection StringConcatenationInLoop
+                    digits += digit;
                 }
 
                 int multiplier = 0;
                 try {
                     multiplier = Integer.valueOf(digits);
                 } catch (NumberFormatException ignored) {} // cannot happen, as we can expect correct patterns
-                multiplier--; // we subtract one from the multiplier since we already added one 'c' above
 
                 while (multiplier > 0) {
                     //noinspection StringConcatenationInLoop
@@ -169,6 +159,15 @@ public class Stringulina {
                 }
 
                 i += 2 + digits.length();
+            }
+            else {
+                /*
+                string concatenation in a loop is bad. However I don't know if we are allowed to use a class
+                like StringBuilder in this exercise. Are we???
+                But because this isn't explicitly allowed we use the bad method :(
+                */
+                //noinspection StringConcatenationInLoop
+                resolvedPattern += c;
             }
         }
 
