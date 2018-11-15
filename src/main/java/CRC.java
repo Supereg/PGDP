@@ -5,7 +5,16 @@ public class CRC {
 
     private int poly;
 
-    public CRC(int poly) {
+    /**
+     * Constructs a CRC object
+     *
+     * @param poly  polynom to use for calculations
+     * @throws ArithmeticException  if poly = {@code 0}
+     */
+    public CRC(int poly) throws ArithmeticException {
+        if (poly == 0)
+            throw new ArithmeticException("/ by zero");
+
         this.poly = poly;
     }
 
