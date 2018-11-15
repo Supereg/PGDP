@@ -22,7 +22,7 @@ public class CRC {
         return 31 - Integer.numberOfLeadingZeros(this.poly);
     }
 
-    public int crcASCIIStringTheGoodWay(String inputString) {
+    public int crcASCIIString(String inputString) {
         if (inputString == null || inputString.isEmpty())
             return poly;
 
@@ -162,7 +162,7 @@ public class CRC {
     }
 
     // that's pretty ugly, I know
-    public int crcASCIIString(String input) {
+    public int crcASCIIStrinCrappyWay(String input) {
         int polyDegree = 31 - Integer.numberOfLeadingZeros(poly);
 
         byte[] inputBytes = input.getBytes();
