@@ -1,8 +1,11 @@
 /**
  * The class {@code Document} represents a document.
- * 
- * @author Florian Kelbert
  *
+ * This class ensures that neither the title nor the language nor the
+ * summary of the document is <code>null</code>.
+ *
+ * @see Date
+ * @see Author *
  */
 public class Document {
 
@@ -24,12 +27,19 @@ public class Document {
     private Author author;
     private Date releaseDate;
 
+    /**
+     * Constructs a document with the given values.
+     *
+     * @param title       the document's title
+     * @param language    the language the document is written in
+     * @param summary     short summary of the document
+     * @param releaseDate the release date of the document
+     * @param author      the author of the document
+     */
     public Document(String title, String language, String summary, Date releaseDate, Author author, String content) {
-        this.title = title;
-
-        this.summary = summary;
-
-        this.language = language;
+        this.setTitle(title);
+        this.setLanguage(language);
+        this.setSummary(summary);
 
         this.author = author;
         this.releaseDate = releaseDate;
@@ -68,8 +78,20 @@ public class Document {
         return releaseDate;
     }
 
+    /**
+     * Sets the title of the document.
+     *
+     * If the new title is <code>null</code>, then the title is set to an empty
+     * {@link String}.
+     *
+     * @param title the new title
+     */
     public void setTitle(String title) {
-        this.title = title;
+        if (title == null) {
+            this.title = "";
+        } else {
+            this.title = title;
+        }
     }
 
     /**
@@ -103,12 +125,36 @@ public class Document {
         }
     }
 
-    public void setSummary(String summary) {
-        this.summary = summary;
+    /**
+     * Sets the language of the document.
+     *
+     * If the new language is <code>null</code>, then the language is set to an
+     * empty {@link String}.
+     *
+     * @param language the new language
+     */
+    public void setLanguage(String language) {
+        if (language == null) {
+            this.language = "";
+        } else {
+            this.language = language;
+        }
     }
 
-    public void setLanguage(String language) {
-        this.language = language;
+    /**
+     * Sets the summary of the document.
+     *
+     * If the new summary is <code>null</code>, then the summary is set to
+     * an empty {@link String}.
+     *
+     * @param summary the new summary
+     */
+    public void setSummary(String summary) {
+        if (summary == null) {
+            this.summary = "";
+        } else {
+            this.summary = summary;
+        }
     }
 
     public void setAuthor(Author author) {
