@@ -8,10 +8,10 @@ public class Document {
 
     public static final String[] SUFFICES = {
             "ab", "al", "ant", "artig", "bar", "chen", "ei", "eln", "en", "end", "ent", "er", "fach", "fikation",
-            "fizieren", "fähig", "gemäß", "gerecht", "haft", "haltig", "heit", "ie", "ieren", "ig", "in", "ion",
-            "iren", "isch", "isieren", "isierung", "isierung", "ist", "ität", "iv", "keit", "kunde", "legen", "legen",
+            "fizieren", "fähig", "gemäß", "gerecht", "haft", "haltig", "heit", "ie", "ieren", "ig", "in", "ion",
+            "iren", "isch", "isieren", "isierung", "isierung", "ist", "ität", "iv", "keit", "kunde", "legen", "legen",
             "lich", "ling", "logie", "los", "mal", "meter", "mut", "nis", "or", "sam", "schaft", "tum", "ung", "voll",
-            "wert", "würdig"
+            "wert", "würdig"
     };
 
     private String title;
