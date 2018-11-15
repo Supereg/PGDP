@@ -1,10 +1,23 @@
 /**
- * The class {@code Review} represents a review of a {@see Document}.
- * 
- * @author Florian Kelbert
+ * The class {@code Review} represents a review of a {@link Document}.
+ *
+ * @see Document
+ * @see Author
+ * @see Date
+ *
  *
  */
 public class Review {
+
+    /**
+     * the maximum possible rating
+     */
+    public static final int MAX_RATING = 10;
+
+    /**
+     * the minimum possible rating
+     */
+    public static final int MIN_RATING = 0;
 
     private String content;
 
@@ -29,9 +42,8 @@ public class Review {
      */
     public Review(Author author, Document reviewedDocument, String language, Date releaseDate,
                   int rating, String content) {
-        this.content = content;
-
-        this.language = language;
+        this.setContent(content);
+        this.setLanguage(language);
         this.setRating(rating); // calling setter will ensure that rating has correct value
 
         this.releaseDate = releaseDate;
@@ -64,25 +76,56 @@ public class Review {
         return reviewedDocument;
     }
 
+    /**
+     * Sets the content of this review.
+     *
+     * If the specified content is <code>null</code>, then the content is set to
+     * an empty {@link String}.
+     *
+     * @param content the new content
+     */
     public void setContent(String content) {
-        this.content = content;
-    }
-
-    public void setLanguage(String language) {
-        this.language = language;
+        if (content == null) {
+            this.content = "";
+        } else {
+            this.content = content;
+        }
     }
 
     /**
-     * Sets the rating for the review.
-     * If the rating is not in the range of 0 to 10 no change is done.
+     * Sets the language of this review.
      *
-     * @param rating    rating of the review. Only values from 0 to 10 are allowed!
+     * If the specified language is <code>null</code>, then the language is set to
+     * an empty {@link String}.
+     *
+     * @param language the new language
+     */
+    public void setLanguage(String language) {
+        if (language == null) {
+            this.language = "";
+        } else {
+            this.language = language;
+        }
+    }
+
+    /**
+     * Sets the rating of this review.
+     *
+     * If the specified rating is lower than {@link Review#MIN_RATING}, then the
+     * rating is set to {@link Review#MIN_RATING}. If the specified rating is
+     * greater than {@link Review#MAX_RATING}, then the rating is set to
+     * {@link Review#MAX_RATING}.
+     *
+     * @param rating the new rating
      */
     public void setRating(int rating) {
-        if (rating < 0 || rating > 10)
-            return; //throw new IllegalArgumentException("'rating' must be between 0 and 10");
-
-        this.rating = rating;
+        if (rating < Review.MIN_RATING) {
+            this.rating = Review.MIN_RATING;
+        } else if (rating > Review.MAX_RATING) {
+            this.rating = Review.MAX_RATING;
+        } else {
+            this.rating = rating;
+        }
     }
 
     public void setReleaseDate(Date releaseDate) {
