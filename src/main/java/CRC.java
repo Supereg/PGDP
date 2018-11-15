@@ -166,69 +166,6 @@ public class CRC {
         return sum;
     }
 
-    // that's pretty ugly, I know
-    public int crcASCIIStrinCrappyWay(String input) {
-        int polyDegree = 31 - Integer.numberOfLeadingZeros(poly);
-
-        byte[] inputBytes = input.getBytes();
-
-        StringBuilder binaryInputStringBuilder = new StringBuilder();
-        for (byte b: inputBytes) {
-            binaryInputStringBuilder.append(Integer.toBinaryString(b));
-        }
-
-        for (int i = 0; i < polyDegree; i++)
-            binaryInputStringBuilder.append("0");
-
-
-        String poly = Integer.toBinaryString(this.poly);
-        String binaryInputString = binaryInputStringBuilder.toString();
-
-        String operationString = binaryInputString.substring(0, poly.length());
-        String leftOverInputString = binaryInputString.substring(poly.length());
-
-        while (true) {
-            StringBuilder resultBuilder = new StringBuilder();
-            for (int i = 0; i < poly.length(); i++) {
-                if (poly.charAt(i) != operationString.charAt(i))
-                    resultBuilder.append("1");
-                else
-                    resultBuilder.append("0");
-            }
-
-            String result = resultBuilder.toString();
-
-            if (leftOverInputString.length() == 0) {
-                return Integer.parseInt(result, 2);
-            }
-
-            int leadingZeros = 0;
-
-            for (int i = 0; i < result.length(); i++) {
-                char c = result.charAt(i);
-
-                if (c == '0')
-                    leadingZeros++;
-                else
-                    break;
-            }
-
-            operationString = result;
-
-            while (leadingZeros > 0) {
-                operationString = operationString.substring(1); // remove one zero
-                operationString += leftOverInputString.charAt(0); // add first character
-                leftOverInputString = leftOverInputString.substring(1); // remove first character which got added
-
-                leadingZeros--;
-
-                if (leadingZeros > 0 && leftOverInputString.length() == 0) // could be that this isn't necessary
-                    return Integer.parseInt(operationString, 2);
-            }
-
-        }
-    }
-
     /* Debug helper methods
     private static String binaryWithLeadingZeros_32(int n) {
         String binary = Integer.toBinaryString(n);
