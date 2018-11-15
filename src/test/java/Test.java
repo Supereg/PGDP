@@ -6,31 +6,42 @@ import static org.junit.Assert.*;
 
 public class Test {
 
-    private static final String CONTENT = "Mehrere Sicherheitsexperten, von denen einige zu den Entdeckern der Spectre-Sicherheitslücken gehören, haben neue Angriffsmöglichkeiten untersucht. Wie ArsTechnica berichtet, lassen sich die bereits bekannten Lücken noch mit sieben anderen Methoden für Angriffe ausnutzen.\n"+
-            "\n"+
-            "In einer ebenfalls veröffentlichten Stellungnahme behauptet Intel allerdings, dass die bereits verfügbaren Schutzmaßnahmen auch gegen die neuen Angriffstypen helfen.\n"+
-            "\n"+
-            "Eine weitere Beurteilung der angeblichen neuen Spectre-Attacken ist derzeit nicht möglich, weil ArsTechnica in dem Artikel keine Quellen nennt und auch nur wenige Details verrät, nicht einmal die konkreten Autoren. Anscheinend wurden bisher auch keine CVE-Nummern für diese Sicherheitslücken vergeben.\n"+
-            "\n"+
-            "Spectre-Varianten\n"+
-            "\n"+
-            "Spectre-Varianten wie NetSpectre nutzen keine neue Spectre-Sicherheitslücke, sondern eine bereits bekannte, allerdings auf anderem Weg. NetSpectre nutzt sozusagen Spectre V1 über eine Netzwerkverbindung aus. Dagegen helfen die bekannten Schutzfunktionen gegen Spectre V1.\n"+
-            "\n"+
-            "Wenn der Fall bei den neuen Spectre-Varianten ähnlich liegt, dann wären bei den meisten Computern keine neuen schutzmaßnahmen erforderlich. Doch erst mit detaillierteren Informationen zu den sieben neuen Lücken ist eine genauere Einschätzung möglich.";
+    private static final String CONTENT = "Mehrere Sicherheitsexperten, von denen einige zu den Entdeckern der " +
+            "Spectre-Sicherheitslücken gehören, haben neue Angriffsmöglichkeiten untersucht. " +
+            "Wie ArsTechnica berichtet, lassen sich die bereits bekannten Lücken noch mit sieben anderen Methoden " +
+            "für Angriffe ausnutzen. "+
+            ""+
+            "In einer ebenfalls veröffentlichten Stellungnahme behauptet Intel allerdings, dass die bereits " +
+            "verfügbaren Schutzmaßnahmen auch gegen die neuen Angriffstypen helfen. "+
+            ""+
+            "Eine weitere Beurteilung der angeblichen neuen Spectre-Attacken ist derzeit nicht möglich, " +
+            "weil ArsTechnica in dem Artikel keine Quellen nennt und auch nur wenige Details verrät, nicht " +
+            "einmal die konkreten Autoren. Anscheinend wurden bisher auch keine CVE-Nummern für diese " +
+            "Sicherheitslücken vergeben. "+
+            ""+
+            "Spectre-Varianten "+
+            ""+
+            "Spectre-Varianten wie NetSpectre nutzen keine neue Spectre-Sicherheitslücke, sondern " +
+            "eine bereits bekannte, allerdings auf anderem Weg. NetSpectre nutzt sozusagen Spectre V1 über " +
+            "eine Netzwerkverbindung aus. Dagegen helfen die bekannten Schutzfunktionen gegen Spectre V1. "+
+            ""+
+            "Wenn der Fall bei den neuen Spectre-Varianten ähnlich liegt, dann wären bei den meisten Computern " +
+            "keine neuen schutzmaßnahmen erforderlich. Doch erst mit detaillierteren Informationen zu den sieben " +
+            "neuen Lücken ist eine genauere Einschätzung möglich.";
 
     private static String trimmedContent;
     private static final String[] RESULT_CONTENT = ("mehrere sicherheitsexpert von den einige zu d entdeckern d " +
-            "spectre sicherheitslueck gehoer hab neue angriffsmoeglichkeit untersucht w arstechnica berichtet " +
-            "lass sich d bereits bekannt lueck noch mit sieb ander method fu angriffe ausnutzen ein ebenfalls " +
-            "veroeffentlicht stellungnahme behauptet intel allerdings dass d bereits verfuegbar schutzmassnahm " +
-            "auch geg d neu angriffstyp helfeneine weitere beurteil d angebli neu spectre attack derzeit nicht " +
-            "moeg weil arstechnica dem artikel keine quell nennt und auch nur wenige details verraet nicht ein " +
-            "d konkret autor anschein wurd bish auch keine cve nummern fu diese sicherheitslueck vergebenspectre " +
-            "variantenspectre variant w netspectre nutz keine neue spectre sicherheitsluecke sondern eine bereits " +
-            "bekannte allerdings auf anderem weg netspectre nutzt sozusag spectre ueb eine netzwerkverbind aus " +
-            "dageg helf d bekannt schutzfunktion geg spectre vwenn d fall b d neu spectre variant aehn liegt dann " +
-            "waer b d meist computern keine neu schutzmassnahm erforder doch erst mit detaillierter information zu " +
-            "d sieb neu lueck eine genauere einschaetz moeg").split(" ");
+            "spectre sicherheitslück gehör hab neue angriffsmöglichkeit untersucht w arstechnica berichtet " +
+            "lass sich d bereits bekannt lück noch mit sieb ander method für angriffe ausnutz ein ebenfalls " +
+            "veröffentlicht stellungnahme behauptet intel allerdings dass d bereits verfügbar schutzmaßnahm " +
+            "auch geg d neu angriffstyp helf eine weitere beurteil d angebli neu spectre attack derzeit nicht " +
+            "mög weil arstechnica dem artikel keine quell nennt und auch nur wenige details verrät nicht ein " +
+            "d konkret autor anschein wurd bish auch keine cve nummern für diese sicherheitslück vergeb spectre " +
+            "variant spectre variant w netspectre nutz keine neue spectre sicherheitslücke sondern eine bereits " +
+            "bekannte allerdings auf anderem weg netspectre nutzt sozusag spectre üb eine netzwerkverbind aus " +
+            "dageg helf d bekannt schutzfunktion geg spectre wenn d fall b d neu spectre variant ähn liegt dann " +
+            "wär b d meist computern keine neu schutzmaßnahm erforder doch erst mit detaillierter information zu " +
+            "d sieb neu lück eine genauere einschätz mög").split(" ");
 
     private Date date = new Date();
     private Author author = new Author("Top", "Siegried", date, "nowhere", "email@google.de");
@@ -55,21 +66,18 @@ public class Test {
     @BeforeClass
     public static void trimContent() {
         trimmedContent = CONTENT.trim() // trim
-                .toLowerCase()
+                .toLowerCase() // lower case
                 .replace("\n", "") // remove line breaks
                 .replace(".", "") // remove points
                 .replace(",", "") // remove comma
-                .replace("-", " ") // remove dashes
-                .replaceAll("[0-9]", "")
-                .replace("ß", "ss")
-                .replace("ä", "ae")
-                .replace("ö", "oe")
-                .replace("ü", "ue")
-                .replaceAll(" [a-z] ", " ")
-                .replaceAll("( [a-z]$)|(^[a-z] )", "") // replace all single characters
+                .replace("-", " ") // replace dashes with spaces
+                .replaceAll("[0-9]", "") // remove digits
+                .replaceAll(" [a-z] ", " ") // remove single characters
+                .replaceAll("( [a-z]$)|(^[a-z] )", "") // remove single characters at start or end
                 .trim();
 
-        if (!trimmedContent.matches("\\w{2,}( \\w{2,})*"))
+        if (!trimmedContent.matches("(\\w|\\u00e4|\\u00f6|\\u00fc|\\u00df){2,}" +
+                "( (\\w|\\u00e4|\\u00f6|\\u00fc|\\u00df){2,})*"))
             fail("content String does not have expected format");
     }
 
@@ -309,7 +317,7 @@ public class Test {
 
         assertEquals("WordCountsArray has unexpected size", RESULT_CONTENT.length, array.size());
 
-        for (int i = 0; i < RESULT_CONTENT.length; i++) {
+        for (int i = 0; i < array.size(); i++) {
             assertEquals("AssertionError at " + i + ": " + RESULT_CONTENT[i] + " does not match " +
                     array.getWord(i), RESULT_CONTENT[i], array.getWord(i));
         }
