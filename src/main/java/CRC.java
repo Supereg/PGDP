@@ -10,7 +10,7 @@ public class CRC {
     }
 
     public int getDegree() {
-        return poly;
+        return 31 - Integer.numberOfLeadingZeros(this.poly);
     }
 
     public int crcASCIIStringTheGoodWay(String inputString) {
