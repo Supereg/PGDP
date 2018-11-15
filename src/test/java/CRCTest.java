@@ -38,7 +38,23 @@ public class CRCTest {
     }
 
     @Test
-    public void testCrcASCIISimple() {
+    public void testCrcASCIIEmptyString() {
+        CRC crc = new CRC(0B101011);
+
+        int result = crc.crcASCIIString("");
+        assertEquals("Unexpected crc result for empty string", 0B101011, result);
+    }
+
+    @Test
+    public void testCrcASCIINullString() {
+        CRC crc = new CRC(0B101011);
+
+        int result = crc.crcASCIIString(null);
+        assertEquals("Unexpected crc result for null string", 0B101011, result);
+    }
+
+    @Test
+    public void testCrcASCIIaz() {
         CRC crc = new CRC(0B100110);
 
         int result = crc.crcASCIIString("az");
@@ -54,7 +70,7 @@ public class CRCTest {
     }
 
     @Test
-    public void piazzaExample() {
+    public void testCrcASCIIby() {
         CRC crc = new CRC(0B10011);
 
         int result = crc.crcASCIIString("by");
@@ -70,11 +86,27 @@ public class CRCTest {
     }
 
     @Test
-    public void testCrCASCIIComplexArray9() {
+    public void testCrcASCIISensei() {
+        CRC crc = new CRC(0B100110);
+
+        int result = crc.crcASCIIString("SenseiZeigMirDenWeg");
+        assertEquals("Unexpected crc result for 'SenseiZeigMirDenWeg'", 0B1100, result);
+    }
+
+    @Test
+    public void testCrCcSCIIComplexArray9() {
         CRC crc = new CRC(0B10101110101);
 
         int result = crc.crcASCIIString("kjakjnsdjhbawdjhjkawdkjawdjknadwjwad");
         assertEquals("Unexpected crc result for 'kjakjnsdjhbawdjhjkawdkjawdjknadwjwad'", 0B110010100, result); // 404 not found LOL
+    }
+
+    @Test
+    public void testCrcASCIIComplexPolynom() {
+        CRC crc = new CRC(0B1001101010101010101111100);
+
+        int result = crc.crcASCIIString("ab");
+        assertEquals("Unexpected crc result for 'ab'", 0B111001110010100111101100, result);
     }
 
 }
