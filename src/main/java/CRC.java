@@ -217,9 +217,8 @@ public class CRC {
 
                 leadingZeros--;
 
-                if (leadingZeros > 0 && leftOverInputString.length() == 0) { // could be that this isn't necessary
-                    return Integer.parseInt(result, 2);
-                }
+                if (leadingZeros > 0 && leftOverInputString.length() == 0) // could be that this isn't necessary
+                    return Integer.parseInt(operationString, 2);
             }
 
         }
