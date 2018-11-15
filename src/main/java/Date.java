@@ -1,7 +1,8 @@
 /**
  * The class {@code Date} represents a date.
- * 
- * @author Florian Kelbert
+ *
+ * This class ensures, that the represented date is always a valid date. For
+ * example, the method {@link Date#toString()} will never return Date{day=31, month=2, year=2010}.
  *
  */
 public class Date {
@@ -15,26 +16,21 @@ public class Date {
     }
 
     /**
-     * Instantiates a new Date object.
-     * If day, month or year are invalid values day is set to 1, month to 1 and year to the current year!
+     * Constructs a date with the given values.
      *
-     * @param day   an {@code int} representing the day of month
-     * @param month an {@code int} representing the month of year
-     * @param year  an {@code int} representing the year
+     * @param day   the day
+     * @param month the month
+     * @param year  the year
      */
     public Date(int day, int month, int year) {
-        // using setter methods to check for illegal values
-        this.setYear(year);
-        this.setMonth(month);
+        this.day = 1;
+        // We choose a month with 31 days so that setter for days won't fail
+        this.month = 1;
+        // We choose a leapyear so that the day setter won't fail
+        this.year = 2020;
         this.setDay(day);
-
-        if (day == 0)
-            this.day = 1;
-
-        if (month == 0)
-            this.month = 1;
-        if (year == 0)
-            this.year = Terminal.TODAYS_YEAR;
+        this.setMonth(month);
+        this.setYear(year);
     }
 
     public int getDay() {
@@ -50,67 +46,76 @@ public class Date {
     }
 
     /**
-     * Sets the day of the {@code Date} object.
-     * If the {@code day} is not a valid day for the current {@code month}
-     * and {@code year} no change is done.
+     * Sets the day of this date.
      *
-     * @param day   an {@code int} representing the day of month
+     * If the specified day is < 1, then the day is set to 1. If the specified day
+     * is greater than the number of days in the month of this date, then it is set
+     * to the maximum value of days in the month of this date.
+     *
+     * @see Date#daysInMonth(int, int)
+     * @param day the new day
      */
     public void setDay(int day) {
-        switch (month) {
-            case 1:
-            case 3:
-            case 5:
-            case 7:
-            case 8:
-            case 10:
-            case 12:
-                if (day < 1 || day > 31)
-                    return; //throw new IllegalArgumentException("'day' must be in range of 1 to 31 for month '" + month + "'!");
-                break;
-            case 4:
-            case 6:
-            case 9:
-            case 11:
-                if (day < 1 || day > 30)
-                    return; //throw new IllegalArgumentException("'day' must be in range of 1 to 30 for month '" + month + "'!");
-                break;
-            case 2:
-                int maxDay = year % 4 == 0? 29: 28;
-
-                if (day < 1 || day > maxDay)
-                    return; //throw new IllegalArgumentException("'day' must be in rage of 1 to " + maxDay + " for month '" +
-                            //month + "' and year '" + year + "'!");
-                break;
+        if (day < 1) {
+            this.day = 1;
+        } else if (day > daysInMonth(this.month, this.year)) {
+            this.day = daysInMonth(this.month, this.year);
+        } else {
+            this.day = day;
         }
-
-        this.day = day;
     }
 
     /**
-     * Sets the month of the {@code Date} object.
-     * If the {@code month} is not in the range of 1 to 12 no change is done.
+     * Sets the month of this date.
      *
-     * @param month an {@code int} representing the month of year
+     * If the specified month is < 1, the month is set to 1. If the specified month
+     * is > 12, the month is set to 12. If the new month has less days than the
+     * current month, it may happen that the day of this date gets invalid. In this
+     * case, the day of this date is set to the maximum value of the specified
+     * month.
+     *
+     * @param month the new month
      */
     public void setMonth(int month) {
-        if (month < 1 || month > 12)
-            return; //throw new IllegalArgumentException("'month' must be in of 1 to 12!");
+        if (month < 1) {
+            this.month = 1;
+        } else if (month > 12) {
+            this.month = 12;
+        } else {
+            this.month = month;
+        }
 
-        this.month = month;
+        /*
+         * To avoid that the day of this date gets invalid, execute the setDay() method
+         * with the current day
+         */
+        this.setDay(this.day);
     }
 
     /**
-     * Sets the year of the {@code Date} object.
-     * If the year is negative or zero no change is done.
+     * Sets the year of this date.
      *
-     * @param year  an {@code int} representing the year
+     * If the specified year is < 1900, then the year is set to 1900. If the
+     * specified year is > 2100, then the year is set to 2100. In case the current
+     * month of this date is February it may happen that the day of this date gets
+     * invalid (a value of 29 in a leap year). In this case the day is set to 28.
+     *
+     * @param year the new year
      */
     public void setYear(int year) {
-        if (year <= 0)
-            return;
+        if (year < 1900) {
+            this.year = 1900;
+        } else if (year > 2100) {
+            this.year = 2100;
+        } else {
+            this.year = year;
+        }
 
-        this.year = year;
+        /*
+         * To avoid that the day of this date gets invalid, execute the setDay() method
+         * with the current day
+         */
+        this.setDay(this.day);
     }
 
     private int daysSince1970() {
@@ -149,6 +154,58 @@ public class Date {
                 ", month=" + month +
                 ", year=" + year +
                 '}';
+    }
+
+    /**
+     * Returns the number of the days in the specified month in the specified year.
+     * For a <code>month</code> value of either 1, 3, 5, 7, 8, 10 or 12 this method
+     * returns 31. For a <code>month</code> value of either 4, 6, 9 or 11 this
+     * method returns 30. For a <code>month</code> value of 2 (February) the
+     * returned value is either 28 or 29, depending on the specified year.
+     *
+     * @param month the month
+     * @param year  the year
+     * @return the number of the days in the specified month in the specified year.
+     */
+    private int daysInMonth(int month, int year) {
+        switch (month) {
+            case 1:
+            case 3:
+            case 5:
+            case 7:
+            case 8:
+            case 10:
+            case 12:
+                return 31;
+            case 4:
+            case 6:
+            case 9:
+            case 11:
+                return 30;
+            case 2:
+                return daysinFebruary(year);
+        }
+
+        return -1;
+    }
+
+    /**
+     * Returns the number of days in the February of the specified year. This method
+     * considers leap years.
+     *
+     * @param year the year
+     * @return the number of days in the February of the specified year.
+     */
+    private int daysinFebruary(int year) {
+        if (year % 4 != 0) {
+            return 28;
+        }
+
+        if ((year % 100 == 0) && (year % 400 != 0)) {
+            return 28;
+        }
+
+        return 29;
     }
 
     /**
