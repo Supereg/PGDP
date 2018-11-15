@@ -22,6 +22,14 @@ public class CRC {
         return 31 - Integer.numberOfLeadingZeros(this.poly);
     }
 
+    /**
+     * Calculates the crc for a given {@code inputString}
+     *
+     * A {@code null} {@code inputString} is treated as a empty string
+     *
+     * @param inputString   a {@link String} used for the crc calculation
+     * @return              the crc value
+     */
     public int crcASCIIString(String inputString) {
         if (inputString == null || inputString.isEmpty())
             return poly;
