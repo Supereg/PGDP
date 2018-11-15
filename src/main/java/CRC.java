@@ -31,9 +31,7 @@ public class CRC {
 
         // all asciis have 7-Bit (for variable stuff we need to calculate the total length first)
         final int totalBytesRequired = inputBytes.length * 7 + polyDegree;
-        System.out.println("totalbyteRequires: " + totalBytesRequired);
         final int arraySize = (totalBytesRequired / 32) + 1;
-        System.out.println("arraySize: " + arraySize);
 
         int[] inputArray = new int[arraySize];
 
@@ -224,6 +222,7 @@ public class CRC {
         }
     }
 
+    /* Debug helper methods
     private static String binaryWithLeadingZeros_32(int n) {
         String binary = Integer.toBinaryString(n);
 
@@ -252,11 +251,6 @@ public class CRC {
 
         System.out.println(builder);
     }
-
-    public static void main(String[] args) {
-        CRC crc = new CRC(0B100110);
-
-        System.out.println(crc.crcASCIIStringTheGoodWay("azazazaz")==crc.crcASCIIString("azazazaz"));
-    }
+    */
 
 }
