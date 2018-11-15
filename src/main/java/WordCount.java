@@ -4,13 +4,30 @@ public class WordCount {
     private int count;
 
     /**
-     * Instantiates a new WordCount object
+     * Creates an instance of this class.
      *
-     * @param word  a {@code String} with the word
-     * @param count an non negative {@code int}. If {@code count} is negative the default value {@code 0} is used
+     * This constructor calls {@link WordCount#WordCount(String, int)} with the
+     * parameters set to <code>word</code> and <code>0</code>.
+     *
+     * @param word the represented word
+     */
+    public WordCount(String word) {
+        this(word, 0);
+    }
+
+    /**
+     * Creates an instance of this class representing the specified
+     * <code>word</code> with its count set to <code>count</code>.
+     *
+     * If the specified word is <code>null</code>, then the word is set to an empty
+     * {@link String}. If the specified count is lower than <code>0</code>, then the
+     * count is set according to {@link WordCount#setCount(int)}.
+     *
+     * @param word  the represented word
+     * @param count the count of <code>word</code>
      */
     public WordCount(String word, int count) {
-        this.word = word;
+        this.word = word != null? word: "";
         this.setCount(count);
     }
 
@@ -23,16 +40,19 @@ public class WordCount {
     }
 
     /**
-     * Sets the count for the WordCount.
-     * If {@code count} is negative no change is done
+     * Sets the count of the represented word.
      *
-     * @param count an {@code int} representing the word count
+     * If the specified count is lower than <code>0</code>, then the count is set to
+     * <code>0</code>.
+     *
+     * @param count the new count
      */
     public void setCount(int count) {
-        if (count < 0)
-            return; //throw new IllegalArgumentException("'count' cannot be negative");
-
-        this.count = count;
+        if (count < 0) {
+            this.count = 0;
+        } else {
+            this.count = count;
+        }
     }
 
     public int incrementCount() {

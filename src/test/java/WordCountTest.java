@@ -13,7 +13,7 @@ public class WordCountTest {
 
         // testet ob methode mit "ungewollte" Werte korrekt umgeht
         wordCount.setCount(-3);
-        if (wordCount.getCount() != 10) {
+        if (wordCount.getCount() != 0) {
             System.out.println("setCount test failed. setCount did allow negative values");
             success = false;
         }
