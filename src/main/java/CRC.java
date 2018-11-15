@@ -1,9 +1,6 @@
-/**
- * Created by Andi on 14.11.18.
- */
 public class CRC {
 
-    private int poly;
+    private final int poly;
 
     /**
      * Constructs a CRC object
@@ -18,6 +15,11 @@ public class CRC {
         this.poly = poly;
     }
 
+    /**
+     * Returns the degree of the polynom passed into the constructor.
+     *
+     * @return  the degree of the polynom passed into the constructor
+     */
     public int getDegree() {
         return 31 - Integer.numberOfLeadingZeros(this.poly);
     }
@@ -31,7 +33,7 @@ public class CRC {
      * @return              the crc value
      */
     public int crcASCIIString(String inputString) {
-        if (inputString == null || inputString.isEmpty())
+        if (inputString == null || inputString.isEmpty()) // 0 XOR poly == poly (null treated as "")
             return poly;
 
         byte[] inputBytes = inputString.getBytes();
@@ -46,7 +48,7 @@ public class CRC {
         int[] polyArray = new int[arraySize];
         polyArray[0] = this.poly;
 
-        for (byte b: inputBytes) {
+        for (byte b: inputBytes) { // fill input bytes into inputArray
             // int leadingZeros = Integer.numberOfLeadingZeros(b);
             // int shift = 32 - leadingZeros;
             int shift = 7; // always 7 for a-z A-Z
@@ -57,13 +59,12 @@ public class CRC {
 
         arrayShiftLeft(inputArray, polyDegree); // append polyDegree * 0 Bits
 
+        // align polyArray
         int inputLeadingZeros = arrayNumberOfLeadingZeros(inputArray);
         int polyLeadingZeros = arrayNumberOfLeadingZeros(polyArray);
-
-        // align polyArray
         int polyDeltaLeadingZeros = polyLeadingZeros - inputLeadingZeros;
         // polyDeltaLeadingZeros must be > 0 since input is always "longer" than "poly" because "input" has the minimum
-        // length of "polyLength - 1 + 1"
+        // length of "polyDegree + 7"
         assert polyDeltaLeadingZeros > 0;
         arrayShiftLeft(polyArray, polyDeltaLeadingZeros);
 
@@ -87,11 +88,10 @@ public class CRC {
 
     private static void arrayXOR(int[] result, int[] array) {
         if (result.length != array.length)
-            throw new RuntimeException("array size differ");
+            throw new IllegalArgumentException("array size differ");
 
-        for (int i = 0; i < result.length; i++) {
+        for (int i = 0; i < result.length; i++)
             result[i] = result[i] ^ array[i];
-        }
     }
 
     private static void arrayShiftLeft(int[] array, int amount) {
@@ -107,10 +107,10 @@ public class CRC {
             return;
         }
 
-        int shiftMask = 32 - amount;
+        int maskShiftAmount = 32 - amount;
 
-        int upperBitsMask = -1 >>> shiftMask;
-        upperBitsMask <<= shiftMask;
+        int upperBitsMask = -1 >>> maskShiftAmount;
+        upperBitsMask <<= maskShiftAmount;
 
         int lowerBits = 0;
         for (int i = 0; i < array.length; i++) {
@@ -119,7 +119,7 @@ public class CRC {
             array[i] <<= amount; // shift amount
 
             array[i] |= lowerBits; // apply lower bits (were the upper bits of last element)
-            lowerBits = upperBits >>> shiftMask; // move upperBits to the far right => lower bits for the next element
+            lowerBits = upperBits >>> maskShiftAmount; // move upperBits to the far right => lower bits for the next element
         }
     }
 
@@ -136,10 +136,10 @@ public class CRC {
             return;
         }
 
-        int shiftMask = 32 - amount;
+        int maskShiftAmount = 32 - amount;
 
-        int lowerBitMask = -1 << shiftMask;
-        lowerBitMask >>>= shiftMask;
+        int lowerBitMask = -1 << maskShiftAmount;
+        lowerBitMask >>>= maskShiftAmount;
 
         int upperBits = 0;
         for (int i = array.length - 1; i >= 0; i--) {
@@ -148,7 +148,7 @@ public class CRC {
             array[i] >>>= amount; // shift right by amount
 
             array[i] |= upperBits; // apply upper bits (were the lower bits of last element)
-            upperBits = lowerBits << shiftMask; // mover lowerBits to the far left => upperBits for the next element
+            upperBits = lowerBits << maskShiftAmount; // mover lowerBits to the far left => upperBits for the next element
         }
     }
 
@@ -157,7 +157,6 @@ public class CRC {
 
         for (int i = array.length - 1; i >= 0; i--) {
             int zeros = Integer.numberOfLeadingZeros(array[i]);
-
             sum += zeros;
 
             if (zeros < 32)
