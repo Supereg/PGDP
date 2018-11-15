@@ -75,10 +75,6 @@ public class Test {
                 .replaceAll(" [a-z] ", " ") // remove single characters
                 .replaceAll("( [a-z]$)|(^[a-z] )", "") // remove single characters at start or end
                 .trim();
-
-        if (!trimmedContent.matches("(\\w|\\u00e4|\\u00f6|\\u00fc|\\u00df){2,}" +
-                "( (\\w|\\u00e4|\\u00f6|\\u00fc|\\u00df){2,})*"))
-            fail("content String does not have expected format");
     }
 
     @Before
