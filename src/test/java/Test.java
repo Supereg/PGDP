@@ -43,24 +43,51 @@ public class Test {
             "wär b d meist computern keine neu schutzmaßnahm erforder doch erst mit detaillierter information zu " +
             "d sieb neu lück eine genauere einschätz mög").split(" ");
 
-    private Date date = new Date();
-    private Author author = new Author("Top", "Siegried", date, "nowhere", "email@google.de");
+    private static final Date DATE = new Date();
+    private static final Author AUTHOR = new Author("Top", "Siegried", DATE, "nowhere", "email@google.de");
 
     private WordCountsArray wordCountsArray;
+    private boolean successful = true; // helper variable for main method
 
     public static void main(String[] args) { // since we NEED to specify a main method, here is it
+        Test test = new Test();
+
         trimContent();
 
-        Test test = new Test();
-        // TODO main method
+        test.runTest(test::testNegativeWordCountsArray);
+        test.runTest(test::testSimpleAdd);
+        test.runTest(test::testArrayOverlappingAdd);
+        test.runTest(test::testAddWithEmptyWords);
+        test.runTest(test::testAddWithNegativeCounts);
+        test.runTest(test::testArraySize0);
+        test.runTest(test::testArraySizeAdded1);
+        test.runTest(test::testArraySizeAdded8);
+        test.runTest(test::testGetWord);
+        test.runTest(test::testGetCount);
+        test.runTest(test::testSetCount);
 
-        test.createWordCountsArray();
-        test.testNegativeWordCountsArray();
-        test.cleanUp();
+        test.runTest(test::testDocumentAddContentNull);
+        test.runTest(test::testDocumentAddContentEmpty);
+        test.runTest(test::testDocumentAddContentCutSuffix);
+        test.runTest(test::testDocumentAddContentComplex);
 
-        test.createWordCountsArray();
-        test.testSimpleAdd();
-        test.cleanUp();
+        if (test.successful)
+            System.out.println("Test ran successfully");
+        else
+            System.out.println("Some test returned unsuccessfully");
+    }
+
+    private void runTest(Runnable runnable) { // helper method for the main method
+        this.createWordCountsArray();
+
+        try {
+            runnable.run();
+        } catch (AssertionError e) {
+            successful = false;
+            e.printStackTrace();
+        } finally {
+            this.cleanUp();
+        }
     }
 
     @BeforeClass
@@ -267,7 +294,7 @@ public class Test {
         String title = "article";
         String language = "de";
         String summary = "tech";
-        return new Document(title, language, summary, date, author, content);
+        return new Document(title, language, summary, DATE, AUTHOR, content);
     }
 
     @org.junit.Test
