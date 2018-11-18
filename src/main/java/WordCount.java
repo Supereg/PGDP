@@ -1,3 +1,5 @@
+import java.util.Objects;
+
 public class WordCount {
 
     private String word;
@@ -65,6 +67,12 @@ public class WordCount {
 
         count += n;
         return count;
+    }
+
+    public boolean equals(WordCount wordCount) {
+        if (this == wordCount) return true;
+        return count == wordCount.count &&
+                Objects.equals(word, wordCount.word);
     }
 
 }

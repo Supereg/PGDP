@@ -1,3 +1,5 @@
+import java.util.Objects;
+
 /**
  * The class {@code Document} represents a document.
  *
@@ -167,6 +169,16 @@ public class Document {
 
     public int getAgeAt(Date today) {
         return releaseDate.getAgeInDaysAt(today);
+    }
+
+    public boolean equals(Document document) {
+        if (this == document) return true;
+        return Objects.equals(title, document.title) &&
+                Objects.equals(summary, document.summary) &&
+                Objects.equals(wordCounts, document.wordCounts) &&
+                Objects.equals(language, document.language) &&
+                Objects.equals(author, document.author) &&
+                Objects.equals(releaseDate, document.releaseDate);
     }
 
     @Override

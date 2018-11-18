@@ -1,3 +1,5 @@
+import java.util.Arrays;
+
 public class WordCountsArray {
 
     private WordCount[] wordCountsArray;
@@ -104,6 +106,12 @@ public class WordCountsArray {
         if (wordCount != null) {
             wordCount.setCount(count); // illegal count is handled by the setter
         }
+    }
+
+    public boolean equals(WordCountsArray array) {
+        if (this == array) return true;
+        return nextFreeIndex == array.nextFreeIndex &&
+                Arrays.equals(wordCountsArray, array.wordCountsArray);
     }
 
 }

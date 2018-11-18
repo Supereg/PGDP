@@ -147,6 +147,13 @@ public class Date {
         return this.getAgeInDaysAt(today) / (12 * 30);
     }
 
+    public boolean equals(Date date) {
+        if (this == date) return true;
+        return day == date.day &&
+                month == date.month &&
+                year == date.year;
+    }
+
     @Override
     public String toString() {
         return "Date{" +
