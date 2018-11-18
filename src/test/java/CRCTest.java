@@ -1,7 +1,6 @@
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
 
 /**
  * Created by Andi on 15.11.18.
@@ -10,10 +9,9 @@ public class CRCTest {
 
     @Test
     public void testPolyZero() {
-        try {
-            new CRC(0);
-            fail("CRC object did not handle polynom of '0'");
-        } catch (ArithmeticException ignored) {}
+        CRC crc = new CRC(0);
+
+        assertEquals("CRC object did not handle pylnom '0' correctly", 0, crc.getDegree());
     }
 
     @Test
