@@ -1,5 +1,3 @@
-import org.junit.After;
-import org.junit.Before;
 import org.junit.BeforeClass;
 
 import static org.junit.Assert.*;
@@ -54,18 +52,6 @@ public class Test {
 
         trimContent();
 
-        test.runTest(test::testNegativeWordCountsArray);
-        test.runTest(test::testSimpleAdd);
-        test.runTest(test::testArrayOverlappingAdd);
-        test.runTest(test::testAddWithEmptyWords);
-        test.runTest(test::testAddWithNegativeCounts);
-        test.runTest(test::testArraySize0);
-        test.runTest(test::testArraySizeAdded1);
-        test.runTest(test::testArraySizeAdded8);
-        test.runTest(test::testGetWord);
-        test.runTest(test::testGetCount);
-        test.runTest(test::testSetCount);
-
         test.runTest(test::testDocumentAddContentNull);
         test.runTest(test::testDocumentAddContentEmpty);
         test.runTest(test::testDocumentAddContentCutSuffix);
@@ -78,15 +64,11 @@ public class Test {
     }
 
     private void runTest(Runnable runnable) { // helper method for the main method
-        this.createWordCountsArray();
-
         try {
             runnable.run();
         } catch (AssertionError e) {
             successful = false;
             e.printStackTrace();
-        } finally {
-            this.cleanUp();
         }
     }
 
@@ -104,191 +86,7 @@ public class Test {
                 .trim();
     }
 
-    @Before
-    public void createWordCountsArray() {
-        wordCountsArray = new WordCountsArray(3);
-    }
 
-    @After
-    public void cleanUp() {
-        wordCountsArray = null;
-    }
-
-    @org.junit.Test
-    public void testNegativeWordCountsArray() {
-        try {
-            new WordCountsArray(-1);
-        } catch (NegativeArraySizeException e) {
-            fail("WordCountsArray constructor allows negative sizes");
-        }
-    }
-
-    @org.junit.Test
-    public void testSimpleAdd() {
-        wordCountsArray.add("test1", 1);
-        wordCountsArray.add("test2", 2);
-        wordCountsArray.add("test3", 3);
-
-        assertEquals("Unexpected array size after 3 adds",3, wordCountsArray.size());
-
-        for (int i = 0; i < 3; i++) {
-            int num = i+1;
-            assertEquals("Unexpected word at index " + i, "test" + num, wordCountsArray.getWord(i));
-            assertEquals("Unexpected count at index " + i, num, wordCountsArray.getCount(i));
-        }
-    }
-
-    @org.junit.Test
-    public void testArrayOverlappingAdd() {
-        wordCountsArray.add("test1", 1);
-        wordCountsArray.add("test2", 2);
-        wordCountsArray.add("test3", 3);
-        wordCountsArray.add("test4", 4);
-        wordCountsArray.add("test5", 5);
-
-        assertEquals("Unexpected size after 5 adds", 5, wordCountsArray.size());
-
-        for (int i = 0; i < 5; i++) {
-            int num = i+1;
-            assertEquals("Unexpected word at index " + i, "test" + num, wordCountsArray.getWord(i));
-            assertEquals("Unexpected count at index " + i, num, wordCountsArray.getCount(i));
-        }
-    }
-
-    @org.junit.Test
-    public void testAddWithEmptyWords() {
-        wordCountsArray.add(null, 23);
-        wordCountsArray.add("test1", 1);
-        wordCountsArray.add("", 123);
-        wordCountsArray.add("test2", 2);
-        wordCountsArray.add("", 12312);
-        wordCountsArray.add(null, 1239123);
-        wordCountsArray.add("test3", 3);
-
-        assertEquals("Unexpected array size after 3 adds",3, wordCountsArray.size());
-
-        for (int i = 0; i < 3; i++) {
-            int num = i+1;
-            assertEquals("Unexpected word at index " + i, "test" + num, wordCountsArray.getWord(i));
-            assertEquals("Unexpected count at index " + i, num, wordCountsArray.getCount(i));
-        }
-    }
-
-    @org.junit.Test
-    public void testAddWithNegativeCounts() {
-        wordCountsArray.add("test0", -19823);
-        wordCountsArray.add("test1", 1);
-        wordCountsArray.add("test2", 2);
-        wordCountsArray.add("test3", 3);
-
-        assertEquals("Unexpected array size after 4 adds",4, wordCountsArray.size());
-
-        for (int i = 0; i < 3; i++) {
-            assertEquals("Unexpected word at index " + i, "test" + i, wordCountsArray.getWord(i));
-            assertEquals("Unexpected count at index " + i, i, wordCountsArray.getCount(i));
-        }
-    }
-
-    @org.junit.Test
-    public void testArraySize0() {
-        assertEquals("Empty WordCountsArray size is not zero", 0, wordCountsArray.size());
-    }
-
-    @org.junit.Test
-    public void testArraySizeAdded1() {
-        wordCountsArray.add("Hello", 1);
-        assertEquals("WordCountsArray size with one element is not one", 1, wordCountsArray.size());
-    }
-
-    @org.junit.Test
-    public void testArraySizeAdded8() {
-        for (int i = 0; i < 8; i++)
-            wordCountsArray.add("" + i, i);
-
-        assertEquals("WordCoutsArray size with eigth elements is not 8", 8, wordCountsArray.size());
-    }
-
-    @org.junit.Test
-    public void testGetWord() {
-        wordCountsArray.add("test1", 211);
-        wordCountsArray.add("test4", 1231);
-
-        assertEquals("Unexpected word found at index 0", "test1", wordCountsArray.getWord(0));
-        assertEquals("Unexpected word found at index 1", "test4", wordCountsArray.getWord(1));
-
-        assertNull("#getWord did not handle access to empty index correctly",
-                wordCountsArray.getWord(2));
-
-        try {
-            assertNull("#getWord did not handle index out of bounds correctly",
-                    wordCountsArray.getWord(18723));
-        } catch (IndexOutOfBoundsException e) {
-            fail("#getWord did not handle index out of bounds correctly");
-        }
-
-        try {
-            assertNull("#getWord did not handle negative index correctly",
-                    wordCountsArray.getWord(-12389));
-        } catch (IndexOutOfBoundsException e) {
-            fail("#getWord did not handle negative index correctly");
-        }
-    }
-
-    @org.junit.Test
-    public void testGetCount() {
-        wordCountsArray.add("test1", 211);
-        wordCountsArray.add("test4", 1231);
-
-        assertEquals("Unexpected count found at index 0", 211, wordCountsArray.getCount(0));
-        assertEquals("Unexpected count found at index 1", 1231, wordCountsArray.getCount(1));
-
-        assertEquals("#getCount did not handle access to empty index correctly", -1,
-                wordCountsArray.getCount(2));
-
-        try {
-            assertEquals("#getCount did not handle index out of bounds correctly", -1,
-                    wordCountsArray.getCount(18723));
-        } catch (IndexOutOfBoundsException e) {
-            fail("#getCount did not handle index out of bounds correctly");
-        }
-
-        try {
-            assertEquals("#getCount did not handle negative index correctly", -1,
-                    wordCountsArray.getCount(-12389));
-        } catch (IndexOutOfBoundsException e) {
-            fail("#getCount did not handle negative index correctly");
-        }
-    }
-
-    @org.junit.Test
-    public void testSetCount() {
-        wordCountsArray.add("test0", 212);
-        wordCountsArray.add("test1", -123);
-
-        assertEquals("#setCount did not handle negative count correctly", 0,
-                wordCountsArray.getCount(1));
-
-        try {
-            wordCountsArray.setCount(2, 1239);
-
-            assertNotEquals("#setCount did not handle access to empty index correctly", 1239,
-                    wordCountsArray.getCount(2));
-        } catch (Exception e) {
-            fail("#setCount did not handle access to empty index correctly");
-        }
-
-        try {
-            wordCountsArray.setCount(123123, 726);
-        } catch (IndexOutOfBoundsException e) {
-            fail("#getCount did not handle index out of bounds correctly");
-        }
-
-        try {
-            wordCountsArray.setCount(-1238, 1);
-        } catch (IndexOutOfBoundsException e) {
-            fail("#getCount did not handle negative index correctly");
-        }
-    }
 
     private Document construcutDocumentWithDefaults(String content) {
         String title = "article";

@@ -75,4 +75,12 @@ public class WordCount {
                 Objects.equals(word, wordCount.word);
     }
 
+    @Override
+    public String toString() {
+        return "WordCount{" +
+                "word='" + word + '\'' +
+                ", count=" + count +
+                '}';
+    }
+
 }

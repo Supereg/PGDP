@@ -122,7 +122,6 @@ public class Document {
             if (!suffix.isEmpty())
                 part = cutSuffix(part, suffix);
 
-            // TODO words added a second time are currently not handled (as the exercise states to do so)
             this.wordCounts.add(part, 1); // #add ignores empty words
         }
     }
