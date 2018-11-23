@@ -1,6 +1,3 @@
-/**
- * Created by Andi on 18.11.18.
- */
 public class MatrixVectorOperations {
 
     public static double[] multiply(double[][] matrix, double[] vector) {

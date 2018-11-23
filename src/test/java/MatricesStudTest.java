@@ -2,9 +2,6 @@ import org.junit.Test;
 
 import static org.junit.Assert.*;
 
-/**
- * Created by Andi on 19.11.18.
- */
 public class MatricesStudTest {
 
     private static final double DELTA = 0.000000000000001;

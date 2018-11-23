@@ -2,9 +2,6 @@ import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 
-/**
- * Created by Andi on 15.11.18.
- */
 public class CRCTest {
 
     @Test
