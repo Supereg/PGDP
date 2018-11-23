@@ -64,4 +64,97 @@ public class MatricesStudTest {
         assertEquals(result, MatrixVectorOperations.euclideanDistance(vector1, vector0), DELTA);
     }
 
+    @Test
+    public void testPermutationsN2() {
+        int[][] result = MatrixVectorOperations.permutations(2);
+        int[][] expected = new int[][] { {1, 2}, {2, 1} };
+
+        assertEquals("Unexpected length", expected.length, result.length);
+        for (int i = 0; i < expected.length; i++)
+            assertArrayEquals("Unexpected result for matrix row " + (i+1), expected[i], result[i]);
+    }
+
+    @Test
+    public void testPermutationsN3() {
+        int[][] result = MatrixVectorOperations.permutations(3);
+        int[][] expected = new int[][] {
+                {1, 2, 3}, {1, 3, 2},
+                {2, 1, 3}, {2, 3, 1},
+                {3, 1, 2}, {3, 2, 1}
+        };
+
+        assertEquals("Unexpected length", expected.length, result.length);
+        for (int i = 0; i < expected.length; i++)
+            assertArrayEquals("Unexpected result for matrix row " + (i+1), expected[i], result[i]);
+    }
+
+    @Test
+    public void testPermutationsN4() {
+        int[][] result = MatrixVectorOperations.permutations(4);
+        int[][] expected = new int[][] {
+                {1, 2, 3, 4}, {1, 2, 4, 3}, {1, 3, 2, 4}, {1, 3, 4, 2},  {1, 4, 2, 3}, {1, 4, 3, 2},
+                {2, 1, 3, 4}, {2, 1, 4, 3}, {2, 3, 1, 4}, {2, 3, 4, 1}, {2, 4, 1, 3}, {2, 4, 3, 1},
+                {3, 1, 2, 4}, {3, 1, 4, 2}, {3, 2, 1, 4}, {3, 2, 4, 1}, {3, 4, 1, 2}, {3, 4, 2, 1},
+                {4, 1, 2, 3}, {4, 1, 3, 2}, {4, 2, 1, 3}, {4, 2, 3, 1}, {4, 3, 1, 2}, {4, 3, 2, 1}
+        };
+
+        assertEquals("Unexpected length", expected.length, result.length);
+        for (int i = 0; i < expected.length; i++)
+            assertArrayEquals("Unexpected result for matrix row " + (i+1), expected[i], result[i]);
+    }
+
+    @Test
+    public void testSgnOfPermutation() {
+        assertEquals(-1, MatrixVectorOperations.sgn(new int[] {2, 1, 4, 5, 3}));
+        assertEquals(1, MatrixVectorOperations.sgn(new int[] {1, 2, 3, 4}));
+        assertEquals(1, MatrixVectorOperations.sgn(new int[] {4, 3, 2, 1}));
+        assertEquals(1, MatrixVectorOperations.sgn(new int[] {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11}));
+    }
+
+    @Test
+    public void testDeterminant() {
+        int result0 = MatrixVectorOperations.determinant(new int[][]{
+                {1, 2},
+                {2, 1}
+        });
+        assertEquals(-3, result0);
+
+        int result1 = MatrixVectorOperations.determinant(new int[][]{
+                {1, 2, 3},
+                {2, 3, 1},
+                {3, 2, 1}
+        });
+        assertEquals(-12, result1);
+
+        int result2 = MatrixVectorOperations.determinant(new int[][]{
+                {1, 2, 3},
+                {1, 3, 2},
+                {2, 1, 3}
+        });
+        assertEquals(-6, result2);
+
+        int result3 = MatrixVectorOperations.determinant(new int[][]{
+                {1, 2, 3, 4},
+                {1, 3, 2, 4},
+                {4, 2, 1, 3},
+                {3, 4, 1, 2}
+        });
+
+        assertEquals(40, result3);
+
+        int result4 = MatrixVectorOperations.determinant(new int[][]{
+                {1, 2, 8, 4, 6, 3, 5, 7},
+                {2, 6, 3, 4, 1, 8, 7, 5},
+                {3, 7, 1, 6, 4, 5, 8, 2},
+                {4, 8, 6, 5, 3, 2, 1, 7},
+                {5, 1, 4, 8, 2, 3, 6, 7},
+                {6, 4, 2, 5, 1, 3, 7, 8},
+                {7, 2, 6, 1, 5, 8, 3, 4},
+                {8, 6, 7, 4, 1, 2, 3, 5},
+        });
+        assertEquals(-4478112, result4);
+    }
+
+
+
 }

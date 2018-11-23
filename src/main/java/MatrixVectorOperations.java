@@ -64,34 +64,119 @@ public class MatrixVectorOperations {
         return Math.sqrt(length);
     }
 
-    /*
+
     public static int[][] permutations(int n) {
+        int[] possibilities = new int[n];
+
         int length = 1;
-        for (int n0 = n; n0 > 1; n0--) {
-            length *= n0; // TODO
+        for (int n0 = n; n0 >= 1; n0--) {
+            length *= n0; // => n!
+            possibilities[n0 - 1] = n0;
         }
+        possibilities[n - 1] = n - 1; // decrement last one
 
-        int[][] permutations = new int[length][n]; // TODO length
-        // permutations[0] = 0, 1, ... n -1;
-        for (int i = 0; i < n; i++) {
-            permutations[0][i] = i;
+        int[][] permutations = new int[length][n];
+
+        int index = 0;
+
+        int i;
+        int value;
+        boolean overflowed;
+        while (true) {
+            do {
+                for (i = possibilities.length - 1; i >= 0; i--) {
+                    value = possibilities[i] + 1;
+
+                    overflowed = value > n;
+                    possibilities[i] = overflowed? 1: value;
+
+                    if (value <= n)
+                        break;
+                }
+            } while (arrayIsMalformed(possibilities));
+
+            if (index == length)
+                break;
+
+            permutations[index++] = arrayCopy(possibilities);
         }
-
 
         return permutations;
     }
 
-    private static void printMatrix(double[][] matrix) {
-        for (double[] aMatrix : matrix) {
-            for (double anAMatrix : aMatrix) {
+    private static boolean arrayIsMalformed(int[] array) {
+        int iValue;
+        int jValue;
+        for (int i = 0; i < array.length; i++) {
+            iValue = array[i];
+
+            if (iValue == 0) // musn't contain zeros
+                return true;
+
+            for (int j = 0; j < array.length; j++) {
+                if (j == i)
+                    continue;
+
+                jValue = array[j];
+
+                if (jValue == iValue) // musn't contain a digit more than one time
+                    return true;
+            }
+        }
+
+        return false;
+    }
+
+    public static int sgn(int[] permutation) {
+        int n = permutation.length;
+
+        long numerator = 1;
+        // long cause this can get pretty big very fast and thus overflow or even get 0, see last test example
+        long denominator = 1;
+
+        for (int i = 1; i <= n; i++) {
+            for (int j = i + 1; j <= n; j++) {
+                numerator *= permutation[j - 1] - permutation[i - 1];
+                denominator *= j - i;
+            }
+        }
+
+        return (int) (numerator / denominator);
+    }
+
+    public static int determinant(int[][] A) {
+        int[][] permutations = permutations(A.length);
+
+        int sum = 0;
+        for (int[] p: permutations) {
+            int sgn = sgn(p);
+
+            int mul = 1;
+            for (int i = 0; i < A.length; i++) {
+                mul *= A[i][p[i] - 1];
+            }
+
+            sum += sgn * mul;
+        }
+
+        return sum;
+    }
+
+    private static int[] arrayCopy(int[] array) {
+        int[] newArray = new int[array.length];
+        System.arraycopy(array, 0, newArray, 0, array.length);
+        return newArray;
+    }
+
+    /* Debug helper method
+    private static void printMatrix(int[][] matrix) {
+        for (int[] aMatrix : matrix) {
+            for (int anAMatrix : aMatrix) {
                 System.out.print(anAMatrix + " ");
             }
             System.out.println();
         }
     }
-
-    public static void main(String[] args) {
-       printMatrix(transpose(new double[][]{{2.0D, 3.0D, 4.0D},{3D, 4D, 2D}}));
-    }*/
+    */
 
 }
