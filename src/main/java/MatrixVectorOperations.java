@@ -64,74 +64,78 @@ public class MatrixVectorOperations {
         return Math.sqrt(length);
     }
 
-
     public static int[][] permutations(int n) {
         int[] possibilities = new int[n];
 
-        int length = 1;
-        for (int n0 = n; n0 >= 1; n0--) {
-            length *= n0; // => n!
-            possibilities[n0 - 1] = n0;
+        int permutationCount = 1;
+        for (int i = n; i >= 1; i--) {
+            permutationCount *= i;
+            possibilities[i - 1] = i;
         }
-        possibilities[n - 1] = n - 1; // decrement last one
 
-        int[][] permutations = new int[length][n];
+        int[][] permutations = new int[permutationCount][n];
 
         int index = 0;
-
-        int i;
-        int value;
-        boolean overflowed;
-        while (true) {
-            do {
-                for (i = possibilities.length - 1; i >= 0; i--) {
-                    value = possibilities[i] + 1;
-
-                    overflowed = value > n;
-                    possibilities[i] = overflowed? 1: value;
-
-                    if (value <= n)
-                        break;
-                }
-            } while (arrayIsMalformed(possibilities));
-
-            if (index == length)
-                break;
-
-            permutations[index++] = arrayCopy(possibilities);
-        }
+        do {
+            int[] permutation = new int[possibilities.length];
+            System.arraycopy(possibilities, 0, permutation, 0, possibilities.length);
+            permutations[index++] = permutation;
+        } while (nextPossibilityExists(possibilities));
 
         return permutations;
     }
 
-    private static boolean arrayIsMalformed(int[] array) {
-        int iValue;
-        int jValue;
-        for (int i = 0; i < array.length; i++) {
-            iValue = array[i];
+    private static boolean nextPossibilityExists(int[] countVariables) {
+        for (int i = countVariables.length - 1; i >= 0; i--) {
+            int variable = countVariables[i];
 
-            if (iValue == 0) // musn't contain zeros
-                return true;
+            while (++variable <= countVariables.length) {
+                if (!existsInArrayBeforeIndex(variable, countVariables, i)) {
+                    countVariables[i] = variable;
 
-            for (int j = 0; j < array.length; j++) {
-                if (j == i)
-                    continue;
-
-                jValue = array[j];
-
-                if (jValue == iValue) // musn't contain a digit more than one time
+                    for (int j = i + 1; j < countVariables.length; j++)
+                        insertElementAtIndexNotOccurringBefore(j, countVariables);
                     return true;
+                }
             }
         }
+        return false;
+    }
+
+    private static boolean existsInArrayBeforeIndex(int element, int[] array, int index) {
+        for (int i = 0; i < index; i++)
+            if (array[i] == element)
+                return true;
 
         return false;
+    }
+
+    private static void insertElementAtIndexNotOccurringBefore(int index, int[] array) {
+        int n;
+        for (n = 1; n <= array.length; n++) {
+            boolean passed = true;
+
+            for (int i = 0; i < index; i++) {
+                int arrayElement = array[i];
+                if (n == arrayElement)
+                    passed = false;
+            }
+
+            if (passed)
+                break;
+        }
+
+        if (n <= array.length)
+            array[index] = n;
+        else
+            System.err.println("Illegal setup detected for array. No possible element found to insert!");
     }
 
     public static int sgn(int[] permutation) {
         int n = permutation.length;
 
         long numerator = 1;
-        // long cause this can get pretty big very fast and thus overflow or even get 0, see last test example
+        // long, cause this can get pretty damn big very fast and thus overflow or even get 0, see last test example
         long denominator = 1;
 
         for (int i = 1; i <= n; i++) {
@@ -160,12 +164,6 @@ public class MatrixVectorOperations {
         }
 
         return sum;
-    }
-
-    private static int[] arrayCopy(int[] array) {
-        int[] newArray = new int[array.length];
-        System.arraycopy(array, 0, newArray, 0, array.length);
-        return newArray;
     }
 
     /* Debug helper method
