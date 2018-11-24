@@ -123,28 +123,77 @@ public class Date {
     }
 
     /**
+     * Returns the age in days of this date in comparison to {@code today}.
      *
-     * @param today  Date you want to compare to
+     * If {@code today} is lesser than {@code this} {@link Date} the age is negative!
+     *
+     * @param today  The {@link Date} you want to compare to
      * @return       days between both dates
-     *                   CAUTION: can produce negative values, since no check is done to ensure <code>today</code> is
-     *                   bigger than this date, as no specifications are given how to handle those instances
      */
     public int getAgeInDaysAt(Date today) {
-        int yearDelta = today.year - year;
-        int monthDelta = today.month - month;
-        int dayDelta = today.day - day; // could be negative
+        if (this.equals(today))
+            return 0;
+        else if (this.isBiggerThan(today))
+            return - today.getAgeInDaysAt(this);
 
-        return yearDelta * 12 * 30 + monthDelta * 30 + dayDelta;
+        int days = 0;
+
+        for (int year = this.year; year <= today.year; year++) {
+            int month = year == this.year? this.month: 1;
+            int maxMonth = year == today.year? today.month: 12;
+
+            if (year != this.year && year != today.year) {
+                days += daysInYear(year);
+                continue;
+            }
+
+            for (; month <= maxMonth; month++) {
+                if (month != this.month && month != today.month)
+                    days += daysInMonth(month, year);
+                else {
+                    int day = year == this.year? this.day - 1: 1;
+                    int maxDay = year == today.year ? today.day: daysInMonth(month, year);
+
+                    days += maxDay - day;
+                }
+            }
+        }
+
+        return days;
     }
 
     /**
+     * Returns the age in years of this date in comparison to {@code today}.
      *
-     * @param today  Date you want to compare to
+     * If {@code today} is lesser than {@code this} {@link Date} the age is negative!
+     *
+     * @param today  The {@link Date} you want to compare to
      * @return       years between both dates
-     *                   CAUTION: can produce negative values, see {@link #getAgeInDaysAt(Date)}
      */
     public int getAgeInYearsAt(Date today) {
-        return this.getAgeInDaysAt(today) / (12 * 30);
+        if (this.equals(today))
+            return 0;
+        else if (this.isBiggerThan(today))
+            return - today.getAgeInYearsAt(this);
+
+        int years = Math.max(today.year - this.year - 1, 0);
+        if (today.month >= this.month && today.day >= this.day)
+            years++;
+
+        return years;
+    }
+
+    private boolean isBiggerThan(Date date) {
+        return this.year > date.year
+                || this.year >= date.year && this.month > date.month
+                || this.year >= date.year && this.month >= date.month && this.day > date.day;
+    }
+
+    public boolean equals(Date date) {
+        if (this == date) return true;
+        return day == date.day &&
+                month == date.month &&
+                year == date.year;
     }
 
     @Override
@@ -154,6 +203,25 @@ public class Date {
                 ", month=" + month +
                 ", year=" + year +
                 '}';
+    }
+
+    /**
+     * Returns the number of days in the February of the specified year. This method
+     * considers leap years.
+     *
+     * @param year the year
+     * @return the number of days in the February of the specified year.
+     */
+    private int daysInFebruary(int year) {
+        if (year % 4 != 0) {
+            return 28;
+        }
+
+        if ((year % 100 == 0) && (year % 400 != 0)) {
+            return 28;
+        }
+
+        return 29;
     }
 
     /**
@@ -183,29 +251,14 @@ public class Date {
             case 11:
                 return 30;
             case 2:
-                return daysinFebruary(year);
+                return daysInFebruary(year);
         }
 
         return -1;
     }
 
-    /**
-     * Returns the number of days in the February of the specified year. This method
-     * considers leap years.
-     *
-     * @param year the year
-     * @return the number of days in the February of the specified year.
-     */
-    private int daysinFebruary(int year) {
-        if (year % 4 != 0) {
-            return 28;
-        }
-
-        if ((year % 100 == 0) && (year % 400 != 0)) {
-            return 28;
-        }
-
-        return 29;
+    private int daysInYear(int year) {
+        return 337 + daysInFebruary(year);
     }
 
     /**

@@ -1,3 +1,5 @@
+import java.util.Objects;
+
 /**
  * The class {@code Document} represents a document.
  *
@@ -12,7 +14,7 @@ public class Document {
     public static final String[] SUFFICES = {
             "ab", "al", "ant", "artig", "bar", "chen", "ei", "eln", "en", "end", "ent", "er", "fach", "fikation",
             "fizieren", "fähig", "gemäß", "gerecht", "haft", "haltig", "heit", "ie", "ieren", "ig", "in", "ion",
-            "iren", "isch", "isieren", "isierung", "isierung", "ist", "ität", "iv", "keit", "kunde", "legen", "legen",
+            "iren", "isch", "isieren", "isierung", "ismus", "ist", "ität", "iv", "keit", "kunde", "legen", "lein",
             "lich", "ling", "logie", "los", "mal", "meter", "mut", "nis", "or", "sam", "schaft", "tum", "ung", "voll",
             "wert", "würdig"
     };
@@ -120,7 +122,6 @@ public class Document {
             if (!suffix.isEmpty())
                 part = cutSuffix(part, suffix);
 
-            // TODO words added a second time are currently not handled (as the exercise states to do so)
             this.wordCounts.add(part, 1); // #add ignores empty words
         }
     }
@@ -167,6 +168,16 @@ public class Document {
 
     public int getAgeAt(Date today) {
         return releaseDate.getAgeInDaysAt(today);
+    }
+
+    public boolean equals(Document document) {
+        if (this == document) return true;
+        return Objects.equals(title, document.title) &&
+                Objects.equals(summary, document.summary) &&
+                Objects.equals(wordCounts, document.wordCounts) &&
+                Objects.equals(language, document.language) &&
+                Objects.equals(author, document.author) &&
+                Objects.equals(releaseDate, document.releaseDate);
     }
 
     @Override

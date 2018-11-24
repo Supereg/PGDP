@@ -1,6 +1,7 @@
 public class CRC {
 
     private final int poly;
+    private final int degree;
 
     /**
      * Constructs a CRC object
@@ -14,6 +15,7 @@ public class CRC {
         //    throw new ArithmeticException("/ by zero");
 
         this.poly = poly != 0? poly: 0B1;
+        this.degree = 31 - Integer.numberOfLeadingZeros(this.poly);
     }
 
     /**
@@ -22,180 +24,56 @@ public class CRC {
      * @return  the degree of the polynom passed into the constructor
      */
     public int getDegree() {
-        return 31 - Integer.numberOfLeadingZeros(this.poly);
+        return degree;
     }
 
     /**
-     * Calculates the crc for a given {@code inputString}
+     * Verarbeitet ein weiteres Bit in der Berechnung des CRC-Wertes
      *
-     * A {@code null} {@code inputString} is treated as a empty string
-     *
-     * @param inputString   a {@link String} used for the crc calculation
-     * @return              the crc value
+     * @param crc der bisherige CRC-Wert
+     * @param bit das zu verarbeitende Bit
+     * @return der neue CRC-Wert
      */
-    public int crcASCIIString(String inputString) {
-        if (inputString == null || inputString.isEmpty()) // 0 XOR poly == poly (null treated as "")
+    private int crcBit(int crc, int bit) {
+        // Wir hängen das Bit vorne an den bisherigen CRC-Wert
+        crc = (crc << 1) | bit;
+        // Ist der CRC-Wert groß genug geworden (genug Zahlen 'heruntergeholt' in der
+        // der schriftlichen Division)...
+        if (crc >>> degree != 0)
+            // ... wenden wir die XOR-Operation an, ...
+            return crc ^ poly;
+        // ... sonst nicht.
+        return crc;
+    }
+
+    /**
+     * Erweitert die Berechnung des CRC-Wertes um 'degree' viele 0-Bits
+     *
+     * @param crc der bisherige CRC-Wert
+     * @return der neue CRC-Wert
+     */
+    private int crcEnd(int crc) {
+        for (int i = 0; i < degree; i++)
+            crc = crcBit(crc, 0);
+        return crc;
+    }
+
+    private int crcASCII(int crc, int symbol) {
+        // Innerhalb eines Zeichens verarbeiten wir Bit für Bit
+        for (int i = 0; i < 7; i++)
+            crc = crcBit(crc, (symbol >>> (6 - i)) & 1);
+        return crc;
+    }
+
+    public int crcASCIIString(String s) {
+        if (s == null || s.isEmpty())
             return poly;
 
-        byte[] inputBytes = inputString.getBytes();
-        int polyDegree = 31 - Integer.numberOfLeadingZeros(this.poly);
-
-        // all asciis have 7-Bit (for variable stuff we need to calculate the total length first)
-        final int totalBytesRequired = inputBytes.length * 7 + polyDegree;
-        final int arraySize = (totalBytesRequired / 32) + 1;
-
-        int[] inputArray = new int[arraySize];
-
-        int[] polyArray = new int[arraySize];
-        polyArray[0] = this.poly;
-
-        for (byte b: inputBytes) { // fill input bytes into inputArray
-            // int leadingZeros = Integer.numberOfLeadingZeros(b);
-            // int shift = 32 - leadingZeros;
-            int shift = 7; // always 7 for a-z A-Z
-
-            arrayShiftLeft(inputArray, shift);
-            inputArray[0] |= b;
-        }
-
-        arrayShiftLeft(inputArray, polyDegree); // append polyDegree * 0 Bits
-
-        // align polyArray
-        int inputLeadingZeros = arrayNumberOfLeadingZeros(inputArray);
-        int polyLeadingZeros = arrayNumberOfLeadingZeros(polyArray);
-        int polyDeltaLeadingZeros = polyLeadingZeros - inputLeadingZeros;
-        // polyDeltaLeadingZeros must be > 0 since input is always "longer" than "poly" because "input" has the minimum
-        // length of "polyDegree + 7"
-        assert polyDeltaLeadingZeros > 0;
-        arrayShiftLeft(polyArray, polyDeltaLeadingZeros);
-
-        while (true) {
-            arrayXOR(inputArray, polyArray);
-
-            int nextLeadingZeros = arrayNumberOfLeadingZeros(inputArray);
-            if (nextLeadingZeros > polyLeadingZeros)
-                return inputArray[0];
-
-            int deltaLeadingZeros = nextLeadingZeros - inputLeadingZeros;
-            // deltaLeadingZeros MUST be positive: since poly is aligned with input both have a 1 at this position
-            // => thus deltaLeadingZeros has a minimum value of 1 every round
-            assert deltaLeadingZeros > 0;
-
-            inputLeadingZeros = nextLeadingZeros;
-            // realign poly
-            arrayShiftRight(polyArray, deltaLeadingZeros);
-        }
+        int crc = 0;
+        // Wir berechnen den CRC-Wert Zeichen für Zeichen
+        for (int i = 0; i < s.length(); i++)
+            crc = crcASCII(crc, s.charAt(i));
+        return crcEnd(crc);
     }
-
-    private static void arrayXOR(int[] result, int[] array) {
-        if (result.length != array.length)
-            throw new IllegalArgumentException("array size differ");
-
-        for (int i = 0; i < result.length; i++)
-            result[i] = result[i] ^ array[i];
-    }
-
-    private static void arrayShiftLeft(int[] array, int amount) {
-        if (amount == 0)
-            return;
-
-        if (amount > 31) {
-            int n = amount / 31;
-            for (int i = 0; i < n; i++)
-                arrayShiftLeft(array, 31);
-
-            arrayShiftLeft(array, amount % 31);
-            return;
-        }
-
-        int maskShiftAmount = 32 - amount;
-
-        int upperBitsMask = -1 >>> maskShiftAmount;
-        upperBitsMask <<= maskShiftAmount;
-
-        int lowerBits = 0;
-        for (int i = 0; i < array.length; i++) {
-            int upperBits = array[i] & upperBitsMask; // saving upper bits
-
-            array[i] <<= amount; // shift amount
-
-            array[i] |= lowerBits; // apply lower bits (were the upper bits of last element)
-            lowerBits = upperBits >>> maskShiftAmount; // move upperBits to the far right => lower bits for the next element
-        }
-    }
-
-    private static void arrayShiftRight(int[] array, int amount) {
-        if (amount == 0)
-            return;
-
-        if (amount > 31) {
-            int n = amount / 31;
-            for (int i = 0; i < n; i++)
-                arrayShiftRight(array, 31);
-
-            arrayShiftRight(array, amount % 31);
-            return;
-        }
-
-        int maskShiftAmount = 32 - amount;
-
-        int lowerBitMask = -1 << maskShiftAmount;
-        lowerBitMask >>>= maskShiftAmount;
-
-        int upperBits = 0;
-        for (int i = array.length - 1; i >= 0; i--) {
-            int lowerBits = array[i] & lowerBitMask; // saving lower bits
-
-            array[i] >>>= amount; // shift right by amount
-
-            array[i] |= upperBits; // apply upper bits (were the lower bits of last element)
-            upperBits = lowerBits << maskShiftAmount; // mover lowerBits to the far left => upperBits for the next element
-        }
-    }
-
-    private static int arrayNumberOfLeadingZeros(int[] array) {
-        int sum = 0;
-
-        for (int i = array.length - 1; i >= 0; i--) {
-            int zeros = Integer.numberOfLeadingZeros(array[i]);
-            sum += zeros;
-
-            if (zeros < 32)
-                break;
-        }
-
-        return sum;
-    }
-
-    /* Debug helper methods
-    private static String binaryWithLeadingZeros_32(int n) {
-        String binary = Integer.toBinaryString(n);
-
-        int leadingZeros = 32 - binary.length();
-
-        while (leadingZeros > 0) {
-            binary = "0" + binary;
-            leadingZeros--;
-        }
-
-        return binary;
-    }
-
-    private static void printBinaryArray(int[] array) {
-        StringBuilder builder = new StringBuilder("[");
-
-        for (int i = array.length - 1; i >= 0; i--) {
-            builder.append(binaryWithLeadingZeros_32(array[i]))
-                    .append(", ");
-        }
-
-        builder.deleteCharAt(builder.length() - 1);
-        builder.deleteCharAt(builder.length() - 1);
-
-        builder.append("]");
-
-        System.out.println(builder);
-    }
-    */
 
 }

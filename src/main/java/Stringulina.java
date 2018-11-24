@@ -122,7 +122,7 @@ public class Stringulina {
     }
 
     private static String resolvePattern(String pattern) {
-        String resolvedPattern = "";
+        StringBuilder resolvedPattern = new StringBuilder();
 
         for (int i = 0; i < pattern.length(); i++) {
             char c = pattern.charAt(i);
@@ -130,7 +130,7 @@ public class Stringulina {
             // we probably should check that the pattern has valid characters however we don't need to
 
             if (i + 1 < pattern.length() && pattern.charAt(i + 1) == '{') { // check if the next char is an bracket expression
-                String digits = "";
+                StringBuilder digits = new StringBuilder();
 
                 for (int d = i + 2; d < pattern.length(); d++) {
                     char digit = pattern.charAt(d);
@@ -142,36 +142,30 @@ public class Stringulina {
                     // However exercise tells us we can expect those
 
                     // same as above
-                    //noinspection StringConcatenationInLoop
-                    digits += digit;
+                    digits.append(digit);
                 }
 
                 int multiplier = 0;
                 try {
-                    multiplier = Integer.valueOf(digits);
+                    multiplier = Integer.valueOf(digits.toString());
                 } catch (NumberFormatException ignored) {} // cannot happen, as we can expect correct patterns
 
+                // directly ensure enough space is there (useful for long patterns)
+                resolvedPattern.ensureCapacity(resolvedPattern.length() + multiplier);
+
                 while (multiplier > 0) {
-                    //noinspection StringConcatenationInLoop
-                    resolvedPattern += c;
+                    resolvedPattern.append(c);
 
                     multiplier--;
                 }
 
                 i += 2 + digits.length();
             }
-            else {
-                /*
-                string concatenation in a loop is bad. However I don't know if we are allowed to use a class
-                like StringBuilder in this exercise. Are we???
-                But because this isn't explicitly allowed we use the bad method :(
-                */
-                //noinspection StringConcatenationInLoop
-                resolvedPattern += c;
-            }
+            else
+                resolvedPattern.append(c);
         }
 
-        return resolvedPattern;
+        return resolvedPattern.toString();
     }
 
 }

@@ -1,3 +1,5 @@
+import java.util.Arrays;
+
 public class WordCountsArray {
 
     private WordCount[] wordCountsArray;
@@ -27,22 +29,30 @@ public class WordCountsArray {
     /**
      * Adds a {@code word} with the given {@code count} to the WordCountsArray.
      *
-     * If {@code word} is {@code null} or empty nothing will be done.
-     * If {@code count} is not positive the value {@code 0} will be used
+     * If {@code word} is {@code null} or empty or {@code count} is not positive nothing will be done.
      *
      * @param word  a {@link String} with the word to add
      * @param count an {@code int} representing the count of the {@code word}
      */
     public void add(String word, int count) {
-        if (word == null || word.isEmpty())
+        if (word == null || word.isEmpty()|| count < 0)
             return;
+        word = word.toLowerCase(); // ensure lower casing
 
-        WordCount wordCount = new WordCount(word, count); // illegal count is handled by the setter
+        // check if the word already exists
+        int index;
+        if ((index = this.getIndexOfWord(word)) > -1) {
+            int newCount = this.getCount(index) + count;
+            this.setCount(index, newCount);
+        }
+        else { // insert new word
+            WordCount wordCount = new WordCount(word, count); // illegal count is handled by the setter
 
-        increaseArraySizeIfNecessary();
+            increaseArraySizeIfNecessary();
 
-        wordCountsArray[this.nextFreeIndex] = wordCount;
-        this.nextFreeIndex++;
+            wordCountsArray[this.nextFreeIndex] = wordCount;
+            this.nextFreeIndex++;
+        }
     }
 
     private void increaseArraySizeIfNecessary() {
@@ -54,6 +64,35 @@ public class WordCountsArray {
 
         // copy old content to new array
         System.arraycopy(oldArray, 0, this.wordCountsArray, 0, oldArray.length);
+    }
+
+    public void sort() {
+        int insertIndex = 0;
+        int indexWithMinimalElement = 0;
+
+        while (insertIndex < nextFreeIndex) {
+            for (int i = insertIndex + 1; i < nextFreeIndex; i++) {
+                String word0 = wordCountsArray[i].getWord();
+                String word1 = wordCountsArray[indexWithMinimalElement].getWord();
+
+                if (word0.compareTo(word1) < 0)
+                    indexWithMinimalElement = i;
+            }
+
+            // swap elements
+            WordCount temp = wordCountsArray[insertIndex];
+            wordCountsArray[insertIndex] = wordCountsArray[indexWithMinimalElement];
+            wordCountsArray[indexWithMinimalElement] = temp;
+
+            insertIndex++;
+        }
+    }
+
+    public double computeSimilarity(WordCountsArray array) {
+        if (array == null || array.size() == 0 || this.size() == 0)
+            return 0;
+
+        return scalarProduct(array) / Math.sqrt(scalarProduct(this) * array.scalarProduct(array));
     }
 
     private WordCount getWordCount(int index) {
@@ -89,6 +128,18 @@ public class WordCountsArray {
         return wordCount != null? wordCount.getCount(): -1;
     }
 
+    public int getIndexOfWord(String word) {
+        if (word == null || word.isEmpty())
+            return -1;
+
+        for (int i = 0; i < nextFreeIndex; i++) {
+            if (wordCountsArray[i].getWord().equals(word))
+                return i;
+        }
+
+        return -1;
+    }
+
     /**
      * Sets the count for the word at the given {@code index}
      *
@@ -104,6 +155,45 @@ public class WordCountsArray {
         if (wordCount != null) {
             wordCount.setCount(count); // illegal count is handled by the setter
         }
+    }
+
+    public boolean equals(WordCountsArray array) {
+        if (this == array) return true;
+        return nextFreeIndex == array.nextFreeIndex &&
+                Arrays.equals(wordCountsArray, array.wordCountsArray);
+    }
+
+    private boolean wordsEqual(WordCountsArray array) {
+        if (nextFreeIndex != array.nextFreeIndex) // they are not the same size
+            return false;
+
+        for (int i = 0; i < nextFreeIndex; i++) {
+            String word0 = wordCountsArray[i].getWord();
+            String word1 = array.wordCountsArray[i].getWord();
+
+            if (!word0.equals(word1))
+                return false;
+        }
+
+        return true;
+    }
+
+    private double scalarProduct(WordCountsArray array) {
+        if (!wordsEqual(array))
+            return 0;
+
+        double scalarProduct = 0;
+
+        for (int i = 0; i < nextFreeIndex; i++) {
+            WordCount wordCount0 = wordCountsArray[i];
+            WordCount wordCount1 = array.wordCountsArray[i];
+
+            assert wordCount0.getWord().equals(wordCount1.getWord());
+
+            scalarProduct += wordCount0.getCount() * wordCount1.getCount();
+        }
+
+        return scalarProduct;
     }
 
 }

@@ -1,3 +1,5 @@
+import java.util.Objects;
+
 /**
  * The class {@code Author} represents an author of a {@link Document} or a
  * {@link Review}.
@@ -147,6 +149,15 @@ public class Author {
 
     public int getAgeAt(Date today) {
         return birthday.getAgeInYearsAt(today);
+    }
+
+    public boolean equals(Author author) {
+        if (this == author) return true;
+        return Objects.equals(firstName, author.firstName) &&
+                Objects.equals(lastName, author.lastName) &&
+                Objects.equals(birthday, author.birthday) &&
+                Objects.equals(residence, author.residence) &&
+                Objects.equals(email, author.email);
     }
 
     @Override

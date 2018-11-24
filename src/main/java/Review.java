@@ -1,3 +1,5 @@
+import java.util.Objects;
+
 /**
  * The class {@code Review} represents a review of a {@link Document}.
  *
@@ -142,6 +144,16 @@ public class Review {
 
     public int getAgeAt(Date today) {
         return releaseDate.getAgeInDaysAt(today);
+    }
+
+    public boolean equals(Review review) {
+        if (this == review) return true;
+        return rating == review.rating &&
+                Objects.equals(content, review.content) &&
+                Objects.equals(language, review.language) &&
+                Objects.equals(releaseDate, review.releaseDate) &&
+                Objects.equals(author, review.author) &&
+                Objects.equals(reviewedDocument, review.reviewedDocument);
     }
 
     @Override
