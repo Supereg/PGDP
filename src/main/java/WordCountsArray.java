@@ -68,14 +68,15 @@ public class WordCountsArray {
 
     public void sort() {
         int insertIndex = 0;
-        int indexWithMinimalElement = 0;
+        int indexWithMinimalElement;
 
         while (insertIndex < nextFreeIndex) {
-            for (int i = insertIndex + 1; i < nextFreeIndex; i++) {
+            indexWithMinimalElement = insertIndex;
+            for (int i = insertIndex; i < nextFreeIndex; i++) {
                 String word0 = wordCountsArray[i].getWord();
                 String word1 = wordCountsArray[indexWithMinimalElement].getWord();
 
-                if (word0.compareTo(word1) < 0)
+                if (word0.compareTo(word1) <= 0)
                     indexWithMinimalElement = i;
             }
 
