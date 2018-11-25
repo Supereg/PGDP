@@ -237,8 +237,8 @@ public class WordCountsStudTest {
 
         assertEquals(0, wordCountsArray.getIndexOfWord("test0"));
         assertEquals(1, wordCountsArray.getIndexOfWord("test1"));
-        assertEquals(2, wordCountsArray.getIndexOfWord("test9"));
-        assertEquals(3, wordCountsArray.getIndexOfWord("test821"));
+        assertEquals(2, wordCountsArray.getIndexOfWord("test821"));
+        assertEquals(3, wordCountsArray.getIndexOfWord("test9"));
         assertEquals(4, wordCountsArray.getIndexOfWord("test9123812"));
     }
 
