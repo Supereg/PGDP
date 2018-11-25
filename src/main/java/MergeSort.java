@@ -37,7 +37,6 @@ public class MergeSort {
             a = aCopy;
         }
 
-        System.out.println(Arrays.toString(a));
         return a;
     }
 
