@@ -245,7 +245,7 @@ public class WordCountsStudTest {
     @Test
     public void testSortComplex() {
         String example = "es war einmal eine alte geiss die hatte sieben junge geisslein und " +
-                "hatte sie lieb wie eine mutter ihre kinder lieb hat";
+                "hatte sie lieb wie eine mutter ihre kinder lieb hat a";
 
         for (String s: example.split(" ")) {
             wordCountsArray.add(s, 1);
@@ -253,25 +253,13 @@ public class WordCountsStudTest {
 
         wordCountsArray.sort();
 
-        assertEquals(0, wordCountsArray.getIndexOfWord("alte"));
-        assertEquals(1, wordCountsArray.getIndexOfWord("die"));
-        assertEquals(2, wordCountsArray.getIndexOfWord("eine"));
-        assertEquals(3, wordCountsArray.getIndexOfWord("einmal"));
-        assertEquals(4, wordCountsArray.getIndexOfWord("es"));
-        assertEquals(5, wordCountsArray.getIndexOfWord("geiss"));
-        assertEquals(6, wordCountsArray.getIndexOfWord("geisslein"));
-        assertEquals(7, wordCountsArray.getIndexOfWord("hat"));
-        assertEquals(8, wordCountsArray.getIndexOfWord("hatte"));
-        assertEquals(9, wordCountsArray.getIndexOfWord("ihre"));
-        assertEquals(10, wordCountsArray.getIndexOfWord("junge"));
-        assertEquals(11, wordCountsArray.getIndexOfWord("kinder"));
-        assertEquals(12, wordCountsArray.getIndexOfWord("lieb"));
-        assertEquals(13, wordCountsArray.getIndexOfWord("mutter"));
-        assertEquals(14, wordCountsArray.getIndexOfWord("sie"));
-        assertEquals(15, wordCountsArray.getIndexOfWord("sieben"));
-        assertEquals(16, wordCountsArray.getIndexOfWord("und"));
-        assertEquals(17, wordCountsArray.getIndexOfWord("war"));
-        assertEquals(18, wordCountsArray.getIndexOfWord("wie"));
+        String[] result = "a alte die eine einmal es geiss geisslein hat hatte ihre junge kinder lieb mutter sie sieben und war wie".split(" ");
+
+        assertEquals(result.length, wordCountsArray.size());
+
+        for (int i = 0; i < result.length; i++) {
+            assertEquals(i, wordCountsArray.getIndexOfWord(result[i]));
+        }
     }
 
     @Test
