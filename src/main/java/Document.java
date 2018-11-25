@@ -104,8 +104,12 @@ public class Document {
      * @param content   a {@link String} with the content to scan
      */
     private void addContent(String content) {
-        if (content == null || content.isEmpty())
+        if (content == null || content.isEmpty()) {
+            if (this.wordCounts == null)
+                this.wordCounts = new WordCountsArray(0);
+
             return;
+        }
 
         String[] contentParts = tokenize(content);
 
