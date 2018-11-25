@@ -1,3 +1,5 @@
+import java.util.function.Consumer;
+
 public class DocumentCollection {
 
     private DocumentCollectionCell start;
@@ -26,6 +28,12 @@ public class DocumentCollection {
             return null;
 
         return start.get(index, 0);
+    }
+
+    public void iterate(Consumer<Document> consumer) {
+        for (DocumentCollectionCell cell = start; cell != null; cell = cell.getNext()) {
+            consumer.accept(cell.getDocument());
+        }
     }
 
     public int indexOf(Document document) {
@@ -102,32 +110,31 @@ public class DocumentCollection {
         this.sortBySimilarityDesc();
     }
 
-    @SuppressWarnings("Duplicates")
     private WordCountsArray allWords() {
         WordCountsArray allWords = new WordCountsArray(averageWordAmount());
 
-        for (DocumentCollectionCell cell = start; cell != null; cell = cell.getNext()) {
-            WordCountsArray documentWordCounts = cell.getDocument().getWordCounts();
+        iterate(document -> {
+            WordCountsArray documentWordCounts = document.getWordCounts();
 
             int size = documentWordCounts.size();
-            for (int i = 0; i < size; i++)
+            for (int i = 0; i < size; i++) {
                 allWords.add(documentWordCounts.getWord(i), 0);
-        }
+            }
+        });
 
         return allWords;
     }
 
-    @SuppressWarnings("Duplicates")
     private void addZeroWordsToDocuments() {
         WordCountsArray allWords = this.allWords();
+        int size = allWords.size();
 
-        for (DocumentCollectionCell cell = start; cell != null; cell = cell.getNext()) {
-            WordCountsArray documentWordCounts = cell.getDocument().getWordCounts();
+        iterate(document -> {
+            WordCountsArray documentWordCounts = document.getWordCounts();
 
-            int size = allWords.size();
             for (int i = 0; i < size; i++)
                 documentWordCounts.add(allWords.getWord(i), 0);
-        }
+        });
     }
 
     private int averageWordAmount() {
