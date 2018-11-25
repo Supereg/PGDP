@@ -67,6 +67,10 @@ public class WordCountsArray {
     }
 
     public void sort() {
+        this.doBubbleSort();
+    }
+
+    private void doBubbleSort() {
         int insertIndex = 0;
         int indexWithMinimalElement;
 
@@ -86,6 +90,65 @@ public class WordCountsArray {
             wordCountsArray[indexWithMinimalElement] = temp;
 
             insertIndex++;
+        }
+    }
+
+    private void doBucketSort() {
+        if (size() <= 1)
+            return;
+
+        WordCount[] result = new WordCount[size()];
+        bucketPart(wordCountsArray, size(), 0, result, new int[] {0});
+
+        wordCountsArray = result;
+
+        for (int i = 0; i < nextFreeIndex; i++) {
+            System.out.println(getWord(i));
+        }
+    }
+
+    private void bucketPart(WordCount[] in, int inLength, int character, WordCount[] result, int[] resultInsertIndex) {
+        WordCount[][] buckets = new WordCount[26][Math.max(1, size() / 26)]; // a-z represented by index from 0-26
+        int[] freeIndices = new int[26];
+
+        for (int i = 0; i < inLength; i++) {
+            WordCount wordCount = in[i];
+            String word = wordCount.getWord();
+
+            if (character >= word.length()) {
+                result[resultInsertIndex[0]++] = wordCount;
+                continue;
+            }
+
+            int index = word.charAt(character) - 'a';
+
+            WordCount[] bucket = buckets[index];
+            int freeIndex = freeIndices[index];
+
+            if (freeIndex >= bucket.length) { // increase size of bucket if needed
+                WordCount[] newBucket = new WordCount[2 * bucket.length];
+                System.arraycopy(bucket, 0, newBucket, 0, bucket.length);
+
+                buckets[index] = bucket = newBucket;
+            }
+
+            bucket[freeIndex] = wordCount;
+            freeIndices[index]++;
+        }
+
+        character++;
+
+        for (int alphabet = 0; alphabet < 26; alphabet++) {
+            WordCount[] bucket = buckets[alphabet];
+            int freeIndex = freeIndices[alphabet];
+
+            if (freeIndex == 0)
+                continue;
+
+            if (freeIndex == 1) // we have only one element in this bucket, we are ready
+                result[resultInsertIndex[0]++] = bucket[0];
+            else
+                bucketPart(bucket, freeIndex, character, result, resultInsertIndex);
         }
     }
 
