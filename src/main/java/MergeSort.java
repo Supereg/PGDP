@@ -2,6 +2,7 @@ import java.util.Arrays;
 
 public class MergeSort {
 
+    @SuppressWarnings("Duplicates")
     public static int[] mergeSortIt(int[] a) {
         for (int groupSize = 1; groupSize <= a.length; groupSize *= 2) {
             int[] aCopy = new int[a.length];
