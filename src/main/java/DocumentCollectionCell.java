@@ -2,6 +2,7 @@ public class DocumentCollectionCell {
 
     private final Document document;
     private DocumentCollectionCell next;
+    private DocumentCollectionCell previous;
 
     private double searchQuerySimilarity;
 
@@ -14,6 +15,12 @@ public class DocumentCollectionCell {
         this.next = next;
     }
 
+    public DocumentCollectionCell(Document document, DocumentCollectionCell next, DocumentCollectionCell previous) {
+        this.document = document;
+        this.next = next;
+        this.previous = previous;
+    }
+
     public Document getDocument() {
         return document;
     }
@@ -22,12 +29,20 @@ public class DocumentCollectionCell {
         return next;
     }
 
+    public DocumentCollectionCell getPrevious() {
+        return previous;
+    }
+
     public double getQuerySimilarity() {
         return searchQuerySimilarity;
     }
 
     public void setNext(DocumentCollectionCell next) {
         this.next = next;
+    }
+
+    public void setPrevious(DocumentCollectionCell previous) {
+        this.previous = previous;
     }
 
     public int namDocumentsRecursive() {
@@ -59,6 +74,9 @@ public class DocumentCollectionCell {
             return next;
         else {
             next = next.removeDocumentAt(index, ++currentIndex);
+            if (next != null)
+                next.setPrevious(this);
+
             return this;
         }
     }

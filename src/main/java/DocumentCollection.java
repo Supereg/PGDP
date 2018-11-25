@@ -3,7 +3,6 @@ public class DocumentCollection {
     private DocumentCollectionCell start;
     private DocumentCollectionCell end;
 
-
     public DocumentCollection() {}
 
     public boolean isEmpty() {
@@ -40,7 +39,7 @@ public class DocumentCollection {
     }
 
     public void appendDocument(Document document) {
-        DocumentCollectionCell cell = new DocumentCollectionCell(document);
+        DocumentCollectionCell cell = new DocumentCollectionCell(document, null, end);
 
         if (isEmpty())
             start = end = cell;
@@ -70,6 +69,9 @@ public class DocumentCollection {
         start = start.removeDocumentAt(index, 0);
         if (start == null)
             end = null;
+        else
+            start.setPrevious(null);
+
         return true;
     }
 
