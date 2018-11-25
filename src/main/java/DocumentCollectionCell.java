@@ -1,0 +1,81 @@
+public class DocumentCollectionCell {
+
+    private final Document document;
+    private DocumentCollectionCell next;
+
+    private double searchQuerySimilarity;
+
+    public DocumentCollectionCell(Document document) {
+        this.document = document;
+    }
+
+    public DocumentCollectionCell(Document document, DocumentCollectionCell next) {
+        this.document = document;
+        this.next = next;
+    }
+
+    public Document getDocument() {
+        return document;
+    }
+
+    public DocumentCollectionCell getNext() {
+        return next;
+    }
+
+    public double getQuerySimilarity() {
+        return searchQuerySimilarity;
+    }
+
+    public void setNext(DocumentCollectionCell next) {
+        this.next = next;
+    }
+
+    public int namDocumentsRecursive() {
+        return 1 + (next != null? next.namDocumentsRecursive(): 0);
+    }
+
+    public Document get(int index, int currentIndex) {
+        return index == currentIndex? document: next.get(index, ++currentIndex);
+    }
+
+    public int indexOf(Document document, int currentIndex) {
+        if (this.document.equals(document))
+            return currentIndex;
+        else
+            return next != null? next.indexOf(document, ++currentIndex): -1;
+    }
+
+    public DocumentCollectionCell removeLastDocument() {
+        if (next == null)
+            return null;
+        else {
+            next = next.removeLastDocument();
+            return this;
+        }
+    }
+
+    public DocumentCollectionCell removeDocumentAt(int index, int currentIndex) {
+        if (index == currentIndex)
+            return next;
+        else {
+            next = next.removeDocumentAt(index, ++currentIndex);
+            return this;
+        }
+    }
+
+    public int sumWordAmount() {
+        return document.getWordCounts().size() + (next != null? next.sumWordAmount(): 0);
+    }
+
+    public void calculateSimilarityWithQuery(Document query) {
+        searchQuerySimilarity = document.getWordCounts().computeSimilarity(query.getWordCounts());
+    }
+
+    public double getQuerySimilarityAt(int index, int currentIndex) {
+        if (index == currentIndex)
+            return searchQuerySimilarity;
+        else
+            return next != null? next.getQuerySimilarityAt(index, ++currentIndex): Double.NaN;
+    }
+
+}
