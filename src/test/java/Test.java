@@ -100,14 +100,14 @@ public class Test {
     public void testDocumentAddContentNull() {
         Document document = construcutDocumentWithDefaults(null);
 
-        assertNull("addContent didn't handle null content correctly", document.getWordCounts());
+        assertEquals("addContent didn't handle null content correctly", 0, document.getWordCounts().size());
     }
 
     @org.junit.Test
     public void testDocumentAddContentEmpty() {
         Document document = construcutDocumentWithDefaults("");
 
-        assertNull("addContent didn't handle empty content String correctly", document.getWordCounts());
+        assertEquals("addContent didn't handle empty content String correctly", 0, document.getWordCounts().size());
     }
 
     @org.junit.Test
