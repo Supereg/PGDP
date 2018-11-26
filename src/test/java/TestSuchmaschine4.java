@@ -195,8 +195,8 @@ public class TestSuchmaschine4 {
    * Most common german suffices
    */
   public static final String[] mySUFFICES = { "ab", "al", "ant", "artig", "bar", "chen", "ei", "eln", "en", "end", "ent",
-      "er", "fach", "fikation", "fizieren", "fähig", "gemäß", "gerecht", "haft", "haltig", "heit", "ie", "ieren", "ig", "in",
-      "ion", "iren", "isch", "isieren", "isierung", "ismus", "ist", "ität", "iv", "keit", "kunde", "legen", "lein",
-      "lich", "ling", "logie", "los", "mal", "meter", "mut", "nis", "or", "sam", "schaft", "tum", "ung", "voll", "wert",
-      "würdig" };
+          "er", "fach", "fikation", "fizieren", "faehig", "gemaeß", "gerecht", "haft", "haltig", "heit", "ie", "ieren", "ig", "in",
+          "ion", "iren", "isch", "isieren", "isierung", "ismus", "ist", "itaet", "iv", "keit", "kunde", "legen", "lein",
+          "lich", "ling", "logie", "los", "mal", "meter", "mut", "nis", "or", "sam", "schaft", "tum", "ung", "voll", "wert",
+          "wuerdig" };
 }
