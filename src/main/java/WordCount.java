@@ -70,7 +70,14 @@ public class WordCount {
     }
 
     public boolean equals(WordCount wordCount) {
-        if (this == wordCount) return true;
+        return this.equals((Object) wordCount);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        WordCount wordCount = (WordCount) o;
         return count == wordCount.count &&
                 Objects.equals(word, wordCount.word);
     }

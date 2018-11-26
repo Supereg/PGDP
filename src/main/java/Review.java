@@ -147,7 +147,14 @@ public class Review {
     }
 
     public boolean equals(Review review) {
-        if (this == review) return true;
+        return this.equals((Object) review);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Review review = (Review) o;
         return rating == review.rating &&
                 Objects.equals(content, review.content) &&
                 Objects.equals(language, review.language) &&

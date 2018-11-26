@@ -222,9 +222,16 @@ public class WordCountsArray {
     }
 
     public boolean equals(WordCountsArray array) {
-        if (this == array) return true;
-        return nextFreeIndex == array.nextFreeIndex &&
-                Arrays.equals(wordCountsArray, array.wordCountsArray);
+        return this.equals((Object) array);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        WordCountsArray that = (WordCountsArray) o;
+        return nextFreeIndex == that.nextFreeIndex &&
+                Arrays.equals(wordCountsArray, that.wordCountsArray);
     }
 
     private boolean wordsEqual(WordCountsArray array) {

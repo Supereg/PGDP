@@ -190,7 +190,14 @@ public class Date {
     }
 
     public boolean equals(Date date) {
-        if (this == date) return true;
+        return this.equals((Object) date);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Date date = (Date) o;
         return day == date.day &&
                 month == date.month &&
                 year == date.year;

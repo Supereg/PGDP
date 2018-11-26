@@ -152,7 +152,14 @@ public class Author {
     }
 
     public boolean equals(Author author) {
-        if (this == author) return true;
+        return this.equals((Object) author);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Author author = (Author) o;
         return Objects.equals(firstName, author.firstName) &&
                 Objects.equals(lastName, author.lastName) &&
                 Objects.equals(birthday, author.birthday) &&

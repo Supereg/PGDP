@@ -187,7 +187,14 @@ public class Document {
     }
 
     public boolean equals(Document document) {
-        if (this == document) return true;
+        return this.equals((Object) document);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Document document = (Document) o;
         return Objects.equals(title, document.title) &&
                 Objects.equals(summary, document.summary) &&
                 Objects.equals(wordCounts, document.wordCounts) &&
