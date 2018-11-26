@@ -148,7 +148,7 @@ public class Date {
             }
 
             for (; month <= maxMonth; month++) {
-                if (month != this.month && month != today.month)
+                if ((year != this.year || month != this.month) && (year != today.year || month != today.month))
                     days += daysInMonth(month, year);
                 else {
                     int day = year == this.year? this.day - 1: 1;
