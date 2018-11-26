@@ -4,11 +4,9 @@ import org.junit.Test;
 
 import static org.junit.Assert.*;
 
-/**
- * Created by Andi on 2018-11-26.
- */
 public class DocumentCollectionTest {
 
+    private static final double DELTA = 0.000000000000001;
     private DocumentCollection collection;
 
     @Before
@@ -97,6 +95,58 @@ public class DocumentCollectionTest {
         assertEquals(0, collection.numDocuments());
         assertNull(collection.getFirstDocument());
         assertNull(collection.getLastDocument());
+    }
+
+    @Test
+    public void testQuery() {
+        Document first = createDocument("Der Wolf und die 7 Geisslein",
+                "es war einmal eine alte geiss die hatte sieben junge geisslein " +
+                        "und hatte sie lieb wie eine mutter ihre kinder lieb hat");
+        Document second = createDocument("Tischlein deck dich",
+                "vor zeiten war ein schneider der drei söhne hatte und nur eine einzige ziege");
+        Document third = createDocument("Hans im Glueck",
+                "hans hatte sieben jahre bei seinem herrn gedient da sprach er zu " +
+                        "ihm herr meine zeit ist herum, nun wollte ich gerne wieder heim zu " +
+                        "meiner mutter gebt mir meinen lohn");
+
+        collection.appendDocument(first);
+        assertEquals(1, collection.numDocuments());
+        assertEquals(first, collection.get(0));
+
+        collection.appendDocument(second);
+        assertEquals(2, collection.numDocuments());
+        assertEquals(second, collection.get(1));
+
+        assertEquals(2, count(0, "geiss"));
+        assertEquals(0, count(1, "geiss"));
+
+        collection.match("ziege");
+        assertEquals(0.2672612419124244, collection.getQuerySimilarity(0), DELTA);
+        assertEquals(0.0, collection.getQuerySimilarity(1), DELTA);
+
+        collection.appendDocument(third);
+
+        assertEquals(0, count(0, "hans"));
+        assertEquals(0, count(1, "hans"));
+        assertEquals(1, count(2, "hans"));
+
+        collection.match("hans");
+        assertEquals(0.17407765595569785, collection.getQuerySimilarity(0), DELTA);
+        assertEquals(0.0, collection.getQuerySimilarity(1), DELTA);
+        assertEquals(0.0, collection.getQuerySimilarity(2), DELTA);
+
+        collection.match("hatte");
+        assertEquals(0.3651483716701107, collection.getQuerySimilarity(0), DELTA);
+        assertEquals(0.2672612419124244, collection.getQuerySimilarity(1), DELTA);
+        assertEquals(0.17407765595569785, collection.getQuerySimilarity(2), DELTA);
+    }
+
+    private int count(int index, String word) {
+        WordCountsArray wordCounts = collection.get(index).getWordCounts();
+        int wordIndex = wordCounts.getIndexOfWord(word);
+        int count = wordCounts.getCount(wordIndex);
+
+        return count > 0? count: 0;
     }
 
     private static Document createDocument(String titel, String content) {
