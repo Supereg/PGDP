@@ -67,7 +67,7 @@ public class MatrixVectorOperations {
         int permutationCount = 1;
         for (int i = n; i >= 1; i--) {
             permutationCount *= i;
-            possibilities[i - 1] = i;
+            possibilities[i - 1] = i - 1;
         }
 
         int[][] permutations = new int[permutationCount][n];
@@ -86,7 +86,7 @@ public class MatrixVectorOperations {
         for (int i = countVariables.length - 1; i >= 0; i--) {
             int variable = countVariables[i];
 
-            while (++variable <= countVariables.length) {
+            while (++variable < countVariables.length) {
                 if (!existsInArrayBeforeIndex(variable, countVariables, i)) {
                     countVariables[i] = variable;
 
@@ -109,7 +109,7 @@ public class MatrixVectorOperations {
 
     private static void insertElementAtIndexNotOccurringBefore(int index, int[] array) {
         int n;
-        for (n = 1; n <= array.length; n++) {
+        for (n = 0; n < array.length; n++) {
             boolean passed = true;
 
             for (int i = 0; i < index; i++) {
@@ -154,7 +154,7 @@ public class MatrixVectorOperations {
 
             int mul = 1;
             for (int i = 0; i < A.length; i++) {
-                mul *= A[i][p[i] - 1];
+                mul *= A[i][p[i]];
             }
 
             sum += sgn * mul;
