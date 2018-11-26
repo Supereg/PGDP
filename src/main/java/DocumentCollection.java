@@ -11,7 +11,7 @@ public class DocumentCollection {
         return start == null;
     }
 
-    public boolean containts(Document document) {
+    public boolean contains(Document document) {
         return indexOf(document) != -1;
     }
 
@@ -41,9 +41,13 @@ public class DocumentCollection {
     }
 
     public void prependDocument(Document document) {
+        DocumentCollectionCell previousStart = start;
         start = new DocumentCollectionCell(document, start);
         if (end == null)
             end = start;
+
+        if (previousStart != null)
+            previousStart.setPrevious(start);
     }
 
     public void appendDocument(Document document) {
@@ -66,8 +70,10 @@ public class DocumentCollection {
             return;
 
         start = start.removeLastDocument();
-        if (start == null)
-            end = null;
+        if (start != null)
+            start.setPrevious(null);
+
+        end = start != null? start.end(): null;
     }
 
     public boolean remove(int index) {
@@ -75,10 +81,10 @@ public class DocumentCollection {
             return false;
 
         start = start.removeDocumentAt(index, 0);
-        if (start == null)
-            end = null;
-        else
+        if (start != null)
             start.setPrevious(null);
+
+        end = start != null? start.end(): null;
 
         return true;
     }

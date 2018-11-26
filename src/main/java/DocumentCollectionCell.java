@@ -65,6 +65,9 @@ public class DocumentCollectionCell {
             return null;
         else {
             next = next.removeLastDocument();
+            if (next != null)
+                next.setPrevious(this);
+
             return this;
         }
     }
@@ -79,6 +82,10 @@ public class DocumentCollectionCell {
 
             return this;
         }
+    }
+
+    public DocumentCollectionCell end() {
+        return next == null? this: next.end();
     }
 
     public int sumWordAmount() {
