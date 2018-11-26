@@ -1,6 +1,3 @@
-/**
- * Created by Andi on 2018-11-25.
- */
 public class TestIt {
 
     private static final DocumentCollection COLLECTION = new DocumentCollection();
