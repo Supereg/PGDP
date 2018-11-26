@@ -23,6 +23,10 @@ public class MatrixVectorOperations {
     }
 
     public static double cosineSimilarity(double[] v1, double[] v2) {
+        return dotProduct(v1, v2) / Math.sqrt(dotProduct(v1, v1) * dotProduct(v2, v2));
+    }
+
+    private static double dotProduct(double[] v1, double[] v2) {
         if (v1.length != v2.length)
             return -1;
         if (v1.length == 0)
@@ -33,7 +37,7 @@ public class MatrixVectorOperations {
             dotProduct += v1[i] * v2[i];
         }
 
-        return dotProduct / Math.sqrt(dotProduct * dotProduct);
+        return dotProduct;
     }
 
     public static double[][] transpose(double[][] matrix) {

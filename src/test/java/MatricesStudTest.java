@@ -22,7 +22,7 @@ public class MatricesStudTest {
         double[] vector1 = {-6, 2, 8, 2, 1, -23};
 
         double result = MatrixVectorOperations.cosineSimilarity(vector0, vector1);
-        assertEquals("Unexpected result for cosine similarity", -1, result, DELTA);
+        assertEquals("Unexpected result for cosine similarity", -0.209029286018658, result, DELTA);
 
         assertEquals(result, MatrixVectorOperations.cosineSimilarity(vector1, vector0), DELTA);
     }
