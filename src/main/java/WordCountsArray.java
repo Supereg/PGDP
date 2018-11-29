@@ -60,7 +60,7 @@ public class WordCountsArray {
             return;
 
         WordCount[] oldArray = this.wordCountsArray;
-        this.wordCountsArray = new WordCount[Math.min(1, oldArray.length) * 2]; // doubling the array size
+        this.wordCountsArray = new WordCount[Math.max(1, oldArray.length) * 2]; // doubling the array size
 
         // copy old content to new array
         System.arraycopy(oldArray, 0, this.wordCountsArray, 0, oldArray.length);
