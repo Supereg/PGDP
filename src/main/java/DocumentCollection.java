@@ -24,7 +24,7 @@ public class DocumentCollection {
     }
 
     public Document get(int index) {
-        if (index >= numDocuments()) // list is empty or illegal index
+        if (index < 0 || index >= numDocuments()) // list is empty or illegal index
             return null;
 
         return start.get(index, 0);
@@ -77,7 +77,7 @@ public class DocumentCollection {
     }
 
     public boolean remove(int index) {
-        if (index >= numDocuments()) // list is empty or illegal index
+        if (index < 0 || index >= numDocuments()) // list is empty or illegal index
             return false;
 
         start = start.removeDocumentAt(index, 0);
@@ -94,7 +94,7 @@ public class DocumentCollection {
     }
 
     public double getQuerySimilarity(int index) {
-        return start != null? start.getQuerySimilarityAt(index, 0): Double.NaN;
+        return start != null && index >= 0 && index < numDocuments()? start.getQuerySimilarityAt(index, 0): Double.NaN;
     }
 
     public void match(String searchQuery) {
