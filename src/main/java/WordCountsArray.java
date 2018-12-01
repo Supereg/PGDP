@@ -67,10 +67,10 @@ public class WordCountsArray {
     }
 
     public void sort() {
-        this.doBubbleSort();
+        this.doSelectionSort();
     }
 
-    private void doBubbleSort() {
+    private void doSelectionSort() {
         int insertIndex = 0;
         int indexWithMinimalElement;
 
