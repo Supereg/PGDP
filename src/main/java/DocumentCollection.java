@@ -41,6 +41,9 @@ public class DocumentCollection {
     }
 
     public void prependDocument(Document document) {
+        if (document == null)
+            return;
+
         DocumentCollectionCell previousStart = start;
         start = new DocumentCollectionCell(document, start);
         if (end == null)
@@ -51,6 +54,9 @@ public class DocumentCollection {
     }
 
     public void appendDocument(Document document) {
+        if (document == null)
+            return;
+
         DocumentCollectionCell cell = new DocumentCollectionCell(document, null, end);
 
         if (isEmpty())
