@@ -46,7 +46,7 @@ public class LinkedDocumentCollection extends DocumentCollection {
                 continue;
 
             resultCollection.appendDocument(linkedDocument);
-            linkedDocument.getOutgoingLinks().crawl(resultCollection);
+            linkedDocument.getOutgoingLinks(resultCollection).crawl(resultCollection);
         }
     }
 

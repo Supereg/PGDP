@@ -41,9 +41,13 @@ public class LinkedDocument extends Document {
     }
 
     public LinkedDocumentCollection getOutgoingLinks() {
+        return this.getOutgoingLinks(null);
+    }
+
+    public LinkedDocumentCollection getOutgoingLinks(LinkedDocumentCollection resultCollection) {
         if (outgoingLinks == null) {
             outgoingLinks = new LinkedDocumentCollection();
-            createOutgoingDocumentCollection();
+            createOutgoingDocumentCollection(resultCollection);
         }
 
         return outgoingLinks;
@@ -92,9 +96,24 @@ public class LinkedDocument extends Document {
     }
 
     private void createOutgoingDocumentCollection() {
+        createOutgoingDocumentCollection(null);
+    }
+
+    private void createOutgoingDocumentCollection(LinkedDocumentCollection resultCollection) {
         for (String outgoingID: outgoingIDs) {
             if (outgoingID.equals(ID))
                 continue;
+
+            if (resultCollection != null) {
+                LinkedDocument dummy = new LinkedDocument(outgoingID, "de", "", null, null, null, outgoingID);
+                int documentIndex = resultCollection.indexOf(dummy);
+
+                if (documentIndex >= 0) {
+                    Document document = resultCollection.get(documentIndex);
+                    outgoingLinks.appendDocument(document);
+                    continue;
+                }
+            }
 
             LinkedDocument document = createLinkedDocumentFromFile(outgoingID);
             // document can be null, however null values are handled by #appendDocument
