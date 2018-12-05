@@ -159,6 +159,13 @@ public class WordCountsArray {
         return scalarProduct(array) / Math.sqrt(scalarProduct(this) * array.scalarProduct(array));
     }
 
+    public double computeSimilarity(WordCountsArray wordCounts, DocumentCollection documentCollection) {
+        if (wordCounts == null || wordCounts.size() == 0 || this.size() == 0)
+            return 0;
+
+        return scalarProduct(wordCounts, documentCollection);
+    }
+
     private WordCount getWordCount(int index) {
         if (index < 0 || index >= wordCountsArray.length)
             return null;
@@ -221,6 +228,43 @@ public class WordCountsArray {
         }
     }
 
+    private void calculateWeights(DocumentCollection documentCollection) {
+        for (int i = 0; i < nextFreeIndex; i++) {
+            WordCount wordCount = wordCountsArray[i];
+            String word = wordCount.getWord();
+            int count = wordCount.getCount();
+
+            double wordAmount = documentCollection.noOfDocumentsContainingWord(word);
+
+            if (wordAmount == 0) {
+                wordCount.setWeight(0);
+                continue;
+            }
+
+            double invertedFrequency = Math.log((documentCollection.numDocuments() + 1) / wordAmount);
+            wordCount.setWeight(count * invertedFrequency);
+        }
+    }
+
+    private void calculateNormalizedWeights(DocumentCollection documentCollection) {
+        calculateWeights(documentCollection);
+        double weightSum = 0;
+
+        for (int i = 0; i < nextFreeIndex; i++) {
+            WordCount wordCount = wordCountsArray[i];
+
+            weightSum += Math.pow(wordCount.getWeight(), 2);
+        }
+        weightSum = Math.sqrt(weightSum); // weightSum is now sqrtedWeightSum
+
+        for (int i = 0; i < nextFreeIndex; i++) {
+            WordCount wordCount = wordCountsArray[i];
+
+            double normalizedWeight = weightSum > 0? wordCount.getWeight() / weightSum: 0;
+            wordCount.setNormalizedWeight(normalizedWeight);
+        }
+    }
+
     public boolean equals(WordCountsArray array) {
         return this.equals((Object) array);
     }
@@ -262,6 +306,26 @@ public class WordCountsArray {
             assert wordCount0.getWord().equals(wordCount1.getWord());
 
             scalarProduct += wordCount0.getCount() * wordCount1.getCount();
+        }
+
+        return scalarProduct;
+    }
+
+    private double scalarProduct(WordCountsArray wordCounts, DocumentCollection documentCollection) {
+        if (!wordsEqual(wordCounts)) // length and equal words are checked here
+            return 0;
+
+        this.calculateNormalizedWeights(documentCollection);
+        wordCounts.calculateNormalizedWeights(documentCollection);
+
+        double scalarProduct = 0;
+        for (int i = 0; i < nextFreeIndex; i++) {
+            WordCount wordCount0 = wordCountsArray[i];
+            WordCount wordCount1 = wordCountsArray[i];
+
+            assert wordCount0.getWord().equals(wordCount1.getWord());
+
+            scalarProduct += wordCount0.getNormalizedWeight() * wordCount1.getNormalizedWeight();
         }
 
         return scalarProduct;

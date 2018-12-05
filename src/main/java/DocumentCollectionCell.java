@@ -92,8 +92,8 @@ public class DocumentCollectionCell {
         return document.getWordCounts().size() + (next != null? next.sumWordAmount(): 0);
     }
 
-    public void calculateSimilarityWithQuery(Document query) {
-        searchQuerySimilarity = document.getWordCounts().computeSimilarity(query.getWordCounts());
+    public void calculateSimilarityWithQuery(Document query, DocumentCollection documentCollection) {
+        searchQuerySimilarity = document.getWordCounts().computeSimilarity(query.getWordCounts(), documentCollection);
     }
 
     public double getQuerySimilarityAt(int index, int currentIndex) {

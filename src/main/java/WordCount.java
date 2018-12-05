@@ -2,8 +2,11 @@ import java.util.Objects;
 
 public class WordCount {
 
-    private String word;
+    private final String word;
     private int count;
+
+    private double weight;
+    private double normalizedWeight;
 
     /**
      * Creates an instance of this class.
@@ -41,6 +44,14 @@ public class WordCount {
         return count;
     }
 
+    public double getWeight() {
+        return weight;
+    }
+
+    public double getNormalizedWeight() {
+        return normalizedWeight;
+    }
+
     /**
      * Sets the count of the represented word.
      *
@@ -67,6 +78,14 @@ public class WordCount {
 
         count += n;
         return count;
+    }
+
+    public void setWeight(double weight) {
+        this.weight = weight;
+    }
+
+    public void setNormalizedWeight(double normalizedWeight) {
+        this.normalizedWeight = normalizedWeight;
     }
 
     public boolean equals(WordCount wordCount) {

@@ -111,7 +111,9 @@ public class DocumentCollection implements Iterable<Document> {
     }
 
     public void match(String searchQuery) {
-        Document query = new Document("search-query", "qe", "query", null, null, searchQuery);
+        Document query = this instanceof LinkedDocumentCollection
+                ? new LinkedDocument("query", "qe", "q", null, null, searchQuery, "id")
+                : new Document("query", "qe", "q", null, null, searchQuery);
 
         this.prependDocument(query);
         this.addZeroWordsToDocuments();
@@ -123,10 +125,28 @@ public class DocumentCollection implements Iterable<Document> {
             WordCountsArray documentWordCounts = cell.getDocument().getWordCounts();
             documentWordCounts.sort();
 
-            cell.calculateSimilarityWithQuery(query);
+            cell.calculateSimilarityWithQuery(query, this);
         }
 
         this.sortBySimilarityDesc();
+    }
+
+    public int noOfDocumentsContainingWord(String word) {
+        if (word == null)
+            return 0;
+
+        int count = 0;
+
+        for (Document document: this) {
+            WordCountsArray wordCounts = document.getWordCounts();
+            int index = wordCounts.getIndexOfWord(word);
+            int wordCount = wordCounts.getCount(index);
+
+            if (wordCount >= 1) // wordCount = -1 if word does not exist
+                count++;
+        }
+
+        return count;
     }
 
     private WordCountsArray allWords() {
