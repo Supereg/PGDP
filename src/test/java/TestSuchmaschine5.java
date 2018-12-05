@@ -720,20 +720,17 @@ public class TestSuchmaschine5 {
 
         // Teste scalarProduct
 
-        for (Method m : methods) {
-            if (m.getName().toLowerCase().equals("scalarproduct")) {
-                m.setAccessible(true);
-                double value = (double) m.invoke(wca, wca2);
-                if (value != 209) {
-                    sb.append("\n>>> WordCountsArray.scalarProduct ist falsch implementiert. SOLL 209 ist " + value);
-                    right = false;
-                }
-                value = (double) m.invoke(wca, wca3);
-                if (value != 0) {
-                    sb.append("\n>>> WordCountsArray.scalarProduct ist falsch implementiert. SOLL 0 ist " + value);
-                    right = false;
-                }
-            }
+        Method m = WordCountsArray.class.getDeclaredMethod("scalarProduct", WordCountsArray.class);
+        m.setAccessible(true);
+        double value0 = (double) m.invoke(wca, wca2);
+        if (value0 != 209) {
+            sb.append("\n>>> WordCountsArray.scalarProduct ist falsch implementiert. SOLL 209 ist " + value0);
+            right = false;
+        }
+        value0 = (double) m.invoke(wca, wca3);
+        if (value0 != 0) {
+            sb.append("\n>>> WordCountsArray.scalarProduct ist falsch implementiert. SOLL 0 ist " + value0);
+            right = false;
         }
 
         // Teste sort
