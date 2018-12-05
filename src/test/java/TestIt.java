@@ -1,6 +1,6 @@
 public class TestIt {
 
-    private static final DocumentCollection COLLECTION = new DocumentCollection();
+    private static final LinkedDocumentCollection COLLECTION = new LinkedDocumentCollection();
 
     public static void main(String[] args) {
         while (true) {
@@ -40,6 +40,12 @@ public class TestIt {
 
                     query(argument);
                     break;
+                case "crawl":
+                    DocumentCollection result = COLLECTION.crawl();
+
+                    for (Document document: result)
+                        COLLECTION.appendDocument(document);
+                    break;
                 default:
                     System.err.println("Unrecognized command: " + command);
             }
@@ -48,10 +54,10 @@ public class TestIt {
 
     private static void add(String argument) {
         String[] split = splitByFirstCharacter(argument, ':');
-        String titel = split[0];
+        String title = split[0];
         String content = split[1];
 
-        Document document = new Document(titel, "de", "", new Date(), null, content);
+        Document document = new LinkedDocument(title, "de", "", new Date(), null, content, title);
         COLLECTION.appendDocument(document);
     }
 
@@ -89,5 +95,76 @@ public class TestIt {
 
         return commandArgument;
     }
+
+    /**
+     * Bzgl Aufgabe 7.7
+     *      Gegebene Dateien sind als Json veranschaulicht
+     *
+     * Testfall 1:
+     *      - Dateien:
+     *       [
+     *           {
+     *                "title": "A",
+     *                "content": "link:B"
+     *           },
+     *           {
+     *               "title": "C",
+     *               "content": "link:C"
+     *           },
+     *           {
+     *               "title": "D",
+     *               "content": "link:E"
+     *           },
+     *           {
+     *               "title": "E",
+     *               "content": "link:A"
+     *           }
+     *       ]
+     *
+     *      - Befehle:
+     *          > add B:link:C
+     *          > list
+     *          B
+     *          > crawl
+     *          > list
+     *          B
+     *          C
+     *          D
+     *          E
+     *          A
+     *
+     * Testfall 2:
+     *      - Dateien:
+     *       [
+     *           {
+     *                "title": "A",
+     *                "content": "link:B"
+     *           },
+     *           {
+     *               "title": "C",
+     *               "content": "link:A link:D"
+     *           },
+     *           {
+     *               "title": "D",
+     *               "content": "link:B link:C"
+     *           },
+     *           {
+     *               "title": "E",
+     *               "content": "link:A"
+     *           }
+     *       ]
+     *
+     *      - Befehle:
+     *          > add B:link:C
+     *          > list
+     *          B
+     *          > crawl
+     *          > list
+     *          B
+     *          C
+     *          A
+     *          D
+     *
+     */
 
 }
