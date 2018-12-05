@@ -1,15 +1,16 @@
+import java.util.Calendar;
+import java.util.LinkedList;
+import java.util.List;
 import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.Calendar;
 
 /**
  * Diese Klasse stellt einige einfache Methoden zur Ein- und Ausgabe auf einem
  * Terminal zur Verf&uuml;gung.
  * 
- * @author P. Pepper und Gruppe
- * @version 1.1 Modifiziert von A. Lochbihler
- * @version 1.2 Modifiziert von F. Kelbert
  */
 public final class Terminal {
 
@@ -49,6 +50,9 @@ public final class Terminal {
 
   /** Fehlermeldung bei Eingabe einzeiliger Matrizen */
   private static final String ERROR_ONE_LINE_ARRAY = "Eine Matrix muss mindestens zwei Zeilen besitzen! (Nochmal eingeben) ";
+
+  /** Fehler beim Lesen einer Datei */
+  private static final String ERROR_READ_FILE = "Fehler beim Lesen der Datei! ";
 
   /**
    * Liest eine Zeichenkette vom Terminal.
@@ -444,4 +448,43 @@ public final class Terminal {
    * a newline according to the used operating system
    */
   public static final String NEWLINE = System.getProperty("line.separator");
+
+  /**
+   * Liest die einzelnen Zeilen der Datei <code>fileName</code> und liefert die
+   * einzelnen in der entsprechenden Reihenfolge als {@link String}-Array zurueck.
+   * Der Rueckgabewert ist <code>null</code>, falls die Datei nicht exisitiert
+   * oder nicht gelesen werden kann.
+   * 
+   * @param fileName die zu lesende Datei
+   * @return die Zeilen der zu lesenden Datei als {@link String}-Array oder
+   *         <code>null</code>, falls die Datei nicht existiert oder nicht gelesen
+   *         werden kann.
+   */
+  public static String[] readFile(String fileName) {
+    BufferedReader bufferedReader;
+
+    try {
+      bufferedReader = new BufferedReader(new FileReader(fileName));
+    } catch (FileNotFoundException e) {
+      System.err.println(ERROR_READ_FILE + "(" + fileName + ") (" + e + ")");
+      return null;
+    }
+
+    List<String> lines = new LinkedList<String>();
+
+    try {
+      String line = bufferedReader.readLine();
+
+      while (line != null) {
+        lines.add(line);
+        line = bufferedReader.readLine();
+      }
+    } catch (IOException e) {
+      System.err.println(ERROR_READ_FILE + "(" + fileName + ") (" + e + ")");
+      return null;
+    }
+
+    return lines.toArray(new String[0]);
+
+  }
 }
