@@ -29,6 +29,11 @@ public class DocumentCollectionTest {
         collection.prependDocument(second);
         collection.appendDocument(third);
 
+        assertEquals(3, collection.noOfDocumentsContainingWord("buch"));
+        assertEquals(1, collection.noOfDocumentsContainingWord("a"));
+        assertEquals(0, collection.noOfDocumentsContainingWord(""));
+        assertEquals(0, collection.noOfDocumentsContainingWord("toll"));
+
 
         assertTrue("Collection is strangely empty!", !collection.isEmpty());
         assertEquals("Didn't match size", 3, collection.numDocuments());
