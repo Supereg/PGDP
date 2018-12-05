@@ -1,6 +1,8 @@
+import java.util.Iterator;
+import java.util.NoSuchElementException;
 import java.util.function.Consumer;
 
-public class DocumentCollection {
+public class DocumentCollection implements Iterable<Document> {
 
     private DocumentCollectionCell start;
     private DocumentCollectionCell end;
@@ -34,6 +36,11 @@ public class DocumentCollection {
         for (DocumentCollectionCell cell = start; cell != null; cell = cell.getNext()) {
             consumer.accept(cell.getDocument());
         }
+    }
+
+    @Override
+    public Iterator<Document> iterator() {
+        return new DocumentIterator();
     }
 
     public int indexOf(Document document) {
@@ -214,6 +221,31 @@ public class DocumentCollection {
         start = dummy.getNext();
         end = current;
         end.setNext(null);
+    }
+
+    class DocumentIterator implements Iterator<Document> {
+
+        private DocumentCollectionCell current;
+
+        public DocumentIterator() {
+            this.current = start;
+        }
+
+        @Override
+        public boolean hasNext() {
+            return current != null;
+        }
+
+        @Override
+        public Document next() {
+            if (current == null)
+                throw new NoSuchElementException();
+
+            Document document = current.getDocument();
+            current = current.getNext();
+            return document;
+        }
+
     }
 
 }
