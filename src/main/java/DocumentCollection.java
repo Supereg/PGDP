@@ -118,15 +118,14 @@ public class DocumentCollection implements Iterable<Document> {
         this.prependDocument(query);
         this.addZeroWordsToDocuments();
 
-        this.removeFirstDocument();
-        query.getWordCounts().sort();
-
         for (DocumentCollectionCell cell = start; cell != null; cell = cell.getNext()) {
             WordCountsArray documentWordCounts = cell.getDocument().getWordCounts();
             documentWordCounts.sort();
 
             cell.calculateSimilarityWithQuery(query, this);
         }
+
+        this.removeFirstDocument();
 
         this.sortBySimilarityDesc();
     }

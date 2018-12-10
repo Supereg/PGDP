@@ -106,6 +106,8 @@ public class WordCount {
         return "WordCount{" +
                 "word='" + word + '\'' +
                 ", count=" + count +
+                ", weight=" + weight +
+                ", normalizedWeight=" + normalizedWeight +
                 '}';
     }
 

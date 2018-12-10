@@ -278,6 +278,14 @@ public class WordCountsArray {
                 Arrays.equals(wordCountsArray, that.wordCountsArray);
     }
 
+    @Override
+    public String toString() {
+        return "WordCountsArray{" +
+                "wordCountsArray=" + Arrays.toString(wordCountsArray) +
+                ", nextFreeIndex=" + nextFreeIndex +
+                '}';
+    }
+
     private boolean wordsEqual(WordCountsArray array) {
         if (nextFreeIndex != array.nextFreeIndex) // they are not the same size
             return false;
@@ -321,7 +329,7 @@ public class WordCountsArray {
         double scalarProduct = 0;
         for (int i = 0; i < nextFreeIndex; i++) {
             WordCount wordCount0 = wordCountsArray[i];
-            WordCount wordCount1 = wordCountsArray[i];
+            WordCount wordCount1 = wordCounts.wordCountsArray[i];
 
             assert wordCount0.getWord().equals(wordCount1.getWord());
 
