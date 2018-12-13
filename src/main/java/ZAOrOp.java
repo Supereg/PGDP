@@ -1,6 +1,6 @@
-public class OrOp extends BinOp<Boolean> {
+public class ZAOrOp extends ZABinOp<Boolean> {
 
-    public OrOp(Expression<Boolean> expression0, Expression<Boolean> expression1) {
+    public ZAOrOp(ZAExpression<Boolean> expression0, ZAExpression<Boolean> expression1) {
         super(expression0, expression1);
     }
 

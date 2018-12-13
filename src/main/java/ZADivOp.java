@@ -1,6 +1,6 @@
-public class DivOp extends BinOp<Integer> {
+public class ZADivOp extends ZABinOp<Integer> {
 
-    public DivOp(Expression<Integer> expression0, Expression<Integer> expression1) {
+    public ZADivOp(ZAExpression<Integer> expression0, ZAExpression<Integer> expression1) {
         super(expression0, expression1);
     }
 

@@ -1,8 +1,8 @@
-public class Const<T> extends Expression<T> {
+public class ZAConst<T> extends ZAExpression<T> {
 
     private final T constant;
 
-    public Const(T constant) {
+    public ZAConst(T constant) {
         this.constant = constant;
     }
 

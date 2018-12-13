@@ -1,4 +1,4 @@
-public abstract class Expression<T> {
+public abstract class ZAExpression<T> {
 
     public abstract T evaluate();
 

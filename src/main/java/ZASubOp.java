@@ -1,6 +1,6 @@
-public class SubOp extends BinOp<Integer> {
+public class ZASubOp extends ZABinOp<Integer> {
 
-    public SubOp(Expression<Integer> expression0, Expression<Integer> expression1) {
+    public ZASubOp(ZAExpression<Integer> expression0, ZAExpression<Integer> expression1) {
         super(expression0, expression1);
     }
 
