@@ -167,8 +167,8 @@ public class MatrixVectorOperations {
         return sum;
     }
 
-    /* Debug helper method
-    private static void printMatrix(int[][] matrix) {
+    // Debug helper method
+    public static void printMatrix(int[][] matrix) {
         for (int[] aMatrix : matrix) {
             for (int anAMatrix : aMatrix) {
                 System.out.print(anAMatrix + " ");
@@ -176,6 +176,5 @@ public class MatrixVectorOperations {
             System.out.println();
         }
     }
-    */
 
 }

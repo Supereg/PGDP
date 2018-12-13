@@ -1,4 +1,3 @@
-
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
@@ -9,6 +8,16 @@ public class TestSuchmaschine7 {
 
   @org.junit.Test
   public void LinkedDocumentAndLinkedDocumentCollection() throws Exception {
+    DocumentCollectionTest.FileContent[] fileContents = {
+            new DocumentCollectionTest.FileContent("a", "blablabla link:b tralalalal link:c tetsetse ende"),
+            new DocumentCollectionTest.FileContent("b", "ich bin b und verlinke niemanden"),
+            new DocumentCollectionTest.FileContent("c", "dies ist die datei c die auf datei d verlinkt link:d"),
+            new DocumentCollectionTest.FileContent("d", "es ist so ein schoener tag verlink einfach mal auf datei c link:c link:e"),
+            new DocumentCollectionTest.FileContent("e", "ich habe gar keine ahnung was ich hier tue und verlinke mal auf datei b link:b link:e link:e")
+    };
+
+    DocumentCollectionTest.createFiles(fileContents);
+
     boolean right = true;
     StringBuilder sb = new StringBuilder();
     sb.append("\n>>> Test LinkedDocumentAndLinkedDocumentCollection");
@@ -170,6 +179,8 @@ public class TestSuchmaschine7 {
 
     // ldc.match("blab ");
     // System.out.println(ldc.getQuerySimilarity(0));
+
+    DocumentCollectionTest.deleteFiles(fileContents);
 
     assertTrue(sb.toString(), right);
   }

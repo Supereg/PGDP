@@ -213,7 +213,49 @@ public class DocumentCollectionTest {
         }
     }
 
-    private static void createFiles(FileContent... contents) throws IOException {
+    @Test
+    public void testPageRank0() throws IOException {
+        this.testPageRank(new FileContent[] {
+                new FileContent("A", "link:B link:C"), new FileContent("B", "link:A link:C link:D"),
+                new FileContent("C", "link:D"), new FileContent("D", "link:C")
+        }, new double[] {
+                0.0547,
+                0.0607,
+                0.4485,
+                0.4359
+        }, 0.0001);
+    }
+
+    private void testPageRank(FileContent[] fileContents, double[] expectedPageRank, double delta) throws IOException {
+        try {
+            createFiles(fileContents);
+
+            LinkedDocumentCollection collection = new LinkedDocumentCollection();
+
+            LinkedDocument document = createLinkedDocument(fileContents[0]);
+            collection.appendDocument(document);
+
+            collection = collection.crawl();
+
+            double[] pageRank = collection.pageRankRec(0.85);
+
+            for (int i = 0; i < 4; i++) {
+                assertEquals(expectedPageRank[i], pageRank[i], delta);
+            }
+        } finally {
+            deleteFiles(fileContents);
+        }
+    }
+
+    private static LinkedDocument createLinkedDocument(FileContent fileContent) {
+        return createLinkedDocument(fileContent.getTitle(), fileContent.getContent());
+    }
+
+    private static LinkedDocument createLinkedDocument(String titel, String content) {
+        return new LinkedDocument(titel, "de", "test", new Date(), null, content, titel);
+    }
+
+    public static void createFiles(FileContent... contents) throws IOException {
         for (FileContent content: contents) {
             File file = new File(content.getTitle());
             if (file.exists())
@@ -234,7 +276,7 @@ public class DocumentCollectionTest {
         }
     }
 
-    private static void deleteFiles(FileContent... files) {
+    public static void deleteFiles(FileContent... files) {
         for (FileContent f: files) {
             File file = new File(f.getTitle());
 
@@ -244,7 +286,7 @@ public class DocumentCollectionTest {
         }
     }
 
-    private static class FileContent {
+    public static class FileContent {
 
         private final String title;
         private final String content;
