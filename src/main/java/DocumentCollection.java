@@ -1,11 +1,12 @@
+import java.util.Comparator;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 import java.util.function.Consumer;
 
 public class DocumentCollection implements Iterable<Document> {
 
-    private DocumentCollectionCell start;
-    private DocumentCollectionCell end;
+    protected DocumentCollectionCell start;
+    protected DocumentCollectionCell end;
 
     public DocumentCollection() {}
 
@@ -110,11 +111,16 @@ public class DocumentCollection implements Iterable<Document> {
         return start != null && index >= 0 && index < numDocuments()? start.getQuerySimilarityAt(index, 0): Double.NaN;
     }
 
-    public void match(String searchQuery) {
-        Document query = this instanceof LinkedDocumentCollection
-                ? new LinkedDocument("query", "qe", "q", null, null, searchQuery, "id")
-                : new Document("query", "qe", "q", null, null, searchQuery);
+    public double getRelevance(int index) {
+        return start != null && index >= 0 && index < numDocuments()? start.getRelevanceAt(index, 0): Double.NaN;
+    }
 
+    public void match(String searchQuery) {
+        this.match0(new Document("query", "qe", "q", null, null, searchQuery));
+        this.sortBySimilarityDesc();
+    }
+
+    protected void match0(Document query) {
         this.prependDocument(query);
         this.addZeroWordsToDocuments();
 
@@ -126,8 +132,6 @@ public class DocumentCollection implements Iterable<Document> {
         }
 
         this.removeFirstDocument();
-
-        this.sortBySimilarityDesc();
     }
 
     public int noOfDocumentsContainingWord(String word) {
@@ -184,6 +188,10 @@ public class DocumentCollection implements Iterable<Document> {
 
     @SuppressWarnings("Duplicates")
     private void sortBySimilarityDesc() {
+        mergeSortListBy(Comparator.comparingDouble(DocumentCollectionCell::getQuerySimilarity));
+    }
+
+    protected void mergeSortListBy(Comparator<DocumentCollectionCell> cellComparator) {
         int num = numDocuments();
         if (num <= 1)
             return;
@@ -210,7 +218,7 @@ public class DocumentCollection implements Iterable<Document> {
 
                 for (; insertIndex < endInsertIndex; insertIndex++) {
                     if (groupA < groupAEnd && groupB < groupBEnd) {
-                        cellsCopy[insertIndex] = cells[groupA].getQuerySimilarity() >= cells[groupB].getQuerySimilarity()
+                        cellsCopy[insertIndex] = cellComparator.compare(cells[groupA], cells[groupB]) >= 0
                                 ? cells[groupA++]
                                 : cells[groupB++];
                     }

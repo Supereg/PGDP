@@ -80,8 +80,8 @@ public class TestIt {
 
         final int[] place = {1};
         COLLECTION.iterate(document -> {
-            System.out.println(place[0] + ". " + document.getTitle() + "; Aehnlichkeit: "
-                    + COLLECTION.getQuerySimilarity(place[0] - 1));
+            System.out.println(place[0] + ". " + document.getTitle() + "; Relevanz: "
+                    + COLLECTION.getRelevance(place[0] - 1));
             place[0]++;
         });
     }

@@ -5,6 +5,7 @@ public class DocumentCollectionCell {
     private DocumentCollectionCell previous;
 
     private double searchQuerySimilarity;
+    private double relevance;
 
     public DocumentCollectionCell(Document document) {
         this.document = document;
@@ -35,6 +36,10 @@ public class DocumentCollectionCell {
 
     public double getQuerySimilarity() {
         return searchQuerySimilarity;
+    }
+
+    public double getRelevance() {
+        return relevance;
     }
 
     public void setNext(DocumentCollectionCell next) {
@@ -101,6 +106,17 @@ public class DocumentCollectionCell {
             return searchQuerySimilarity;
         else
             return next != null? next.getQuerySimilarityAt(index, ++currentIndex): Double.NaN;
+    }
+
+    public void calculateRelevance(double weightingFactor, double pageRank) {
+        this.relevance = weightingFactor * searchQuerySimilarity + (1 - weightingFactor) * pageRank;
+    }
+
+    public double getRelevanceAt(int index, int currentIndex) {
+        if (index == currentIndex)
+            return relevance;
+        else
+            return next != null? next.getRelevanceAt(index, ++currentIndex): Double.NaN;
     }
 
 }

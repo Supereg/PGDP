@@ -315,11 +315,10 @@ public class TestSuchmaschine7 {
     }
 
     LinkedDocument atxt = new LinkedDocument("harry", "", "", null, null,
-        "blablabla link:B tralalalal link:C tetsetse ende", "harry");
+        "blablabla tralalalal tetsetse ende", "harry"); // removed link, since match(...) would try to load it
 
     LinkedDocumentCollection ldc = new LinkedDocumentCollection();
     ldc.prependDocument(atxt);
-    System.out.println(atxt);
 
     ldc.match("blablabla ");
     double d = ldc.getQuerySimilarity(0);

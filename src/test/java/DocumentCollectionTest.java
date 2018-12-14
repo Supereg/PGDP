@@ -133,7 +133,7 @@ public class DocumentCollectionTest {
         assertEquals(0, count(1, "geiss"));
 
         collection.match("ziege");
-        // TODO update
+        // TODO update; also match does now sort by relevance
         assertEquals(0.2672612419124244, collection.getQuerySimilarity(0), DELTA);
         assertEquals(0.0, collection.getQuerySimilarity(1), DELTA);
 
@@ -218,7 +218,7 @@ public class DocumentCollectionTest {
         this.testPageRank(new FileContent[] {
                 new FileContent("A", "link:B link:C"), new FileContent("B", "link:A link:C link:D"),
                 new FileContent("C", "link:D"), new FileContent("D", "link:C")
-        }, new double[] {
+        }, 0, new double[] {
                 0.0547,
                 0.0607,
                 0.4485,
@@ -226,13 +226,30 @@ public class DocumentCollectionTest {
         }, 0.0001);
     }
 
-    private void testPageRank(FileContent[] fileContents, double[] expectedPageRank, double delta) throws IOException {
+    @Test
+    public void testPageRank1() throws IOException {
+        this.testPageRank(new FileContent[] {
+                new FileContent("a", "es war einmal link:b link:c"),
+                new FileContent("b", "link:a link:e"),
+                new FileContent("c", "once upon a time link:d"),
+                new FileContent("d", "erase una vez link:c"),
+                new FileContent("e", "c era una volta link:b")
+        }, 1, new double[] {
+                0.14897680763983684,
+                0.0933151432469308,
+                0.34291508382082525,
+                0.32147782204547976,
+                0.0933151432469308
+        }, 0.000001);
+    }
+
+    private void testPageRank(FileContent[] fileContents, int add, double[] expectedPageRank, double delta) throws IOException {
         try {
             createFiles(fileContents);
 
             LinkedDocumentCollection collection = new LinkedDocumentCollection();
 
-            LinkedDocument document = createLinkedDocument(fileContents[0]);
+            LinkedDocument document = createLinkedDocument(fileContents[add]);
             collection.appendDocument(document);
 
             collection = collection.crawl();
@@ -240,8 +257,10 @@ public class DocumentCollectionTest {
             double[] pageRank = collection.pageRankRec(0.85);
 
             for (int i = 0; i < 4; i++) {
-                assertEquals(expectedPageRank[i], pageRank[i], delta);
+                assertEquals("Did not math for " + i, expectedPageRank[i], pageRank[i], delta);
             }
+
+            // TODO System.out.println(Arrays.toString(collection.sortByRelevance(0.85, 0.6)));
         } finally {
             deleteFiles(fileContents);
         }
