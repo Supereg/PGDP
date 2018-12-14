@@ -1,6 +1,5 @@
 import org.junit.After;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import java.io.BufferedWriter;
@@ -108,60 +107,6 @@ public class DocumentCollectionTest {
         assertNull(collection.getLastDocument());
     }
 
-    @Test
-    @Ignore("underlying implementation changed completely")
-    public void testQuery() {
-        Document first = createDocument("Der Wolf und die 7 Geisslein",
-                "es war einmal eine alte geiss die hatte sieben junge geisslein " +
-                        "und hatte sie lieb wie eine mutter ihre kinder lieb hat");
-        Document second = createDocument("Tischlein deck dich",
-                "vor zeiten war ein schneider der drei söhne hatte und nur eine einzige ziege");
-        Document third = createDocument("Hans im Glueck",
-                "hans hatte sieben jahre bei seinem herrn gedient da sprach er zu " +
-                        "ihm herr meine zeit ist herum, nun wollte ich gerne wieder heim zu " +
-                        "meiner mutter gebt mir meinen lohn");
-
-        collection.appendDocument(first);
-        assertEquals(1, collection.numDocuments());
-        assertEquals(first, collection.get(0));
-
-        collection.appendDocument(second);
-        assertEquals(2, collection.numDocuments());
-        assertEquals(second, collection.get(1));
-
-        assertEquals(2, count(0, "geiss"));
-        assertEquals(0, count(1, "geiss"));
-
-        collection.match("ziege");
-        // TODO update; also match does now sort by relevance
-        assertEquals(0.2672612419124244, collection.getQuerySimilarity(0), DELTA);
-        assertEquals(0.0, collection.getQuerySimilarity(1), DELTA);
-
-        collection.appendDocument(third);
-
-        assertEquals(0, count(0, "hans"));
-        assertEquals(0, count(1, "hans"));
-        assertEquals(1, count(2, "hans"));
-
-        collection.match("hans");
-        assertEquals(0.17407765595569785, collection.getQuerySimilarity(0), DELTA);
-        assertEquals(0.0, collection.getQuerySimilarity(1), DELTA);
-        assertEquals(0.0, collection.getQuerySimilarity(2), DELTA);
-
-        collection.match("hatte");
-        assertEquals(0.3651483716701107, collection.getQuerySimilarity(0), DELTA);
-        assertEquals(0.2672612419124244, collection.getQuerySimilarity(1), DELTA);
-        assertEquals(0.17407765595569785, collection.getQuerySimilarity(2), DELTA);
-    }
-
-    private int count(int index, String word) {
-        WordCountsArray wordCounts = collection.get(index).getWordCounts();
-        int wordIndex = wordCounts.getIndexOfWord(word);
-        int count = wordCounts.getCount(wordIndex);
-
-        return count > 0? count: 0;
-    }
-
     private static Document createDocument(String titel, String content) {
         return new Document(titel, "de", "test", new Date(), null, content);
     }
@@ -243,6 +188,57 @@ public class DocumentCollectionTest {
         }, 0.000001);
     }
 
+    @Test
+    public void testPageRank2() throws IOException {
+        this.testPageRank(new FileContent[] {
+                new FileContent("A", "hallo link:B"),
+                new FileContent("B", "mein link:D"),
+                new FileContent("C", "freund link:E"),
+                new FileContent("D", "wie link:C"),
+                new FileContent("E", "gehts link:A")
+        }, 1, new double[] {
+                0.1999999605698945,
+                0.19999992446430387,
+                0.19999993579465827,
+                0.1999999454254595,
+                0.19999995361164058
+        }, 0.000001);
+    }
+
+    @Test
+    public void testPageRank3() throws IOException {
+        this.testPageRank(new FileContent[] {
+                new FileContent("A", "link:C link:E"),
+                new FileContent("B", "link:A link:C link:E"),
+                new FileContent("C", "link:E"),
+                new FileContent("D", "link:D link:E"),
+                new FileContent("E", "link:D")
+        }, 1, new double[] {
+                0.030000000000000006, // B
+                0.038500000000000006, // A
+                0.05486250000000001, // C
+                0.4576418518588728, // E
+                0.4189955610104386 // D
+        }, 0.000001);
+    }
+
+    @Test
+    public void testPageRank4() throws IOException {
+        this.testPageRank(new FileContent[] {
+                new FileContent("A", "link:B link:C link:D link:E"),
+                new FileContent("B", "link:A link:C link:D link:E"),
+                new FileContent("C", "link:A link:B link:D link:E"),
+                new FileContent("D", "link:A link:B link:C link:E"),
+                new FileContent("E", "link:A link:B link:C link:D")
+        }, 0, new double[] {
+                0.19999988747982295, // A
+                0.19999988747982295, // B
+                0.19999988873777422, // C
+                0.1999998894612573, // D
+                0.19999988977428843 // E
+        }, 0.000001);
+    }
+
     private void testPageRank(FileContent[] fileContents, int add, double[] expectedPageRank, double delta) throws IOException {
         try {
             createFiles(fileContents);
@@ -254,13 +250,84 @@ public class DocumentCollectionTest {
 
             collection = collection.crawl();
 
+            assertEquals(fileContents.length, collection.numDocuments());
+
             double[] pageRank = collection.pageRankRec(0.85);
 
             for (int i = 0; i < 4; i++) {
                 assertEquals("Did not math for " + i, expectedPageRank[i], pageRank[i], delta);
             }
+        } finally {
+            deleteFiles(fileContents);
+        }
+    }
 
-            // TODO System.out.println(Arrays.toString(collection.sortByRelevance(0.85, 0.6)));
+    @Test
+    public void testRelevance0() throws IOException {
+        testRelevance(new FileContent[] {
+                new FileContent("a.txt", "es war einmal link:b.txt link:c.txt"),
+                new FileContent("b.txt", "link:a.txt link:e.txt"),
+                new FileContent("c.txt", "once upon a time link:d.txt"),
+                new FileContent("d.txt", "erase una vez link:c.txt"),
+                new FileContent("e.txt", "c era una volta link:b.txt")
+        }, 1, new double[] {
+                0.285917709527423,
+                0.1371660335283301,
+                0.1285911288181919,
+                0.05959072305593474,
+                0.03732605729877232
+        }, "einmal");
+    }
+
+    @Test
+    public void testRelevance1() throws IOException {
+        testRelevance(new FileContent[] {
+                new FileContent("A", "hallo link:B"),
+                new FileContent("B", "mein link:D"),
+                new FileContent("C", "freund link:E"),
+                new FileContent("D", "wie link:C"),
+                new FileContent("E", "gehts link:A")
+        }, 0, new double[] {
+                0.6799999697857215,
+                0.07999998144465624,
+                0.07999997817018381,
+                0.07999997431786332,
+                0.07999996978572155
+        }, "mein");
+    }
+
+    @Test
+    public void testRelevance2() throws IOException {
+        testRelevance(new FileContent[] {
+                new FileContent("A", "asd asd asd link:C link:E"),
+                new FileContent("B", "asd asd asd asd link:A link:C link:E"),
+                new FileContent("C", "asd link:E"),
+                new FileContent("D", "asd link:D link:E"),
+                new FileContent("E", "asd asd link:D")
+        }, 1, new double[] {
+                0.7830567407435491,
+                0.7675982244041755,
+                0.621945,
+                0.6154,
+                0.612
+        }, "asd");
+    }
+
+    public void testRelevance(FileContent[] fileContents, int add, double[] expectedRelevance, String query) throws IOException {
+        try {
+            createFiles(fileContents);
+
+            LinkedDocumentCollection collection = new LinkedDocumentCollection();
+            LinkedDocument document = createLinkedDocument(fileContents[add]);
+            collection.appendDocument(document);
+
+            collection = collection.crawl();
+            assertEquals("Unexpected size after crawling", expectedRelevance.length, collection.numDocuments());
+
+            collection.match(query);
+
+            for (int i = 0; i < expectedRelevance.length; i++)
+                assertEquals("Unexpected relevance for " + i, expectedRelevance[i], collection.getRelevance(i), 0.000001);
         } finally {
             deleteFiles(fileContents);
         }

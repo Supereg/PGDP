@@ -62,10 +62,12 @@ public class LinkedDocumentCollection extends DocumentCollection {
     }
 
     public double[] pageRankRec(double d) {
+        long start = System.currentTimeMillis();
+
         int size = numDocuments();
         int[][] linkMatrix = new int[size][size];
 
-        // TODO use iterators
+        // we could use the iterator (foreach)
         for (int i = 0; i < size; i++) { // calculate the linkMatrix
             LinkedDocument document0 = (LinkedDocument) this.get(i);
 
@@ -86,21 +88,40 @@ public class LinkedDocumentCollection extends DocumentCollection {
         currentCachedPageRankDepth = new int[size];
 
         double[] pageRank = new double[size];
-        for (int i = 0; i < size; i++) { // TODO biggest was 45
+        for (int i = 0; i < size; i++) { // biggest was 87
+            pageRank[i] = pageRankRec(linkMatrix, i, d, 90);
+            /* Algorithm to find the appropriate recDepth
             int recDepth = 1;
 
             double lastPageRank;
-            do {
-                lastPageRank = pageRank[i];
-                pageRank[i] = pageRankRec(linkMatrix, i, d, recDepth);
-                recDepth += 1;
-            } while (Math.abs(lastPageRank - pageRank[i]) >= 1E-7);
+            int z = 5;
+            while (z >= 0) {
+                while (true) {
+                    pageRankCache = new double[size];
+                    currentCachedPageRankDepth = new int[size];
 
-            // System.out.println(get(i).getTitle() + " took depth: " + (recDepth - 1)); // TODO remove
+                    lastPageRank = pageRank[i];
+                    pageRank[i] = pageRankRec(linkMatrix, i, d, recDepth);
+                    recDepth += 1;
+
+                    if (!(Math.abs(lastPageRank - pageRank[i]) >= 1E-7))
+                        break;
+                    else
+                        z = 5;
+                }
+                z--;
+
+            }
+
+            System.out.println(get(i).getTitle() + " took depth: " + (recDepth - 5 -1)); //*/
         }
 
         pageRankCache = null; // reset
         currentCachedPageRankDepth = null;
+
+        long stop = System.currentTimeMillis();
+        if (stop - start > 1000*60) // debug option
+            System.err.println("PageRank took longer than 1 minute");
 
         return pageRank;
     }
