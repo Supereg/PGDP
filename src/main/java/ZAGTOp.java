@@ -1,11 +1,7 @@
-public class ZAGTOp extends ZAExpression<Boolean> {
-
-    private final ZAExpression<Integer> expression0;
-    private final ZAExpression<Integer> expression1;
+public class ZAGTOp<X, Y> extends ZABinOp<Integer, Boolean> {
 
     public ZAGTOp(ZAExpression<Integer> expression0, ZAExpression<Integer> expression1) {
-        this.expression0 = expression0;
-        this.expression1 = expression1;
+        super(expression0, expression1);
     }
 
     @Override

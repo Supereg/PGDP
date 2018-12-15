@@ -1,6 +1,6 @@
-public class ZAMulOp<X, Y> extends ZABinOp<Integer, Integer> {
+public class MulOp<X> extends BinOp<Integer> {
 
-    public ZAMulOp(ZAExpression<Integer> expression0, ZAExpression<Integer> expression1) {
+    public MulOp(Expression<Integer> expression0, Expression<Integer> expression1) {
         super(expression0, expression1);
     }
 

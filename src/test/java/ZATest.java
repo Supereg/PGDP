@@ -47,20 +47,20 @@ public class ZATest {
 
     @Test
     public void testZAOp0() {
-        ZAExpression<Boolean> exp = new ZAAndOp(
-                new ZAGTOp(
-                        new ZAMulOp(
+        ZAExpression<Boolean> exp = new ZAAndOp<Boolean, Boolean>(
+                new ZAGTOp<Integer, Boolean>(
+                        new ZAMulOp<Integer, Integer>(
                                 new ZAConst<>(3),
                                 new ZAConst<>(4)
                         ),
                         new ZAConst<>(2)
                 ),
-                new ZALTOp(
-                        new ZAAddOp(
+                new ZALTOp<Integer, Boolean>(
+                        new ZAAddOp<Integer, Integer>(
                                 new ZAConst<>(22),
                                 new ZAConst<>(88)
                         ),
-                        new ZASubOp(
+                        new ZASubOp<Integer, Integer>(
                                 new ZAConst<>(3000),
                                 new ZAConst<>(100)
                         )
@@ -75,15 +75,15 @@ public class ZATest {
 
     @Test
     public void testZAOp1() {
-        ZAExpression<Boolean> exp = new ZAEQOp(
-                new ZAAddOp(
-                        new ZADivOp(
+        ZAExpression<Boolean> exp = new ZAEQOp<Integer, Boolean>(
+                new ZAAddOp<Integer, Integer>(
+                        new ZADivOp<Integer, Integer>(
                                 new ZAConst<>(12),
                                 new ZAConst<>(3)
                         ),
                         new ZAConst<>(2)
                 ),
-                new ZASubOp(
+                new ZASubOp<Integer, Integer>(
                         new ZAConst<>(12),
                         new ZAConst<>(6)
                 )
@@ -97,12 +97,12 @@ public class ZATest {
 
     @Test
     public void testZAOp2() {
-        ZAExpression<Boolean> exp = new ZAOrOp(
-                new ZALTOp(
+        ZAExpression<Boolean> exp = new ZAOrOp<Boolean, Boolean>(
+                new ZALTOp<Integer, Boolean>(
                         new ZAConst<>(2),
                         new ZAConst<>(1)
                 ),
-                new ZAGTOp(
+                new ZAGTOp<Integer, Boolean>(
                         new ZAConst<>(12),
                         new ZAConst<>(2)
                 )
@@ -116,15 +116,15 @@ public class ZATest {
 
     @Test
     public void testOp0() {
-        ZAExpression<Integer> exp = new ZAMulOp(
-                new ZAAddOp(
-                        new ZASubOp(
+        ZAExpression<Integer> exp = new ZAMulOp<Integer, Integer>(
+                new ZAAddOp<Integer, Integer>(
+                        new ZASubOp<Integer, Integer>(
                                 new ZAConst<>(10),
                                 new ZAConst<>(5)
                         ),
                         new ZAConst<>(1)
                 ),
-                new ZADivOp(
+                new ZADivOp<Integer, Integer>(
                         new ZAConst<>(8),
                         new ZAConst<>(2)
                 )
@@ -138,9 +138,9 @@ public class ZATest {
 
     @Test
     public void testOp1() {
-        ZAExpression<Boolean> exp = new ZANegOp<>(
-                new ZAAndOp(
-                        new ZAOrOp(
+        ZAExpression<Boolean> exp = new ZANegOp<Boolean>(
+                new ZAAndOp<Boolean, Boolean>(
+                        new ZAOrOp<Boolean, Boolean>(
                                 new ZAConst<>(false),
                                 new ZAConst<>(true)
                         ),
@@ -156,12 +156,12 @@ public class ZATest {
 
     @Test
     public void testOp2() {
-        ZAExpression<Integer> exp = new ZAAddOp(
-                new ZAMulOp(
+        ZAExpression<Integer> exp = new ZAAddOp<Integer, Integer>(
+                new ZAMulOp<Integer, Integer>(
                         new ZAConst<>(15),
                         new ZAConst<>(30)
                 ),
-                new ZADivOp(
+                new ZADivOp<Integer, Integer>(
                         new ZAConst<>(38),
                         new ZAConst<>(2)
                 )

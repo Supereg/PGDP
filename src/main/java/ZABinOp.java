@@ -1,4 +1,4 @@
-public abstract class ZABinOp<T> extends ZAExpression<T> {
+public abstract class ZABinOp<T, R> extends ZAExpression<R> {
 
     protected final ZAExpression<T> expression0;
     protected final ZAExpression<T> expression1;

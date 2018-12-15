@@ -1,6 +1,6 @@
-public class ZANegOp<T> extends ZAUnOp<T> {
+public class NegOp<T> extends UnOp<T> {
 
-    public ZANegOp(ZAExpression<T> expression) {
+    public NegOp(Expression<T> expression) {
         super(expression);
     }
 
