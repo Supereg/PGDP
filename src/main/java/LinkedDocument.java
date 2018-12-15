@@ -4,7 +4,7 @@ import java.util.regex.Pattern;
 
 public class LinkedDocument extends Document {
 
-    private static final Pattern LINK_PATTERN = Pattern.compile("link:([a-z]|[A-Z]|\\.)+");
+    private static final Pattern LINK_PATTERN = Pattern.compile("link:(\\w|\\.)+");
 
     private final String ID;
     private String[] outgoingIDs;
