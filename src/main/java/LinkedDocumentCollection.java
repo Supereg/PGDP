@@ -195,4 +195,113 @@ public class LinkedDocumentCollection extends DocumentCollection {
         return relevance;
     }
 
+    public double[] pageRank(double dampingFactor) {
+        int size = numDocuments();
+
+        double[][] A = new double[size][size];
+        for (int i = 0; i < size; i++) { // fill A
+            LinkedDocument document0 = (LinkedDocument) get(i);
+
+            LinkedDocumentCollection outgoingLinks = document0.getOutgoingLinks();
+            int linkAmount = outgoingLinks.isEmpty()? size - 1: outgoingLinks.numDocuments();
+
+            for (int j = 0; j < size; j++) {
+                if (i == j)
+                    continue;
+                LinkedDocument document1 = (LinkedDocument) get(j);
+
+                if (outgoingLinks.isEmpty() || outgoingLinks.contains(document1))
+                    A[j][i] = 1D / linkAmount;
+            }
+        }
+
+        double[][] M = new double[size][size];
+        double pageRankBase = (1 - dampingFactor) / size;
+        for (int i = 0; i < size; i++)
+            for (int j = 0; j < size; j++)
+                M[i][j] = dampingFactor * A[i][j] + pageRankBase;
+
+
+        // int iterations = 0;
+        double[] result = multiply(M, extractFirstColumn(M));
+        for(;;) {
+            M = multiply(M, M);
+            double[] lastResult = result;
+            result = multiply(M, extractFirstColumn(M));
+
+            // iterations++;
+
+            if (isPreciseEnough(result, lastResult))
+                break;
+        }
+
+        // System.out.println("Took " + iterations + " iterations!"); // debug - highest was 7
+
+        return result;
+    }
+
+    @SuppressWarnings("Duplicates")
+    private static double[] multiply(double[][] matrix, double[] vector) {
+        if (matrix.length == 0 || matrix[0].length != vector.length)
+            throw new IllegalArgumentException("Illegal size");
+
+        double[] resultVector = new double[matrix.length];
+
+        int columnLength = matrix[0].length;
+        for (int i = 0; i < matrix.length; i++) {
+            double iSum = 0;
+
+            for (int j = 0; j < columnLength; j++) {
+                iSum += matrix[i][j] * vector[j];
+            }
+
+            resultVector[i] = iSum;
+        }
+
+        return resultVector;
+    }
+
+    private static double[][] multiply(double[][] matrix0, double[][] matrix1) {
+        if (matrix0.length == 0 || matrix1.length == 0 || matrix0[0].length == 0 || matrix1[0].length == 0)
+            throw new IllegalArgumentException("matrix cannot be empty");
+        if (matrix0.length != matrix1[0].length || matrix0[0].length != matrix1.length)
+            throw new IllegalArgumentException("illegal matrix size");
+
+        double[][] result = new double[matrix0.length][matrix1[0].length];
+
+        for (int i = 0; i < matrix0.length; i++) {
+            for (int j = 0; j < matrix1[i].length; j++) {
+                double value = 0;
+
+                for (int k = 0; k < matrix1.length; k++) {
+                    value += matrix0[i][k] * matrix1[k][j];
+                }
+
+                result[i][j] = value;
+            }
+        }
+
+        return result;
+    }
+
+    private static boolean isPreciseEnough(double[] pageRank, double[] previousPageRank) {
+        for (int i = 0; i < pageRank.length; i++) {
+            double v = pageRank[i];
+            double previous = previousPageRank[i];
+
+            if (!(Math.abs(v - previous) <= 1E-7))
+                return false;
+        }
+
+        return true;
+    }
+
+    private static double[] extractFirstColumn(double[][] matrix) {
+        double[] v = new double[matrix.length];
+        for (int i = 0; i < v.length; i++)
+            v[i] = matrix[i][0];
+
+        return v;
+    }
+
 }

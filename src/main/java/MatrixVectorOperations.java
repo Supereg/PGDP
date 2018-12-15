@@ -1,5 +1,6 @@
 public class MatrixVectorOperations {
 
+    @SuppressWarnings("Duplicates")
     public static double[] multiply(double[][] matrix, double[] vector) {
         // Der erste Index adressiert die Zeile, der zweite Index die Spalte der Matrix.
         // Fehlerbehandlung ist nicht verlangt
@@ -171,6 +172,15 @@ public class MatrixVectorOperations {
     public static void printMatrix(int[][] matrix) {
         for (int[] aMatrix : matrix) {
             for (int anAMatrix : aMatrix) {
+                System.out.print(anAMatrix + " ");
+            }
+            System.out.println();
+        }
+    }
+
+    public static void printMatrix(double[][] matrix) {
+        for (double[] aMatrix : matrix) {
+            for (double anAMatrix : aMatrix) {
                 System.out.print(anAMatrix + " ");
             }
             System.out.println();

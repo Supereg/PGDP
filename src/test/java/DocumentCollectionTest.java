@@ -11,7 +11,6 @@ import static org.junit.Assert.*;
 
 public class DocumentCollectionTest {
 
-    private static final double DELTA = 0.000000000000001;
     private DocumentCollection collection;
 
     @Before
@@ -239,6 +238,23 @@ public class DocumentCollectionTest {
         }, 0.000001);
     }
 
+    @Test
+    public void testPageRank5() throws IOException {
+         this.testPageRank(new FileContent[] {
+                 new FileContent("T1A", "Das ist ein Link zu einem Dokument link:T1B"),
+                 new FileContent("T1B", "Was link:T1A soll das link:T1C"),
+                 new FileContent("T1C", "link:T1A link:T1D"),
+                 new FileContent("T1D", "link:T1A link:T1E"),
+                 new FileContent("T1E", "link:T1A link:T1B link:T1C link:T1D")
+         }, 4, new double[] {
+                 0.08246135510843577,
+                 0.3070013758920534,
+                 0.308474207468788,
+                 0.1786245761347775,
+                 0.12343848281782305
+         }, 0.000001);
+    }
+
     private void testPageRank(FileContent[] fileContents, int add, double[] expectedPageRank, double delta) throws IOException {
         try {
             createFiles(fileContents);
@@ -328,6 +344,127 @@ public class DocumentCollectionTest {
 
             for (int i = 0; i < expectedRelevance.length; i++)
                 assertEquals("Unexpected relevance for " + i, expectedRelevance[i], collection.getRelevance(i), 0.000001);
+        } finally {
+            deleteFiles(fileContents);
+        }
+    }
+
+    @Test
+    public void testPageRankIterative0() throws IOException {
+        this.testPageRankIterative(new FileContent[] {
+                new FileContent("A", "link:B link:C"), new FileContent("B", "link:A link:C link:D"),
+                new FileContent("C", "link:D"), new FileContent("D", "link:C")
+        }, 0, new double[] {
+                0.0547,
+                0.0607,
+                0.4485,
+                0.4359
+        }, 0.0001);
+    }
+
+    @Test
+    public void testPageRankIterative1() throws IOException {
+        this.testPageRankIterative(new FileContent[] {
+                new FileContent("a", "es war einmal link:b link:c"),
+                new FileContent("b", "link:a link:e"),
+                new FileContent("c", "once upon a time link:d"),
+                new FileContent("d", "erase una vez link:c"),
+                new FileContent("e", "c era una volta link:b")
+        }, 1, new double[] {
+                0.14897680763983684,
+                0.0933151432469308,
+                0.34291508382082525,
+                0.32147782204547976,
+                0.0933151432469308
+        }, 0.000001);
+    }
+
+    @Test
+    public void testPageRankIterative2() throws IOException {
+        this.testPageRankIterative(new FileContent[] {
+                new FileContent("A", "hallo link:B"),
+                new FileContent("B", "mein link:D"),
+                new FileContent("C", "freund link:E"),
+                new FileContent("D", "wie link:C"),
+                new FileContent("E", "gehts link:A")
+        }, 1, new double[] {
+                0.1999999605698945,
+                0.19999992446430387,
+                0.19999993579465827,
+                0.1999999454254595,
+                0.19999995361164058
+        }, 0.000001);
+    }
+
+    @Test
+    public void testPageRankIterative3() throws IOException {
+        this.testPageRankIterative(new FileContent[] {
+                new FileContent("A", "link:C link:E"),
+                new FileContent("B", "link:A link:C link:E"),
+                new FileContent("C", "link:E"),
+                new FileContent("D", "link:D link:E"),
+                new FileContent("E", "link:D")
+        }, 1, new double[] {
+                0.030000000000000006, // B
+                0.038500000000000006, // A
+                0.05486250000000001, // C
+                0.4576418518588728, // E
+                0.4189955610104386 // D
+        }, 0.000001);
+    }
+
+    @Test
+    public void testPageRankIterative4() throws IOException {
+        this.testPageRankIterative(new FileContent[] {
+                new FileContent("A", "link:B link:C link:D link:E"),
+                new FileContent("B", "link:A link:C link:D link:E"),
+                new FileContent("C", "link:A link:B link:D link:E"),
+                new FileContent("D", "link:A link:B link:C link:E"),
+                new FileContent("E", "link:A link:B link:C link:D")
+        }, 0, new double[] {
+                0.19999988747982295, // A
+                0.19999988747982295, // B
+                0.19999988873777422, // C
+                0.1999998894612573, // D
+                0.19999988977428843 // E
+        }, 0.000001);
+    }
+
+    @Test
+    public void testPageRankIterative5() throws IOException {
+        this.testPageRankIterative(new FileContent[] {
+                new FileContent("T1A", "Das ist ein Link zu einem Dokument link:T1B"),
+                new FileContent("T1B", "Was link:T1A soll das link:T1C"),
+                new FileContent("T1C", "link:T1A link:T1D"),
+                new FileContent("T1D", "link:T1A link:T1E"),
+                new FileContent("T1E", "link:T1A link:T1B link:T1C link:T1D")
+        }, 4, new double[] {
+                0.08246135510843577,
+                0.3070013758920534,
+                0.308474207468788,
+                0.1786245761347775,
+                0.12343848281782305
+        }, 0.000001);
+    }
+
+    private void testPageRankIterative(FileContent[] fileContents, int add, double[] expectedPageRank, double delta) throws IOException {
+        try {
+            createFiles(fileContents);
+
+            LinkedDocumentCollection collection = new LinkedDocumentCollection();
+
+            LinkedDocument document = createLinkedDocument(fileContents[add]);
+            collection.appendDocument(document);
+
+            collection = collection.crawl();
+
+            assertEquals(fileContents.length, collection.numDocuments());
+
+            double[] pageRank = collection.pageRank(0.85);
+
+            for (int i = 0; i < 4; i++) {
+                assertEquals("Did not math for " + i, expectedPageRank[i], pageRank[i], delta);
+            }
         } finally {
             deleteFiles(fileContents);
         }
