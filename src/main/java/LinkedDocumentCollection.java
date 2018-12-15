@@ -84,12 +84,14 @@ public class LinkedDocumentCollection extends DocumentCollection {
             }
         }
 
-        pageRankCache = new double[size];
-        currentCachedPageRankDepth = new int[size];
 
         double[] pageRank = new double[size];
         for (int i = 0; i < size; i++) { // biggest was 87
+            pageRankCache = new double[size];
+            currentCachedPageRankDepth = new int[size];
+
             pageRank[i] = pageRankRec(linkMatrix, i, d, 90);
+
             /* Algorithm to find the appropriate recDepth
             int recDepth = 1;
 
@@ -114,10 +116,10 @@ public class LinkedDocumentCollection extends DocumentCollection {
             }
 
             System.out.println(get(i).getTitle() + " took depth: " + (recDepth - 5 -1)); //*/
-        }
 
-        pageRankCache = null; // reset
-        currentCachedPageRankDepth = null;
+            pageRankCache = null; // reset
+            currentCachedPageRankDepth = null;
+        }
 
         long stop = System.currentTimeMillis();
         if (stop - start > 1000*60) // debug option
@@ -136,15 +138,12 @@ public class LinkedDocumentCollection extends DocumentCollection {
      * @return                  pageRank of element {@code i}
      */
     public double pageRankRec(int[][] linkMatrix, int i, double dampingFactor, int recursionDepth) {
-        int savedPageRankDepth = currentCachedPageRankDepth[i];
-        // check if he already calculated a page rank with same or higher recursionDepth
-        if (savedPageRankDepth >= recursionDepth)
-            return pageRankCache[i]; // yes, than take it
-
         double pageRank = (1 - dampingFactor) / linkMatrix.length;
         try {
             if (recursionDepth <= 1) // exit condition
                 return pageRank;
+
+            int nextRecursionDepth = recursionDepth - 1;
 
             double sum = 0;
             for (int j = 0; j < linkMatrix.length; j++) {
@@ -156,16 +155,24 @@ public class LinkedDocumentCollection extends DocumentCollection {
                 for (int[] cArrayPart : linkMatrix)
                     numberOfLinks += cArrayPart[j];
 
-                sum += pageRankRec(linkMatrix, j, dampingFactor, recursionDepth - 1) / numberOfLinks;
+                double pageRankJ;
+
+                if (currentCachedPageRankDepth[j] >= nextRecursionDepth)
+                    pageRankJ = pageRankCache[j];
+                else
+                    pageRankJ = pageRankRec(linkMatrix, j, dampingFactor, nextRecursionDepth);
+
+                sum += pageRankJ / numberOfLinks;
             }
 
             pageRank += dampingFactor * sum;
 
             return pageRank;
         } finally {
-            // since we did not take an already processed page rank, we need to save our calculated one
-            pageRankCache[i] = pageRank;
-            currentCachedPageRankDepth[i] = recursionDepth;
+            if (currentCachedPageRankDepth[i] < recursionDepth) {
+                pageRankCache[i] = pageRank;
+                currentCachedPageRankDepth[i] = recursionDepth;
+            }
         }
     }
 
