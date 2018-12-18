@@ -1,3 +1,5 @@
+package math;
+
 public class MulOp<X> extends BinOp<Integer> {
 
     public MulOp(Expression<Integer> expression0, Expression<Integer> expression1) {

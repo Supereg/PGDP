@@ -1,3 +1,5 @@
+package math;
+
 public abstract class ZAExpression<T> {
 
     public abstract T evaluate();

@@ -1,3 +1,5 @@
+package math;
+
 public abstract class ZABinOp<T, R> extends ZAExpression<R> {
 
     protected final ZAExpression<T> expression0;

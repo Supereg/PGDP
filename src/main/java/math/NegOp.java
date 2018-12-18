@@ -1,3 +1,5 @@
+package math;
+
 public class NegOp<T> extends UnOp<T> {
 
     public NegOp(Expression<T> expression) {
@@ -29,7 +31,7 @@ public class NegOp<T> extends UnOp<T> {
     @Override
     public String toString() {
         T t = evaluate();
-        // we need to evaluate here what type T is since ZANegOp<Integer> and ZANegOp<Boolean> are the same at runtime
+        // we need to evaluate here what type T is since math.ZANegOp<Integer> and math.ZANegOp<Boolean> are the same at runtime
 
         if (t instanceof Boolean)
             return "(!" + expression + ")";

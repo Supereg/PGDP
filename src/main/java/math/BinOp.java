@@ -1,3 +1,5 @@
+package math;
+
 public abstract class BinOp<T> extends Expression<T> {
 
     protected final Expression<T> expression0;

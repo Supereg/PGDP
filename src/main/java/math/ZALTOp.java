@@ -1,3 +1,5 @@
+package math;
+
 public class ZALTOp<X, Y> extends ZABinOp<Integer, Boolean> {
 
     public ZALTOp(ZAExpression<Integer> expression0, ZAExpression<Integer> expression1) {

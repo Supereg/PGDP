@@ -1,3 +1,5 @@
+package math;
+
 public abstract class ZAUnOp<T> extends ZAExpression<T> {
 
     protected final ZAExpression<T> expression;

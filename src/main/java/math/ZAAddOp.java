@@ -1,6 +1,8 @@
-public class AddOp<T> extends BinOp<Integer> {
+package math;
 
-    public AddOp(Expression<Integer> expression0, Expression<Integer> expression1) {
+public class ZAAddOp<X, Y> extends ZABinOp<Integer, Integer> {
+
+    public ZAAddOp(ZAExpression<Integer> expression0, ZAExpression<Integer> expression1) {
         super(expression0, expression1);
     }
 

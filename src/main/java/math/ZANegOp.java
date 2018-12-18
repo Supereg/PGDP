@@ -1,3 +1,5 @@
+package math;
+
 public class ZANegOp<T> extends ZAUnOp<T> {
 
     public ZANegOp(ZAExpression<T> expression) {
@@ -29,7 +31,7 @@ public class ZANegOp<T> extends ZAUnOp<T> {
     @Override
     public String toString() {
         T t = evaluate();
-        // we need to evaluate here what type T is since ZANegOp<Integer> and ZANegOp<Boolean> are the same at runtime
+        // we need to evaluate here what type T is since math.ZANegOp<Integer> and math.ZANegOp<Boolean> are the same at runtime
 
         if (t instanceof Boolean)
             return "(!" + expression + ")";

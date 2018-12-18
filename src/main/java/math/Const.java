@@ -1,8 +1,10 @@
-public class ZAConst<T> extends ZAExpression<T> {
+package math;
+
+public class Const<T> extends Expression<T> {
 
     private final T constant;
 
-    public ZAConst(T constant) {
+    public Const(T constant) {
         this.constant = constant;
     }
 

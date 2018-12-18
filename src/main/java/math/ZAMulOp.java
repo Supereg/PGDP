@@ -1,3 +1,5 @@
+package math;
+
 public class ZAMulOp<X, Y> extends ZABinOp<Integer, Integer> {
 
     public ZAMulOp(ZAExpression<Integer> expression0, ZAExpression<Integer> expression1) {
