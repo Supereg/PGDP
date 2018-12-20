@@ -90,7 +90,7 @@ public class LinkedDocumentCollection extends DocumentCollection {
             pageRankCache = new double[size];
             currentCachedPageRankDepth = new int[size];
 
-            pageRank[i] = pageRankRec(linkMatrix, i, d, 90);
+            pageRank[i] = pageRankRec(linkMatrix, i, d, 150);
 
             /* Algorithm to find the appropriate recDepth
             int recDepth = 1;
