@@ -1,3 +1,6 @@
+import de.andi.minijava.language.*;
+import de.andi.minijava.language.Number;
+import de.andi.minijava.language.operations.Binop;
 import org.junit.Assert;
 import org.junit.Test;
 
