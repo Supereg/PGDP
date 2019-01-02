@@ -140,9 +140,19 @@ public class FormatVisitor implements ProgramVisitor {
     }
 
     @Override
+    public void visit(Switch switchStatement) {
+        // TODO switch
+    }
+
+    @Override
     public void visit(Return returnStatement) {
         returnStatement.getExpression().accept(this); // TODO NPE?
         formattedCode = "return " + formattedCode + ";";
+    }
+
+    @Override
+    public void visit(Break breakStatement) {
+        formattedCode = "break;";
     }
 
     @Override

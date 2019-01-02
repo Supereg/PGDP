@@ -21,7 +21,11 @@ public interface ProgramVisitor {
 
     void visit(While whileStatement);
 
+    void visit(Switch switchStatement);
+
     void visit(Return returnStatement);
+
+    void visit(Break breakStatement);
 
     void visit(ExpressionStatement expressionStatement);
 

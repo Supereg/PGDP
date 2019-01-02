@@ -1,24 +1,12 @@
 package de.andi.minijava.language;
 
-public class IfThenElse extends Statement {
+public class IfThenElse extends IfThen {
 
-    private Condition condition; // TODO shouldn't be null
-
-    private Statement thenBranch;
     private Statement elseBranch;
 
     public IfThenElse(Condition condition, Statement thenBranch, Statement elseBranch) {
-        this.condition = condition;
-        this.thenBranch = thenBranch;
+        super(condition, thenBranch);
         this.elseBranch = elseBranch;
-    }
-
-    public Condition getCond() {
-        return condition;
-    }
-
-    public Statement getThenBranch() {
-        return thenBranch;
     }
 
     public Statement getElseBranch() {

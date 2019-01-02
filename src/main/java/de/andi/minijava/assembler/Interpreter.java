@@ -18,7 +18,7 @@ public class Interpreter implements AsmVisitor {
     private int programCounter;
     private int framePointer = -1;
 
-    private boolean declarationAllowed = false;
+    private boolean declarationAllowed = true; // decl is allowed as first instruction
     private boolean declarationAllowedSet = false;
 
     public Interpreter(Instruction[] instructions) {
@@ -143,7 +143,7 @@ public class Interpreter implements AsmVisitor {
 
     @Override
     public void visit(Lfs lfs) { // load from stack TODO test
-        // TODO handle framePointer=-1
+        // TODO handle framePointer=-1 when lfs.getVariable == 0
         int value = stack[framePointer + lfs.getVariable()]; // TODO check for arrayIndexOutOfBounds
         pushValueToStack(value);
     }
