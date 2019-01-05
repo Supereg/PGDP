@@ -6,7 +6,4 @@ public class StackEmptyException extends StackException {
         super("Tried accessing empty stack");
     }
 
-    public StackEmptyException(Throwable cause) {
-        super("Tried accessing empty stack", cause);
-    }
 }

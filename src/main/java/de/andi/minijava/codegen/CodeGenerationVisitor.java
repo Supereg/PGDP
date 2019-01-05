@@ -13,10 +13,7 @@ import de.andi.minijava.language.*;
 import de.andi.minijava.language.operations.Bunop;
 import de.andi.minijava.language.operations.Unop;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class CodeGenerationVisitor implements ProgramVisitor {
 
@@ -50,8 +47,11 @@ public class CodeGenerationVisitor implements ProgramVisitor {
             if (indexedFunctions.put(function.getName(), cgFunction) != null) // assert that previous value is null
                 throw new IllegalFunctionNameException(function.getName(), "name already exists");
 
-            if (function.getName().equals("main")) // TODO main must not have parameters
+            if (function.getName().equals("main")) {
+                if (function.getParameters().length != 0) // it's only the real main function if it has no parameters
+                    continue;
                 mainFunction = function;
+            }
         }
 
         if (mainFunction == null) // assert that there is a main function
@@ -84,25 +84,15 @@ public class CodeGenerationVisitor implements ProgramVisitor {
                 throw new RuntimeException("currentFunction is null!"); // debug
             currentFunction.setInstructionIndex(instructionList.size()); // save index of start of function
 
-            // TODO check double names in Decl AND parameters
-
             // check that no parameters overlap
-            String[] parameters = function.getParameters();
-            for (int i = 0; i < parameters.length; i++) {
-                // TODO j=i should work
-                for (int j = i + 1; j < parameters.length; j++) {
-                    if (i == j)
-                        continue;
-
-                    if (parameters[i].equals(parameters[j]))
-                        throw new IllegalParameterNameException(parameters[i]);
-                }
+            for (String parameter: function.getParameters()) {
+                if (!currentFunction.addParameter(parameter))
+                    throw new IllegalParameterNameException(parameter);
             }
-
             // parse declarations
             for (Declaration declaration: function.getDeclarations()) {
                 for (String name: declaration.getNames()) // check that no declaration name occurs more than one time
-                    if (!currentFunction.addDeclaration(name))
+                    if (!currentFunction.addDeclaration(name)) // also checks that it not overlaps with parameter names
                         throw new IllegalDeclarationNameException(name);
 
                 declaration.accept(this);
@@ -147,7 +137,7 @@ public class CodeGenerationVisitor implements ProgramVisitor {
     @Override
     public void visit(IfThen ifThen) {
         ifThen.getCond().accept(this);
-        instructionList.add(new Not());// compare if condition is false -> we jump behind the THEN block
+        addNotInstruction(); // compare if condition is false -> we jump behind the THEN block
         int brcIndex = instructionList.size(); // save position at which BRC got inserted
         instructionList.add(new Nop()); // gets overwritten by brc instruction later
 
@@ -162,7 +152,7 @@ public class CodeGenerationVisitor implements ProgramVisitor {
     @Override
     public void visit(IfThenElse ifThenElse) {
         ifThenElse.getCond().accept(this);
-        instructionList.add(new Not()); // compare if condition is false -> we jump to the ELSE block
+        addNotInstruction(); // compare if condition is false -> we jump to the ELSE block
         int brcIndex = instructionList.size(); // save position at which BRC got inserted
         instructionList.add(new Nop()); // gets overwritten by brc instruction later
 
@@ -183,18 +173,29 @@ public class CodeGenerationVisitor implements ProgramVisitor {
 
     @Override
     public void visit(While whileStatement) {
-        int cmpIndex = instructionList.size();
-        whileStatement.getCondition().accept(this);
-        instructionList.add(new Ldi(0));
-        int brcIndex = instructionList.size();
-        instructionList.add(new Nop()); // gets overwritten by brc instruction later
+        if (whileStatement.isDoWhile()) {
+            int bodyIndex = instructionList.size();
+            whileStatement.getBody().accept(this);
 
-        whileStatement.getBody().accept(this);
-        instructionList.add(new Ldi(-1));
-        instructionList.add(new Brc(cmpIndex));
+            whileStatement.getCondition().accept(this);
+            instructionList.add(new Brc(bodyIndex));
+        }
+        else {
+            int cmpIndex = instructionList.size();
+            whileStatement.getCondition().accept(this);
+            addNotInstruction();
+            int brcIndex = instructionList.size();
+            instructionList.add(new Nop()); // gets overwritten by brc instruction later
 
-        int endIndex = instructionList.size();
-        instructionList.set(brcIndex, new Brc(endIndex));
+            whileStatement.getBody().accept(this);
+
+            // jump to cmp again
+            instructionList.add(new Ldi(-1)); // load true
+            instructionList.add(new Brc(cmpIndex));
+
+            // setting brc which jumps to the end
+            instructionList.set(brcIndex, new Brc(instructionList.size()));
+        }
     }
 
     @SuppressWarnings("Duplicates")
@@ -375,13 +376,13 @@ public class CodeGenerationVisitor implements ProgramVisitor {
 
     @Override
     public void visit(Comparison comparison) {
-        if (comparison.getOperator().isRightToLeft()) {
-            comparison.getRhs().accept(this);
+        if (comparison.getOperator().isSwitchInput()) {
             comparison.getLhs().accept(this);
+            comparison.getRhs().accept(this);
         }
         else {
-            comparison.getLhs().accept(this);
             comparison.getRhs().accept(this);
+            comparison.getLhs().accept(this);
         }
 
         switch (comparison.getOperator()) {
@@ -394,34 +395,8 @@ public class CodeGenerationVisitor implements ProgramVisitor {
                 break;
             case LessEqual:
             case GreaterEqual:
-                instructionList.add(new Pop(0)); // save both values
-                instructionList.add(new Pop(1)); // save both values
-
-                instructionList.add(new Push(1)); // immediately restore both values for first cmp
-                instructionList.add(new Push(0));
-
-                instructionList.add(new Cmp(CompareOperation.LESS)); // order changed above depending on </>, we can use LESS
-                instructionList.add(new Not()); // check if values are NOT LESS
-                int additionalEqualsBrcIndex = instructionList.size();
-                instructionList.add(new Nop()); // BRC will be inserted here; jump do additional check if values are NOT LESS
-
-                instructionList.add(new Ldi(-1)); // if we reach here, o2 < o1 was TRUE, this LDI will be our "return" value
-                instructionList.add(new Ldi(-1)); // value so we can jump around
-                int endBrcIndex = instructionList.size();
-                instructionList.add(new Nop()); // BRC will be inserted here; jump to end
-
-                int equalsCheckIndex = instructionList.size();
-                // additional equals check; push values to compare again
-                instructionList.add(new Push(1));
-                instructionList.add(new Push(0));
-                // compare equals
-                instructionList.add(new Cmp(CompareOperation.EQUALS));
-
-                int endIndex = instructionList.size();
-
-                // replacing BRCs
-                instructionList.set(additionalEqualsBrcIndex, new Brc(equalsCheckIndex));
-                instructionList.set(endBrcIndex, new Brc(endIndex));
+                instructionList.add(new Cmp(CompareOperation.LESS));
+                instructionList.add(new Not());
                 break;
             case Less:
             case Greater:
@@ -440,6 +415,15 @@ public class CodeGenerationVisitor implements ProgramVisitor {
             instructionList.add(new Not());
         else
             throw new UnsupportedOperationException(unaryCondition.getOperator().name());
+    }
+
+    private void addNotInstruction() {
+        Instruction lastOne = instructionList.get(instructionList.size() - 1);
+
+        if (lastOne instanceof Not)
+            instructionList.remove(instructionList.size() - 1);
+        else
+            instructionList.add(new Not());
     }
 
 }

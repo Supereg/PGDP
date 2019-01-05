@@ -10,6 +10,8 @@ public class CGFunction {
     private final List<String> parameters;
     private final List<CGDeclaration> declarations;
 
+    private Set<String> variables;
+
     private int instructionIndex; // index only set after whole program is assembled
     private boolean instructionIndexSet;
 
@@ -17,6 +19,7 @@ public class CGFunction {
         this.name = name;
         this.parameters = new ArrayList<>(parameters.length);
         Collections.addAll(this.parameters, parameters);
+        this.variables = new HashSet<>(parameters.length);
 
         this.declarations = new ArrayList<>();
     }
@@ -33,6 +36,10 @@ public class CGFunction {
         return parameters.size();
     }
 
+    public boolean addParameter(String name) {
+        return variables.add(name);
+    }
+
     public boolean addDeclaration(String name) {
         CGDeclaration declaration = new CGDeclaration(name);
 
@@ -40,7 +47,7 @@ public class CGFunction {
             return false;
 
         declarations.add(declaration);
-        return true;
+        return variables.add(name);
     }
 
     /**
@@ -56,12 +63,19 @@ public class CGFunction {
         if (declIndex >= 0)
             return declIndex + 1; // local variables begin at 1
         else {
-            int variableIndex = parameters.indexOf(name);
+            int parameterIndex = parameters.indexOf(name);
 
-            if (variableIndex >= 0)
-                return -variableIndex;
+            if (parameterIndex < 0)
+                throw new VariableNotFoundException(name);
+            /*
+            Looking at the example of main(int a, int b)
+            parameters looks the following {"a", "b"}
 
-            throw new VariableNotFoundException(name);
+            however variable index for a: -1 and b: 0
+            so we need to translate this here
+             */
+            final int minIndex = -(parameters.size() - 1); // this is the littlest variable index possible
+            return minIndex + parameterIndex;
         }
     }
 
@@ -106,7 +120,7 @@ public class CGFunction {
     }
 
     @Override
-    public boolean equals(Object o) { // TODO is the parameterSize relevant?
+    public boolean equals(Object o) { // is the parameterSize relevant?
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         CGFunction that = (CGFunction) o;

@@ -4,7 +4,7 @@ public class Composite extends Statement {
 
     private Statement[] statements;
 
-    public Composite(Statement[] statements) { // TODO not null
+    public Composite(Statement[] statements) {
         this.statements = statements;
     }
 

@@ -2,9 +2,9 @@ package de.andi.minijava.language;
 
 public class Return extends Statement {
 
-    private Expression expression; // TODO not null
+    private Expression expression;
 
-    public Return(Expression expression) { // TODO make this subclass of ExpressionStatement
+    public Return(Expression expression) {
         this.expression = expression;
     }
 

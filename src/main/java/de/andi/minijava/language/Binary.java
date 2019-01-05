@@ -4,9 +4,9 @@ import de.andi.minijava.language.operations.Binop;
 
 public class Binary extends Expression {
 
-    private Expression lhs; // TODO not null
-    private Binop operator; // TODO not null
-    private Expression rhs; // TODO not null
+    private Expression lhs;
+    private Binop operator;
+    private Expression rhs;
 
     public Binary(Expression lhs, Binop operator, Expression rhs) {
         this.lhs = lhs;

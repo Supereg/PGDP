@@ -4,7 +4,7 @@ public class Declaration {
 
     private String[] names;
 
-    public Declaration(String[] names) { // TODO names should not be empty
+    public Declaration(String[] names) {
         this.names = names;
     }
 

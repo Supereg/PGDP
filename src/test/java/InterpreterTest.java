@@ -77,6 +77,18 @@ public class InterpreterTest {
         assertEquals(2, out);
     }
 
+    @Test(expected = ArithmeticException.class)
+    public void testModByZero() {
+        Instruction[] instructions = {
+                new Ldi(0),
+                new Ldi(32),
+                new Mod(),
+                new Halt()
+        };
+
+        run(instructions);
+    }
+
     @Test
     public void testDiv() {
         Instruction[] instructions = {

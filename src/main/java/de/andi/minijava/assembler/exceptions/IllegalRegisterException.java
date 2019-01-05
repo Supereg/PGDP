@@ -10,8 +10,4 @@ public class IllegalRegisterException extends InterpreterException {
         super("Illegal register number specified: " + message);
     }
 
-    public IllegalRegisterException(Throwable cause) {
-        super("Illegal register number specified", cause);
-    }
-
 }

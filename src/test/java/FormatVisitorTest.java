@@ -206,7 +206,7 @@ public class FormatVisitorTest {
                         new IfThenElse(new Comparison(new Variable("biggest"), Comp.GreaterEqual, new Number(10)),
                                 new Composite(new Statement[] {
                                         new Assignment("biggest", new Unary(Unop.Minus, new Variable("biggest"))),
-                                        new IfThen(new Comparison(new Variable("a"), Comp.Equals, new Number(5)),
+                                        new IfThen(new Comparison(new Variable("a"), Comp.Equals, new Number(15)),
                                                 new Composite(new Statement[] {
                                                         new Assignment("result", new Number(5))
                                                 }))
@@ -238,7 +238,7 @@ public class FormatVisitorTest {
                 "    biggest = a;\n" +
                 "  if (biggest >= 10) {\n" +
                 "    biggest = -biggest;\n" +
-                "    if (a == 5) {\n" +
+                "    if (a == 15) {\n" +
                 "      result = 5;\n" +
                 "    }\n" +
                 "  } else {\n" +
@@ -248,6 +248,50 @@ public class FormatVisitorTest {
                 "    result = result + 1;\n" +
                 "  }\n" +
                 "  return result;\n" +
+                "}", visitor.getFormattedCode());
+    }
+
+    @Test
+    public void testSimpleDoWhile() {
+        Program program = new Program(new Function[] {
+                new Function("main", new String[0], new Declaration[] {
+                        new Declaration(new String[] {"i"})
+                }, new Statement[] {
+                        new While(new True(), new Assignment("i", new Number(1)), true)
+                })
+        });
+
+        FormatVisitor visitor = new FormatVisitor();
+        program.accept(visitor);
+
+        assertEquals("Unexpected code format", "int main() {\n" +
+                "  int i;\n" +
+                "  do\n" +
+                "    i = 1;\n" +
+                "  while (true);\n" +
+                "}", visitor.getFormattedCode());
+    }
+
+    @Test
+    public void testComposite() {
+        Program program = new Program(new Function[] {
+                new Function("main", new String[0], new Declaration[] {
+                        new Declaration(new String[] {"i"})
+                }, new Statement[] { new Composite(
+                        new Statement[]{
+                                new Assignment("i", new Binary(new Number(2), Plus, new Number(3)))
+                        }
+                )})
+        });
+
+        FormatVisitor visitor = new FormatVisitor();
+        program.accept(visitor);
+
+        assertEquals("Unexpected code format", "int main() {\n" +
+                "  int i;\n" +
+                "  {\n" +
+                "    i = 2 + 3;\n" +
+                "  }\n" +
                 "}", visitor.getFormattedCode());
     }
 

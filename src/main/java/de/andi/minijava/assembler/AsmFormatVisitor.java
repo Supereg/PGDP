@@ -9,7 +9,8 @@ public class AsmFormatVisitor implements AsmVisitor {
     private StringBuilder formatBuilder;
 
     public AsmFormatVisitor(Instruction[] instructions) {
-        // TODO assert != null
+        if (instructions == null || instructions.length == 0)
+            throw new IllegalArgumentException("instructions must not be null or empty");
         this.instructions = instructions;
     }
 

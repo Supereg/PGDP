@@ -60,8 +60,8 @@ public class Interpreter implements AsmVisitor {
             }
         }
 
-        if (stackPointer > 0)
-            System.err.println("WARNING! More than one element on stack after termination!");
+        //if (stackPointer > 0)
+        //    System.err.println("WARNING! More than one element on stack after termination!");
 
         return popValueFromStack(); // when the program has nothing to return, it will return with StackEmptyException
     }
@@ -113,7 +113,12 @@ public class Interpreter implements AsmVisitor {
 
     @Override
     public void visit(Mod mod) {
-        int value = popValueFromStack() % popValueFromStack();
+        int value;
+        try {
+            value = popValueFromStack() % popValueFromStack();
+        } catch (java.lang.ArithmeticException e) {
+            throw new ArithmeticException(e.getMessage());
+        }
         pushValueToStack(value);
     }
 
@@ -122,8 +127,7 @@ public class Interpreter implements AsmVisitor {
         int value;
         try {
             value = popValueFromStack() / popValueFromStack();
-        }
-        catch (java.lang.ArithmeticException e) {
+        } catch (java.lang.ArithmeticException e) {
             throw new ArithmeticException(e.getMessage());
         }
 

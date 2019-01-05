@@ -6,7 +6,4 @@ public class StackOverflowException extends StackException {
         super("Stack overflowed");
     }
 
-    public StackOverflowException(Throwable cause) {
-        super("Stack overflowed", cause);
-    }
 }

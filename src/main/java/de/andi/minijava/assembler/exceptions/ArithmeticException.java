@@ -6,8 +6,4 @@ public class ArithmeticException extends InterpreterException {
         super(message);
     }
 
-    public ArithmeticException(String message, Throwable cause) {
-        super(message, cause);
-    }
-
 }

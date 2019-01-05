@@ -89,7 +89,18 @@ public class FormatVisitor implements ProgramVisitor {
 
     @Override
     public void visit(Composite composite) {
-        formatBuilder.append("{"); // TODO when we do not get appended after control structure we would need to insert tabs
+        int magic = formatBuilder.lastIndexOf("@");
+        if (magic == formatBuilder.length() - 1) {
+            formatBuilder.deleteCharAt(magic);
+        }
+        else {
+            if (magic >= 0)
+                throw new RuntimeException("Found an unresolved magic character at " + magic);
+
+            appendTabs();
+        }
+
+        formatBuilder.append("{");
 
         currentTabs++;
         for (Statement statement: composite.getStatements()) {
@@ -321,6 +332,7 @@ public class FormatVisitor implements ProgramVisitor {
     private void formatBody(Statement statement) {
         if (statement instanceof Composite) {
             formatBuilder.append(" ");
+            formatBuilder.append("@");
             statement.accept(this);
         }
         else {

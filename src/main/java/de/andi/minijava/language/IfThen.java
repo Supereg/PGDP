@@ -1,8 +1,8 @@
 package de.andi.minijava.language;
 
-public class IfThen extends Statement { // TODO make this super class of IfThenElse
+public class IfThen extends Statement {
 
-    private Condition condition; // TODO shouldn bet null
+    private Condition condition;
 
     private Statement thenBranch;
 
