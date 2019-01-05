@@ -1,7 +1,6 @@
 import de.andi.minijava.assembler.Interpreter;
+import de.andi.minijava.assembler.exceptions.*;
 import de.andi.minijava.assembler.exceptions.ArithmeticException;
-import de.andi.minijava.assembler.exceptions.IllegalDeclarationException;
-import de.andi.minijava.assembler.exceptions.IllegalRegisterException;
 import de.andi.minijava.assembler.instructions.*;
 import de.andi.minijava.assembler.operations.CompareOperation;
 import org.junit.Test;
@@ -9,6 +8,11 @@ import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 
 public class InterpreterTest {
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testIllegalProgram() {
+        run(null);
+    }
 
     @Test
     public void testLdi() {
@@ -350,6 +354,81 @@ public class InterpreterTest {
 
             assertEquals("Unexpected result for fac(" + i + ")", expected[i], run(instructions));
         }
+    }
+
+    @Test(expected = IllegalProgramCounterException.class)
+    public void illegalJumpNegative() {
+        Instruction[] instructions = {
+                new Ldi(-1), // load true
+                new Brc(-1)
+        };
+
+        run(instructions);
+    }
+
+    @Test(expected = IllegalProgramCounterException.class)
+    public void illegalJumpPositive() {
+        Instruction[] instructions = {
+                new Ldi(-1), // load true
+                new Brc(128)
+        };
+
+        run(instructions);
+    }
+
+    @Test(expected = StackEmptyException.class)
+    public void testStackEmpty() {
+        Instruction[] instructions = {
+                new Pop(0)
+        };
+
+        run(instructions);
+    }
+
+    @Test(expected = StackOverflowException.class)
+    public void testStackOverflow() {
+        Instruction[] instructions = new Instruction[129];
+        for (int i = 0; i < instructions.length; i++) {
+            instructions[i] = new Ldi(1);
+        }
+
+        run(instructions);
+    }
+
+    @Test(expected = IllegalProgramCounterException.class)
+    public void testMissingHalt() {
+        Instruction[] instructions = {
+                new Ldi(3),
+                new Ldi(2),
+                new Add()
+        };
+
+        run(instructions);
+    }
+
+    @Test(expected = IllegalVariableException.class)
+    public void testIllegaleSAS() {
+        Instruction[] instructions = {
+                new Decl(1),
+                new Ldi(23),
+                new Sts(0),
+                new Halt()
+        };
+
+        run(instructions);
+    }
+
+    @Test(expected = IllegalVariableException.class)
+    public void testIllegalLFS() {
+        Instruction[] instructions = {
+                new Decl(1),
+                new Ldi(1),
+                new Sts(1),
+                new Lfs(0),
+                new Halt()
+        };
+
+        run(instructions);
     }
 
     private int run(Instruction[] instructions) {

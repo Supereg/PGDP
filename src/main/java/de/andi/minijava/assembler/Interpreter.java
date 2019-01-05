@@ -21,8 +21,16 @@ public class Interpreter implements AsmVisitor {
     private boolean declarationAllowed = true; // decl is allowed as first instruction
     private boolean declarationAllowedSet = false;
 
+    /**
+     * Instantiates Interpreter object
+     *
+     * @param instructions  instructions to run
+     * @throws IllegalArgumentException if the passed {@code instructions} are {@code null} or empty
+     */
     public Interpreter(Instruction[] instructions) {
-        this.instructions = instructions; // TODO ensure != null and not empty => collides with programCounter
+        if (instructions == null || instructions.length == 0)
+            throw new IllegalArgumentException("instructions must not be null or empty");
+        this.instructions = instructions;
     }
 
     public int execute() {
@@ -33,8 +41,6 @@ public class Interpreter implements AsmVisitor {
                     instruction.accept(this);
                 } catch (InterpreterException e) {
                     throw e; // needs to be rethrown (such has HaltException)
-                } catch (java.lang.ArithmeticException e) { // TODO right thing to do?
-                    throw new ArithmeticException(e.getMessage(), e);
                 } catch (Exception e) {
                     throw new KernelPanicException(e);
                 }
@@ -43,7 +49,6 @@ public class Interpreter implements AsmVisitor {
                     declarationAllowed = false;
 
                 declarationAllowedSet = false;
-                // System.out.println("EXECUTING " + instruction.getClass().getSimpleName()); // TODO debug stuff
             } catch (HaltException e) {
                 break;
             } catch (InterpreterException e) {
@@ -58,7 +63,7 @@ public class Interpreter implements AsmVisitor {
         if (stackPointer > 0)
             System.err.println("WARNING! More than one element on stack after termination!");
 
-        return popValueFromStack(); // TODO what to return if the program has nothing done?
+        return popValueFromStack(); // when the program has nothing to return, it will return with StackEmptyException
     }
 
     private int popValueFromStack() {
@@ -114,7 +119,14 @@ public class Interpreter implements AsmVisitor {
 
     @Override
     public void visit(Div div) {
-        int value = popValueFromStack() / popValueFromStack();
+        int value;
+        try {
+            value = popValueFromStack() / popValueFromStack();
+        }
+        catch (java.lang.ArithmeticException e) {
+            throw new ArithmeticException(e.getMessage());
+        }
+
         pushValueToStack(value);
     }
 
@@ -142,17 +154,23 @@ public class Interpreter implements AsmVisitor {
     }
 
     @Override
-    public void visit(Lfs lfs) { // load from stack TODO test
-        // TODO handle framePointer=-1 when lfs.getVariable == 0
-        int value = stack[framePointer + lfs.getVariable()]; // TODO check for arrayIndexOutOfBounds
+    public void visit(Lfs lfs) { // load from stack
+        int stackIndex = framePointer + lfs.getVariable();
+        if (stackIndex < 0 || stackIndex >= stack.length)
+            throw new IllegalVariableException("Tried loading local variable out of range");
+
+        int value = stack[framePointer + lfs.getVariable()];
         pushValueToStack(value);
     }
 
     @Override
-    public void visit(Sts sts) { // store to stack TODO test
-        // TODO handle framePointer=-1
+    public void visit(Sts sts) { // store to stack
+        int stackIndex = framePointer + sts.getVariable();
+        if (stackIndex < 0 || stackIndex >= stack.length)
+            throw new IllegalVariableException("Tried saving to local variable out of range");
+
         int value = popValueFromStack();
-        stack[framePointer + sts.getVariable()] = value; // TODO check for arrayIndexOutOfBounds
+        stack[framePointer + sts.getVariable()] = value;
     }
 
     @Override
@@ -221,7 +239,6 @@ public class Interpreter implements AsmVisitor {
 
         for (int i = 0; i < returnInstruction.getVariableAndArgumentCount(); i++) // empty stack
             popValueFromStack();
-        //stackPointer -= returnInstruction.getVariableAndArgumentCount(); // TODO validate
 
         framePointer = popValueFromStack();
         jump(popValueFromStack());

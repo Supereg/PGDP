@@ -12,10 +12,6 @@ public enum CompareOperation {
         this.symbol = symbol;
     }
 
-    public String getSymbol() {
-        return symbol;
-    }
-
     @Override
     public String toString() {
         return name();

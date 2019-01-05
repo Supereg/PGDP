@@ -5,6 +5,12 @@ public class FormatVisitor implements ProgramVisitor {
     private StringBuilder formatBuilder = new StringBuilder();
     private int currentTabs;
 
+    public FormatVisitor() {}
+
+    public FormatVisitor(Program program) {
+        program.accept(this);
+    }
+
     public String getFormattedCode() {
         return formatBuilder.toString();
     }
