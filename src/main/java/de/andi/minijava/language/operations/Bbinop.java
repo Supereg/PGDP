@@ -1,18 +1,15 @@
 package de.andi.minijava.language.operations;
 
-public enum Bunop {
+public enum Bbinop {
 
-  Not("!"),
+  And("&&"),
+  Or("||"),
   ;
 
   private String symbol;
 
-  Bunop(String symbol) {
+  Bbinop(String symbol) {
     this.symbol = symbol;
-  }
-
-  public String getSymbol() {
-    return symbol;
   }
 
   @Override

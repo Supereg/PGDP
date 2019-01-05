@@ -18,10 +18,6 @@ public enum Comp {
     this.rightToLeft = rightToLeft;
   }
 
-  public String getSymbol() {
-    return symbol;
-  }
-
   public boolean isRightToLeft() {
     return rightToLeft;
   }

@@ -4,6 +4,8 @@ import de.andi.minijava.assembler.instructions.Instruction;
 import de.andi.minijava.codegen.CodeGenerationVisitor;
 import de.andi.minijava.language.Number;
 import de.andi.minijava.language.*;
+import de.andi.minijava.language.operations.Binop;
+import de.andi.minijava.language.operations.Comp;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -25,11 +27,11 @@ public class CodegenTest {
                     new Function[] {
                             new Function("fak", new String[] {"n"}, new Declaration[0], new Statement[] {
                                     new IfThen(
-                                            new Comparison(new Variable("n"), de.andi.minijava.language.operations.Comp.Equals, new de.andi.minijava.language.Number(1)),
-                                            new Return(new de.andi.minijava.language.Number(1))
+                                            new Comparison(new Variable("n"), Comp.Equals, new Number(1)),
+                                            new Return(new Number(1))
                                     ),
-                                    new Return(new Binary(new Variable("n"), de.andi.minijava.language.operations.Binop.MultiplicationOperator,
-                                            new Call("fak", new Expression[]{new Binary(new Variable("n"), de.andi.minijava.language.operations.Binop.Minus, new de.andi.minijava.language.Number(1))})))
+                                    new Return(new Binary(new Variable("n"), Binop.MultiplicationOperator,
+                                            new Call("fak", new Expression[]{new Binary(new Variable("n"), Binop.Minus, new Number(1))})))
                             }),
                             new Function("main", new String[0], new Declaration[0], new Statement[] {
                                     new Return(new Call("fak", new Expression[] {new Number(i)}))

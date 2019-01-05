@@ -2,33 +2,29 @@ package de.andi.minijava.language;
 
 public class FormatVisitor implements ProgramVisitor {
 
-    private String formattedCode;
+    private StringBuilder formatBuilder = new StringBuilder();
+    private int currentTabs;
 
     public String getFormattedCode() {
-        return formattedCode;
+        return formatBuilder.toString();
     }
 
     @Override
     public void visit(Program program) {
-        StringBuilder formatBuilder = new StringBuilder();
+        currentTabs = 0;
 
         Function[] functions = program.getFunctions();
         for (int i = 0; i < functions.length; i++) {
             functions[i].accept(this);
 
-            formatBuilder.append(formattedCode);
-
             if (i < functions.length - 1)
                 formatBuilder.append("\n\n");
         }
-
-        formattedCode = formatBuilder.toString();
     }
 
     @Override
     public void visit(Function function) {
-        StringBuilder formatBuilder = new StringBuilder("int ")
-                .append(function.getName()).append("(");
+        formatBuilder.append("int ").append(function.getName()).append("(");
 
         String[] parameters = function.getParameters();
         for (int i = 0; i < parameters.length; i++) {
@@ -40,24 +36,29 @@ public class FormatVisitor implements ProgramVisitor {
 
         formatBuilder.append(") {");
 
+        currentTabs++;
+
         for (Declaration declaration : function.getDeclarations()) {
+            formatBuilder.append("\n").append("  ");
             declaration.accept(this);
-            formatBuilder.append("\n  ").append(formattedCode);
         }
 
         for (Statement statement : function.getStatements()) {
+            formatBuilder.append("\n");
             statement.accept(this);
-            formatBuilder.append("\n  ").append(formattedCode);
         }
 
-        formatBuilder.append("\n}"); // TODO empty ones above, how should it e printed
+        currentTabs--;
 
-        formattedCode = formatBuilder.toString();
+        formatBuilder.append("\n");
+        appendTabs(); // wont append any tabs, however this is the correct way
+        formatBuilder.append("}");
     }
 
     @Override
     public void visit(Declaration declaration) {
-        StringBuilder formatBuilder = new StringBuilder("int ");
+        // tabs are handled in #visit(function)
+        formatBuilder.append("int ");
 
         String[] names = declaration.getNames();
         for (int i = 0; i < names.length; i++) {
@@ -68,189 +69,264 @@ public class FormatVisitor implements ProgramVisitor {
         }
 
         formatBuilder.append(";");
-
-        formattedCode = formatBuilder.toString();
     }
 
 
     @Override
     public void visit(Assignment assignment) {
+        appendTabs();
+
+        formatBuilder.append(assignment.getName()).append(" = ");
         assignment.getExpression().accept(this);
-        formattedCode = assignment.getName() + " = " + formattedCode + ";";
+        formatBuilder.append(";");
     }
 
     @Override
     public void visit(Composite composite) {
-        StringBuilder formatBuilder = new StringBuilder("{");
+        formatBuilder.append("{"); // TODO when we do not get appended after control structure we would need to insert tabs
 
-        for (Statement statement : composite.getStatements()) {
+        currentTabs++;
+        for (Statement statement: composite.getStatements()) {
+            formatBuilder.append("\n");
             statement.accept(this);
-            formatBuilder.append("\n").append(formattedCode);
         }
+        currentTabs--;
 
-        formatBuilder.append("\n}"); // TODO how to handle empty composite
-        formattedCode = formatBuilder.toString();
+        formatBuilder.append("\n");
+        appendTabs();
+        formatBuilder.append("}");
     }
 
     @Override
     public void visit(IfThen ifThen) {
+        appendTabs();
+        formatBuilder.append("if (");
         ifThen.getCond().accept(this);
-        StringBuilder formatBuilder = new StringBuilder("if (")
-                .append(formattedCode).append(") {");
+        formatBuilder.append(")");
 
-        if (ifThen.getThenBranch() != null) { // TODO allow empty bodies?
-            ifThen.getThenBranch().accept(this);
-            formatBuilder.append("\n").append("  ").append(formattedCode); // TODO einrücken
-        }
-
-        formatBuilder.append("\n}"); // TODO empty bodies syntax
-
-        formattedCode = formatBuilder.toString();
+        Statement then = ifThen.getThenBranch();
+        if (then == null)
+            formatBuilder.append(";");
+        else
+            formatBody(then);
     }
 
     @Override
-    public void visit(IfThenElse ifThenElse) { // TODO subcalls from ifThen -> reuse method
-        ifThenElse.getCond().accept(this);
+    public void visit(IfThenElse ifThenElse) {
+        this.visit((IfThen) ifThenElse);
 
-        StringBuilder formatBuilder = new StringBuilder("if (")
-                .append(formattedCode).append(") {");
-
-        if (ifThenElse.getThenBranch() != null) { // TODO empty bodies
-            ifThenElse.getThenBranch().accept(this);
-            formatBuilder.append("\n").append("  ").append(formattedCode);
+        if (ifThenElse.getThenBranch() instanceof Composite)
+            formatBuilder.append(" else");
+        else {
+            formatBuilder.append("\n");
+            appendTabs();
+            formatBuilder.append("else");
         }
 
-        formatBuilder.append("\n}"); // TODO empty bodies
-
-        formatBuilder.append("\nelse").append(" {");
-
-        if (ifThenElse.getElseBranch() != null) {
-            ifThenElse.getElseBranch().accept(this);
-            formatBuilder.append("\n").append("  ").append(formattedCode);
-        }
-
-        formatBuilder.append("\n}");
-
-        formattedCode = formatBuilder.toString();
+        Statement elseBranch = ifThenElse.getElseBranch();
+        if (elseBranch == null)
+            formatBuilder.append(";");
+        else
+            formatBody(elseBranch);
     }
 
     @Override
     public void visit(While whileStatement) {
-        // TODO brackets
+        appendTabs();
+
+        if (whileStatement.isDoWhile()) {
+            formatBuilder.append("do");
+            formatBody(whileStatement.getBody());
+
+            if (whileStatement.getBody() instanceof Composite)
+                formatBuilder.append(" while (");
+            else {
+                formatBuilder.append("\n");
+                appendTabs();
+                formatBuilder.append("while (");
+            }
+
+            whileStatement.getCondition().accept(this);
+            formatBuilder.append(");");
+        }
+        else {
+            formatBuilder.append("while (");
+            whileStatement.getCondition().accept(this);
+            formatBuilder.append(")");
+            formatBody(whileStatement.getBody());
+        }
     }
 
     @Override
     public void visit(Switch switchStatement) {
-        // TODO switch
+        appendTabs();
+        formatBuilder.append("switch ("); // correct would be "switch ("
+        switchStatement.getSwitchExpression().accept(this);
+        formatBuilder.append(") {");
+
+        currentTabs++;
+
+        for (SwitchCase switchCase: switchStatement.getCases()) {
+            formatBuilder.append("\n");
+            appendTabs();
+            formatBuilder.append("case ").append(switchCase.getNumber()).append(":");
+
+            formatBody(switchCase.getCaseStatement());
+        }
+
+        if (switchStatement.getDefault() != null) {
+            formatBuilder.append("\n");
+            appendTabs();
+            formatBuilder.append("default:");
+            formatBody(switchStatement.getDefault());
+        }
+
+        currentTabs--;
+
+        formatBuilder.append("\n");
+        appendTabs();
+        formatBuilder.append("}");
     }
 
     @Override
     public void visit(Return returnStatement) {
-        returnStatement.getExpression().accept(this); // TODO NPE?
-        formattedCode = "return " + formattedCode + ";";
+        appendTabs();
+        formatBuilder.append("return ");
+        returnStatement.getExpression().accept(this);
+        formatBuilder.append(";");
     }
 
     @Override
     public void visit(Break breakStatement) {
-        formattedCode = "break;";
+        appendTabs();
+        formatBuilder.append("break;");
     }
 
     @Override
     public void visit(ExpressionStatement expressionStatement) {
+        appendTabs();
         expressionStatement.getExpression().accept(this);
-        formattedCode += ";";
+        formatBuilder.append(";");
     }
 
 
     @Override
     public void visit(Variable variable) {
-        formattedCode = variable.getName();
+        formatBuilder.append(variable.getName());
     }
 
     @Override
     public void visit(Number number) {
-        formattedCode = number.getValue() + "";
+        formatBuilder.append(number.getValue());
     }
 
     @Override
     public void visit(Binary binary) {
-        binary.getLhs().accept(this);
-        String leftExpression = formattedCode;
-        binary.getRhs().accept(this);
-        String rightExpression = formattedCode;
-
-        formattedCode = leftExpression + " " + binary.getOperator() + " " + rightExpression;
+        bracketOperand(binary.getLhs());
+        formatBuilder.append(" ").append(binary.getOperator()).append(" ");
+        bracketOperand(binary.getRhs());
     }
 
     @Override
     public void visit(Unary unary) {
-        unary.getOperand().accept(this);
-        formattedCode = unary.getOperator() + formattedCode;
+        formatBuilder.append(unary.getOperator());
+        bracketOperand(unary.getOperand());
+    }
+
+    private void bracketOperand(Expression operand) {
+        if (operand instanceof Binary) {
+            // additionally we could check if we can leave out the brackets when same operations are used
+            formatBuilder.append("(");
+            operand.accept(this);
+            formatBuilder.append(")");
+        }
+        else
+            operand.accept(this);
     }
 
     @Override
     public void visit(Read read) {
-        formattedCode = "read()";
+        formatBuilder.append("read()");
     }
 
     @Override
     public void visit(Write write) {
+        formatBuilder.append("write(");
         write.getExpression().accept(this);
-        formattedCode = "write(" + formattedCode + ")";
+        formatBuilder.append(")");
     }
 
     @Override
     public void visit(Call call) {
-        StringBuilder callBuilder = new StringBuilder(call.getFunctionName()).append("(");
+        formatBuilder.append(call.getFunctionName()).append("(");
 
         Expression[] arguments = call.getArguments();
         for (int i = 0; i < arguments.length; i++) {
             arguments[i].accept(this);
 
-            callBuilder.append(formattedCode);
-
             if (i < arguments.length - 1)
-                callBuilder.append(", ");
+                formatBuilder.append(", ");
         }
 
-        formattedCode = callBuilder.append(")").toString();
+        formatBuilder.append(")");
     }
 
 
     @Override
     public void visit(True trueCondition) {
-        formattedCode = "true";
+        formatBuilder.append("true");
     }
 
     @Override
     public void visit(False falseCondition) {
-        formattedCode = "false";
+        formatBuilder.append("false");
     }
 
     @Override
     public void visit(BinaryCondition binaryCondition) {
-        binaryCondition.getLhs().accept(this);
-        String leftExpression = formattedCode;
-        binaryCondition.getRhs().accept(this);
-        String rightExpression = formattedCode;
-
-        formattedCode = leftExpression + " " + binaryCondition.getOperator() + " " + rightExpression;
+        bracketCondition(binaryCondition.getLhs());
+        formatBuilder.append(" ").append(binaryCondition.getOperator()).append(" ");
+        bracketCondition(binaryCondition.getRhs());
     }
 
     @Override
     public void visit(Comparison comparison) {
-        comparison.getLhs().accept(this);
-        String leftExpression = formattedCode;
-        comparison.getRhs().accept(this);
-        String rightExpression = formattedCode;
-
-        formattedCode = leftExpression + " " + comparison.getOperator() + " " + rightExpression;
+        bracketOperand(comparison.getLhs());
+        formatBuilder.append(" ").append(comparison.getOperator()).append(" ");
+        bracketOperand(comparison.getRhs());
     }
 
     @Override
     public void visit(UnaryCondition unaryCondition) {
-        unaryCondition.getOperand().accept(this);
-        formattedCode = unaryCondition.getOperator() + formattedCode;
+        formatBuilder.append(unaryCondition.getOperator());
+        bracketCondition(unaryCondition.getOperand());
+    }
+
+    private void bracketCondition(Condition condition) {
+        if (condition instanceof BinaryCondition || condition instanceof Comparison) {
+            formatBuilder.append("(");
+            condition.accept(this);
+            formatBuilder.append(")");
+        }
+        else
+            condition.accept(this);
+    }
+
+    private void formatBody(Statement statement) {
+        if (statement instanceof Composite) {
+            formatBuilder.append(" ");
+            statement.accept(this);
+        }
+        else {
+            formatBuilder.append("\n").append("  ");
+            statement.accept(this);
+        }
+    }
+
+    private void appendTabs() {
+        for (int i = 0; i < currentTabs; i++) {
+            formatBuilder.append("  ");
+        }
     }
 
 }
