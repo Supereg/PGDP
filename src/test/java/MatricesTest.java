@@ -202,7 +202,7 @@ public class MatricesTest {
             // All permutations are distinct
             Arrays.sort(permutations, (int[] a, int[] b) -> {
                 for (int i = 0; i < a.length; i++) {
-                    int cmp = new Integer(a[i]).compareTo(b[i]);
+                    int cmp = Integer.compare(a[i], b[i]);
                     if (cmp < 0)
                         return cmp;
                     else if (cmp > 0)
