@@ -99,9 +99,9 @@ public class Webserver {
         return new HttpResponse(HttpStatus.Ok, body);
     }
 
+    // Don't know if we should also include DocumentCollection in our solution, so keep it save and include it here
     private static Stream<Document> documentStream(DocumentCollection collection) {
-        Iterator<Document> iterator = collection.iterator();
-        return StreamSupport.stream(Spliterators.spliteratorUnknownSize(iterator, 0), false);
+        return StreamSupport.stream(Spliterators.spliterator(collection.iterator(), collection.numDocuments(), 0), false);
     }
 
     private static class ClientHandler {
