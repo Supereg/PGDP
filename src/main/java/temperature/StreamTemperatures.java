@@ -114,30 +114,36 @@ public class StreamTemperatures extends Temperatures {
     }
 
     public Map<String, Double> avgTemperatureDeltaPerYearPerCountry() {
-        Map<String, Double> avgTemperatureDeltaPerYear = temperaturesByCountry().entrySet().stream().collect(Collectors.toMap(Entry::getKey, entry -> {
-            Map<Integer, Double> yearToTotalTemp = entry.getValue().stream().collect(
-                    Collectors.toMap(temperature -> temperature.getDate().getYear(), Temperature::getAverageTemperature, Double::sum)
-            );
-            Map<Integer, Integer> yearToTempCountInYear = entry.getValue().stream().collect(
-                    Collectors.toMap(temperature -> temperature.getDate().getYear(), temperature -> 1, Integer::sum)
-            );
+        Map<String, Double> avgTempDeltaPerYear = temperaturesByCountry().entrySet().stream().collect(
+                Collectors.toMap(Entry::getKey, tempByCountryEntry -> {
+                    // mapping year to total temperature sum
+                    Map<Integer, Integer> yearToTempSum = tempByCountryEntry.getValue().stream().collect(
+                            Collectors.toMap(temperature -> temperature.getDate().getYear(), temperature -> 1, Integer::sum)
+                    );
+                    // mapping year to average temp
+                    Map<Integer, Double> yearToAvgTemp = tempByCountryEntry.getValue().stream().collect(
+                            Collectors.toMap(temperature -> temperature.getDate().getYear(), Temperature::getAverageTemperature, Double::sum)
+                    ).entrySet().stream().filter(entry -> entry.getKey() >= 0).collect(
+                            Collectors.toMap(Entry::getKey, entry -> entry.getValue() / yearToTempSum.get(entry.getKey()))
+                    );
 
-            Map<Integer, Double> yearToAvgTemp = yearToTotalTemp.entrySet().stream().collect(
-                    Collectors.toMap(Entry::getKey, entry1 -> entry1.getValue() / yearToTempCountInYear.get(entry1.getKey()))
-            );
+                    // list of all temperature deltas between two years
+                    List<Double> yearlyTempDeltas = yearToAvgTemp.entrySet().stream()
+                            .map(yearToAvgEntry -> {
+                                Double avgTempNextYear = yearToAvgTemp.get(yearToAvgEntry.getKey() + 1);
+                                return avgTempNextYear != null? avgTempNextYear - yearToAvgEntry.getValue(): null;
+                            }).filter(Objects::nonNull).collect(Collectors.toList());
 
-            List<Double> yearlyTempDeltas = yearToAvgTemp.entrySet().stream().map(yearToAvgEntry -> {
-                Double avgTempNextYear = yearToAvgTemp.get(yearToAvgEntry.getKey() + 1);
-                return avgTempNextYear != null? avgTempNextYear - yearToAvgEntry.getValue(): null;
-            }).filter(Objects::nonNull).collect(Collectors.toList());
+                    // sum all temperature deltas and divide by size
+                    return yearlyTempDeltas.stream().reduce(0D, Double::sum) / yearlyTempDeltas.size();
+                })
+        );
 
-            return yearlyTempDeltas.stream().reduce(0D, Double::sum) / yearlyTempDeltas.size();
-        }));
+        // adding global key
+        Double globallyAvg = avgTempDeltaPerYear.values().stream().reduce(0D, Double::sum) / avgTempDeltaPerYear.size();
+        avgTempDeltaPerYear.put("Globally", globallyAvg);
 
-        Double globallyAvg = avgTemperatureDeltaPerYear.values().stream().reduce(0D, Double::sum) / avgTemperatureDeltaPerYear.size();
-        avgTemperatureDeltaPerYear.put("Globally", globallyAvg);
-
-        return avgTemperatureDeltaPerYear;
+        return avgTempDeltaPerYear;
     }
 
 }
