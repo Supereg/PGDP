@@ -5,11 +5,12 @@ import java.net.Socket;
 public class TestItServer {
 
     /*
-        TODO why gleichzeitig verbinden
-        Es können sich mehrere Clients gleichzeitig verbinden! Allerdings können nicht mehrere Anfragen gleichzeitig
-        bearbeitet werden, da hier eine Anfrage immer erst komplett abgearbeitet wird bevor #serverSocket.accept()
-        erneut aufgerufen wird, also der nächste Socket "geholt" wird und dessen Anfrage "bearbeitet" wird. Damit dies
-        funktionieren kann, müsste das abarbeiten der Anfrage auf einen externen Thread ausgelagert werden.
+        Es können sich mehrere Clients gleichzeitig verbinden (Networking is von grund auf parallel)! Allerdings können
+        nicht mehrere Anfragen gleichzeitig bearbeitet werden, da wir unseren TestItServer single threaded programmiert
+        haben. Heißt, dass die Anfrage eines Clients erst komplett abgearbeitet werden muss (bis dieser Verbindung
+        verliert oder "exit" eingebt), bevor die Anfrage des nächsten Clients (mit call von #serverSocket.accept())
+        begonnen wird. Damit ein gleichzeitiges Benutzten möglich ist, müsste das Abarbeiten der Anfrage auf einen
+        externen Thread ausgelagert werden.
      */
 
     public static void main(String[] args) {
@@ -46,7 +47,6 @@ public class TestItServer {
         private final Socket socket;
         private final LinkedDocumentCollection collection;
 
-        private BufferedReader in;
         private PrintWriter out;
 
         private ClientHandler(Socket socket) {
@@ -61,7 +61,6 @@ public class TestItServer {
 
             try (BufferedReader in = new BufferedReader(new InputStreamReader(inputStream));
                  PrintWriter out = new PrintWriter(outputStream)) {
-                this.in = in;
                 this.out = out;
 
                 String line;
@@ -75,7 +74,7 @@ public class TestItServer {
                     String command = split[0];
                     String argument = split[1];
                     try {
-                        handleCommand(command.toLowerCase(), argument != null? argument.toLowerCase(): null);
+                        handleCommand(command, argument);
                         out.flush();
                     } catch (Exception e) {
                         e.printStackTrace();
@@ -93,13 +92,12 @@ public class TestItServer {
                 System.err.println("Error occurred handling client");
                 e.printStackTrace();
             } finally {
-                in = null;
                 out = null;
             }
         }
 
         private void handleCommand(String command, String arguments) {
-            switch (command) {
+            switch (command.toLowerCase()) {
                 case "add":
                     if (arguments == null) {
                         out.println("Missing argument for command 'add'");
@@ -146,6 +144,9 @@ public class TestItServer {
             String title = split[0];
             String content = split[1];
 
+            out.println("Adding " + title);
+            out.println("Content: " + content);
+
             Document document = new LinkedDocument(title, "de", "", new Date(), null, content, title);
             collection.appendDocument(document);
         }
@@ -157,7 +158,7 @@ public class TestItServer {
         private void count(String word) {
             collection.iterate(document -> {
                 WordCountsArray wordCounts = document.getWordCounts();
-                int index = wordCounts.getIndexOfWord(word);
+                int index = wordCounts.getIndexOfWord(word.toLowerCase());
                 int count = wordCounts.getCount(index);
 
                 out.println(document.getTitle() +": " + (count > 0? count + "x": "gar nicht."));
@@ -165,7 +166,7 @@ public class TestItServer {
         }
 
         private void query(String queryString) {
-            collection.match(queryString);
+            collection.match(queryString.toLowerCase());
 
             int index = 0;
             for (Document document: collection) {
