@@ -63,6 +63,9 @@ public class TestItServer {
                  PrintWriter out = new PrintWriter(outputStream)) {
                 this.out = out;
 
+                out.print("> ");
+                out.flush();
+
                 String line;
                 while ((line = in.readLine()) != null) {
                     if (line.toLowerCase().startsWith("exit")) {
@@ -75,6 +78,7 @@ public class TestItServer {
                     String argument = split[1];
                     try {
                         handleCommand(command, argument);
+                        out.print("> ");
                         out.flush();
                     } catch (Exception e) {
                         e.printStackTrace();
@@ -143,9 +147,6 @@ public class TestItServer {
             String[] split = splitByFirstCharacter(argument, ':');
             String title = split[0];
             String content = split[1];
-
-            out.println("Adding " + title);
-            out.println("Content: " + content);
 
             Document document = new LinkedDocument(title, "de", "", new Date(), null, content, title);
             collection.appendDocument(document);
