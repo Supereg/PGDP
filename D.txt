@@ -1,2 +1,0 @@
-D.txt
-erase una vez link:C.txt

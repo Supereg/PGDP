@@ -1,2 +1,0 @@
-A.txt
-es war einmal link:B.txt link:C.txt
