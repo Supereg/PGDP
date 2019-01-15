@@ -1,13 +1,28 @@
+import org.junit.AfterClass;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 import java.io.*;
 import java.net.Socket;
-import java.net.UnknownHostException;
 
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 
 public class TestItServerTest {
+
+  private static Thread testItServer;
+  @BeforeClass
+  public static void startTestItServer() throws IOException {
+    testItServer = new Thread(() -> {
+      TestItServer.main(new String[0]);
+    });
+    testItServer.start();
+  }
+
+  @AfterClass
+  public static void stopTestItServer() {
+    testItServer.stop();
+  }
 
   private static void testPrompt(BufferedReader in) throws IOException {
     char[] buf = new char[2];
