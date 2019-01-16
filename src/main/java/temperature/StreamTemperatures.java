@@ -117,10 +117,12 @@ public class StreamTemperatures extends Temperatures {
         Map<String, Double> avgTempDeltaPerYear = temperaturesByCountry().entrySet().stream().collect(
                 Collectors.toMap(Entry::getKey, tempByCountryEntry -> {
                     // mapping year to total temperature sum
+                    @SuppressWarnings("deprecation")
                     Map<Integer, Integer> yearToTempSum = tempByCountryEntry.getValue().stream().collect(
                             Collectors.toMap(temperature -> temperature.getDate().getYear(), temperature -> 1, Integer::sum)
                     );
                     // mapping year to average temp
+                    @SuppressWarnings("deprecation")
                     Map<Integer, Double> yearToAvgTemp = tempByCountryEntry.getValue().stream().collect(
                             Collectors.toMap(temperature -> temperature.getDate().getYear(), Temperature::getAverageTemperature, Double::sum)
                     ).entrySet().stream().filter(entry -> entry.getKey() >= 0).collect(

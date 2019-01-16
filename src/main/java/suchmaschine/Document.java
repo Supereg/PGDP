@@ -1,3 +1,5 @@
+package suchmaschine;
+
 import java.util.Objects;
 
 /**
