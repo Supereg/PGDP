@@ -1,6 +1,5 @@
-package utils;
+package mergesort;
 
-import mergersort.MergeSort;
 import org.junit.Test;
 
 import java.util.Arrays;
