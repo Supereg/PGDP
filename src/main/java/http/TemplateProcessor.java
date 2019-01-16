@@ -10,20 +10,20 @@ import java.util.stream.Collectors;
 public class TemplateProcessor {
 
     private final String fileName;
-    private List<String> fileContentLines; // lines with line separators
 
     public TemplateProcessor(String fileName) {
         this.fileName = fileName;
     }
 
     public String replace(Map<String, String> variableAssignments) {
-        if (fileContentLines == null) {
-            try {
-                loadFileContent();
-            } catch (IOException e) {
-                e.printStackTrace();
-                return null;
-            }
+        List<String> fileContentLines;
+        try {
+            // reading file doesn't need to be synchronized, only read access and other stuff will be handled by the OS
+            // since every call opens a new FileReader based on the fileName attribute, which is also read-only
+            fileContentLines = loadFileContent();
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
         }
 
         return fileContentLines.stream().map(
@@ -33,10 +33,10 @@ public class TemplateProcessor {
         ).collect(Collectors.joining());
     }
 
-    private void loadFileContent() throws IOException {
+    private List<String> loadFileContent() throws IOException {
         try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
             // #lines() can throw UncheckedIOException
-            fileContentLines = reader.lines().map(line -> line + System.lineSeparator()).collect(Collectors.toList());
+            return reader.lines().map(line -> line + System.lineSeparator()).collect(Collectors.toList());
         }
     }
 
