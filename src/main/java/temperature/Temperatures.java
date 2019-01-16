@@ -9,7 +9,8 @@ import java.net.URLConnection;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
-import java.util.Map.Entry;
+import java.util.function.Consumer;
+import java.util.function.Supplier;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
@@ -28,7 +29,6 @@ public abstract class Temperatures implements Iterable<Temperature> {
     public Temperatures(File csv) {
         List<Temperature> temperatures;
         try (BufferedReader in = new BufferedReader(new FileReader(csv))) {
-            System.out.println("Parsing file...");
             temperatures = parseCSV(in);
         } catch (Exception e) {
             temperatures = new ArrayList<>();
@@ -42,7 +42,6 @@ public abstract class Temperatures implements Iterable<Temperature> {
         try {
             URLConnection connection = url.openConnection(); // @see docs
             try (BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()))) {
-                System.out.println("Downloading file...");
                 temperatures = parseCSV(in);
             }
         } catch (Exception e) {
@@ -78,37 +77,84 @@ public abstract class Temperatures implements Iterable<Temperature> {
         }).filter(Objects::nonNull).collect(Collectors.toList());
     }
 
+    @SuppressWarnings("Duplicates")
     public void printSummary() {
-        System.out.println("Total entries: " + size());
+        long sizeTime = benchmark(this::size, size -> System.out.println("Total entries: " + size));
 
         //for (Date date: dates())
         //    System.out.println(DATE_FORMAT.format(date));
 
-        Set<String> cities = cities();
-        System.out.println("Found " + cities.size() + " cities: " + cities);
-
-        Set<String> countries = countries();
-        System.out.println("Found " + countries.size() + " countries: " + countries);
+        long citiesTime = benchmark(this::cities, cities -> System.out.println("Found " + cities.size() + " cities: " + cities));
+        long countriesTime = benchmark(this::countries, countries -> System.out.println("Found " + countries.size() + " countries: " + countries));
 
         // temperaturesByCountry();
         System.out.println();
 
-        System.out.println("Coldest country absolute: " + coldestCountryAbs());
-        System.out.println("Hottest country absolute: " + hottestCountryAbs());
+        long coldestCountryAbsTime = benchmark(this::coldestCountryAbs,
+                coldestCountryAbs -> System.out.println("Coldest country absolute: " + coldestCountryAbs));
+        long hottestCountryAbsTime = benchmark(this::hottestCountryAbs,
+                hottestCountryAbs -> System.out.println("Hottest country absolute: " + hottestCountryAbs));
 
         System.out.println();
 
-        System.out.println("Coldest country average: " + coldestCountryAvg());
-        System.out.println("Hottest country average: " + hottestCountryAvg());
+        long coldestCountryAvgTime = benchmark(this::coldestCountryAvg,
+                coldestCountryAvg -> System.out.println("Coldest country average: " + coldestCountryAvg));
+        long hottestCountryAvgTime = benchmark(this::hottestCountryAvg,
+                hottestCountryAvg -> System.out.println("Hottest country average: " + hottestCountryAvg));
 
         System.out.println();
-        System.out.println("Country\t\t\tAverage Temperature");
-        System.out.println("-----------------------------------");
-        for (Entry<String, Double> entry: countriesAvgTemperature().entrySet()) {
-            int tabs = 4 - entry.getKey().length() / 4;
-            System.out.println(entry.getKey() + "\t".repeat(tabs) + entry.getValue());
+        System.out.println("Country\t\t\t\t\t\t\t\tAverage Temperature");
+        System.out.println("-------------------------------------------------------");
+        long countriesAvgTemperatureTime = benchmark(this::countriesAvgTemperature,
+                countriesAvgTemperature -> countriesAvgTemperature.forEach((key, value) -> {
+                    int tabs = Math.max(0, 9 - key.length() / 4);
+                    System.out.println(key + "\t".repeat(tabs) + value);
+                }));
+
+        long avgTemperatureDeltaPerYearPerCountryTime = -1;
+        if (this instanceof StreamTemperatures) {
+            System.out.println();
+            System.out.println();
+
+            System.out.println("Country\t\t\t\t\t\t\t\tAverage temperature delta per year");
+            System.out.println("----------------------------------------------------------------------");
+
+            avgTemperatureDeltaPerYearPerCountryTime = benchmark(((StreamTemperatures) this)::avgTemperatureDeltaPerYearPerCountry,
+                    avgTemperatureDeltaPerYearPerCountry -> avgTemperatureDeltaPerYearPerCountry.forEach((key, value) -> {
+                        // 4 tabs should be enough for country length
+                        int tabs = Math.max(0, 9 - key.length() / 4);
+                        System.out.println(key + "\t".repeat(tabs) + value);
+                    }));
         }
 
+        System.out.println();
+        System.out.println();
+        System.out.println();
+        System.out.println("Timings:");
+        System.out.println("--------");
+        System.out.println("#size() took " + formatTime(sizeTime));
+        System.out.println("#citites() took " + formatTime(citiesTime));
+        System.out.println("#countries() took " + formatTime(countriesTime));
+        System.out.println("#coldestCountryAbs() took " + formatTime(coldestCountryAbsTime));
+        System.out.println("#hottestCountryAbs() took " + formatTime(hottestCountryAbsTime));
+        System.out.println("#coldestCountryAvg() took " + formatTime(coldestCountryAvgTime));
+        System.out.println("#hottestCountryAvg() took " + formatTime(hottestCountryAvgTime));
+        System.out.println("#countriesAvgTemperature() took " + formatTime(countriesAvgTemperatureTime));
+        if (avgTemperatureDeltaPerYearPerCountryTime >= 0)
+            System.out.println("#avgTemperatureDeltaPerYearPerCountry() took " + formatTime(avgTemperatureDeltaPerYearPerCountryTime));
+    }
+
+    private <T> long benchmark(Supplier<T> function, Consumer<T> callback) {
+        long start = System.currentTimeMillis();
+        T t = function.get();
+        long stop = System.currentTimeMillis();
+        callback.accept(t);
+        return stop - start;
+    }
+
+    private String formatTime(long timeMillis) {
+        double seconds = timeMillis / 1000D;
+        return seconds + "s";
     }
 
     public abstract long size();
@@ -138,6 +184,10 @@ public abstract class Temperatures implements Iterable<Temperature> {
 
     public Stream<Temperature> stream() {
         return StreamSupport.stream(Spliterators.spliterator(temperatureList.iterator(), temperatureList.size(), 0), false);
+    }
+
+    public Stream<Temperature> parallelStream() {
+        return StreamSupport.stream(Spliterators.spliterator(temperatureList.iterator(), temperatureList.size(), 0), true);
     }
 
 }

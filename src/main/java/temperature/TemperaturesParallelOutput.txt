@@ -1,0 +1,349 @@
+Total entries: 8235082
+Found 3448 cities: [Beibei, Kandy, Katumba, Indore, San Jose, Can Tho, Manisa, Denizli, Belo Horizonte, Radom, Kuwana, Khammam, Xiazhen, Portmore, Gorontalo, Nashville, Guaratinguetá, Kielce, Faridpur, Cachoeirinha, Pelotas, Nassau, Aba, Angers, Kananga, Bhadravati, Dimitrovgrad, Basel, Anshun, Qazvin, Ise, La Vega, Poços De Caldas, Surt, Taian, Dezhou, Cajamarca, Dingzhou, Independence, Lyon, Ingolstadt, Siwan, Firozpur, Damaturu, Aizawl, Changzhou, Kandi, Jiutepec, Qabis, Khanna, Botucatu, Bahraich, Campina Grande, Sawangan, Varamin, Cadiz, Itu, Bakersfield, Santa Maria, Curico, Armenia, Ghazipur, Mbandaka, Escuintla, Barcelona, Sitapur, Umuahia, Toyota, Chosica, Miandoab, Puerto Princesa, Tembisa, Bamenda, Santarém, Manila, Kuala Lumpur, Kerch, Elektrostal, Basirhat, Nantou, Paranaguá, Larkana, Iwo, Iquitos, New York, Nagoya, Tampico, Khomeynishahr, Myingyan, Elblag, Darbhanga, Severodvinsk, Shrirampur, Berezniki, South Bend, Xuanhua, Newcastle Upon Tyne, Niigata, Eastbourne, Navadwip, Casablanca, Toliary, Hangzhou, Belgaum, Rantauprapat, Krishnanagar, Sagar, Pavlohrad, Veracruz, Blumenau, Tarhunah, Narayanganj, Pontianak, Santa Teresa, Guelph, Astanajapura, Marv Dasht, Taganrog, Governador Valadares, Samarkand, Nam Dinh, Uberlândia, Ipoh, Iguala, Iwaki, Chungho, Orai, Francisco Morato, Binjai, Wichita, Teófilo Otoni, Arvada, Harare, Baguio, Anyama, Denver, Higüey, Teshie, Kalemie, Bandung, Warangal, Kaliningrad, Brebes, Stavropol, Mezhdurechensk, Bataysk, Ambur, Gaziantep, Brescia, Benha, Várzea Paulista, Volgograd, Sete Lagoas, Westminster, San José, Khanewal, Queimados, Thanesar, Catanduva, Ikole, Tenali, Khimki, Imphal, Hiratsuka, Gaya, Augsburg, Prato, Kharagpur, Erfurt, Daan, Port Louis, Tulancingo, Salavat, Junagadh, El Tigre, Nawabshah, Caracas, Tuguegarao, Chimbote, Chelyabinsk, Iwakuni, Welkom, Ontario, Campinas, Anyang, Oradea, Nevinnomyssk, Balashikha, Lilongwe, Barakpur, Dadu, Calabozo, San Francisco De Macorís, Linhai, Talisay, Hayward, Manado, Ichalkaranji, Abakan, São Luís, Saint Helens, Ordu, Luoyang, Norwalk, Shangrao, Ikoma, Firozabad, Bhavnagar, Fairfield, Shahrud, Cavite, Mangaluru, Chandannagar, Bradford, Suceava, Hebi, Gorakhpur, Datong, Dharmavaram, Beirut, Takasaki, Ciparay, Maisuru, Hakodate, Suita, Pamplona, Florencia, Arlington, Qostanay, Focsani, Butuan, Jalna, San Luis, Raiganj, Nagercoil, Jagadhri, Srikakulam, Ara, Ambon, Karang Tengah, Barquisimeto, Port Harcourt, Hamamatsu, Toyonaka, Noda, San Juan Sacatepéquez, Chhatarpur, Villa Nueva, Tempe, Sydney, Divo, Sonipat, Christchurch, Barsi, Pindiga, Port Said, Shaping, Funtua, Sohag, Wad Madani, Nuremberg, Helsinki, Sioux Falls, Kansk, Xai Xai, Sadiqabad, Norman, Hikone, Ibadan, Champdani, Dawei, Miramar, Heilbronn, Ankang, Turgutlu, Gweru, Barretos, Toulon, Zhangjiakou, Pagadian, Puno, Topeka, Iringa, Greensboro, Jaú, Cape Town, Darjiling, Chifeng, Foz Do Iguaçu, Maicao, Jequié, Bristol, Baglan, Sasebo, Franco Da Rocha, Jerusalem, Barnaul, Chhindwara, Surat, Bratislava, Lakewood, Santa Luzia, Zaragoza, Taraz, Touliu, Raigarh, Pune, Odawara, Petare, Ukhta, Bahia Blanca, Torun, Bukavu, Adilabad, Pudukkottai, Omaha, Manama, Kedungwuni, Sandakan, Puqi, Resistencia, Chetumal, Abakaliki, Lobito, Xuzhou, Norwich, Nador, Chemnitz, Pietermaritzburg, Miami, Barrancabermeja, Rennes, Kosice, Matsudo, Jalpaiguri, Ankara, Trelew, Petapa, Dali, Ilawe, Turhal, Olsztyn, Bettiah, Mar Del Plata, Oron, Glendale, Novorossiysk, Kindu, Akure, Mokolo, Sobral, Mingshui, Maracay, Savannah, Montgomery, Xinyang, Miass, Athens, Gudalur, Zama, Garoua, Huánuco, Puri, Embu, Yuncheng, Yungho, Regina, Lafiagi, Gulbarga, Dum Dum, Sunderland, Arkhangelsk, Las Palmas, Zhuozhou, Cimahi, Amsterdam, Arica, Ibirité, Nancha, Asmara, Kovrov, Halifax, Hapur, Ciputat, Porto, Quetta, Querétaro, Quetzaltenango, Yingkou, Colorado Springs, Birnin Kebbi, Barnala, Panchiao, Ribeirão Prêto, Harbin, Sapucaia, Pleven, Cibinong, Tabora, Plzen, Pemba, Terrassa, Kigali, Toulouse, Manaus, Lansing, Medellín, Payakumbuh, Batala, Namangan, Jos, Bournemouth, Tsukuba, Jiaohe, Kirovohrad, Orsk, Verwoerdburg, A Coruña, York, Khabarovsk, San Pedro De Macorís, Cleveland, Ambattur, Queenstown, Lima, Pretoria, Zhicheng, Wuppertal, Potosí, Nantes, Derby, Cork, Chiang Mai, Concord, Macapá, Coro, Bac Lieu, San Nicolás De Los Garza, Ikot Ekpene, Catamarca, Kisumu, Otukpo, Hadano, Manchester, Esfahan, Milwaukee, Nagareyama, Linz, Trujillo, Brahmapur, Saint Denis, Bielefeld, Atsugi, Novara, Syracuse, Luque, Antsirabe, Providence, Keelung, Arak, Owerri, Santa Cruz De Tenerife, Mubi, Arad, Sivas, Fresno, Denpasar, Plây Cu, Bucaramanga, Yonago, Sherbrooke, Negombo, Gadag, Seto, Zoetermeer, Kuala Terengganu, Kadoma, Kitwe, Mandalay, Rio De Janeiro, Port Moresby, Khushab, Fengcheng, Calcutta, Baia Mare, Semnan, Barueri, Misato, Isehara, Raniganj, Lipa, Midrand, Surabaya, Barddhaman, Dourados, Santiago Del Estero, Xiamen, Ibaraki, Port Elizabeth, Puerto Montt, Sanda, Nguru, Kota Kinabalu, Gwalior, Smolensk, Tartus, Buga, Sargodha, Natal, Bombay, Azare, Alexandria, Maragheh, Pétionville, Lira, Sanbu, Isesaki, Buhe, Yamunanagar, Columbia, Reggio Di Calabria, Shangqiu, Arequipa, Mannheim, Tongling, San Martin, Arzamas, Bangui, Sofia, Valparaiso, Guaymas, Purnia, Pavlodar, Vadodara, Oshawa, Minneapolis, Linxia, Rouen, Bacau, Kherson, Kemerovo, Itaboraí, Bid, Dodoma, Bacolod, Ikere, Santo Domingo, Palma Soriano, Safaqis, Kobe, Zhumadian, Sirajganj, Khuzdar, Musashino, Bhilwara, Kanchipuram, Almaty, Mombasa, Esmeraldas, Kassel, Kawaguchi, Da Nang, Antofagasta, Waco, Nottingham, Bielsko Biala, Mandaue, Jiaxing, Sudbury, Queluz, Bontang, León, Concepcion, Makati, Inglewood, Lengshuijiang, Agadir, Okazaki, Banjarmasin, Thessaloníki, Lusaka, Gbongan, Boulogne Billancourt, Bisho, Chingola, Anantapur, Cà Mau, Urdaneta, Heze, Ichinomiya, Mandi Bahauddin, Columbus, Kodaira, Cologne, Bologna, Linxi, Konan, Quilpue, Cabudare, Adelaide, Puyang, West Covina, Presidente Prudente, Windhoek, Hobart, Ravenna, Thornton, Cuddapah, Stara Zagora, Santa Rita, Middlesbrough, Pallavaram, Kostroma, Banja Luka, Mérida, Begusarai, Minatitlán, Langfang, Manbij, Najran, San Pablo De Las Salinas, Saqqez, Nuevo Laredo, Adana, Bozhou, Tando Adam, Klaipeda, Oklahoma City, Gangapur, Allahabad, Tucson, Mytishchi, Arapiraca, Santa Ana, Cartago, Nizhnekamsk, Zagreb, Angra Dos Reis, Cikampek, Iida, Salerno, Muzaffargarh, Bouaké, Berlin, Dongtai, Aguascalientes, Mainz, Himeji, Almetyevsk, Edmonton, Chenghai, Sunggal, Dudley, Naperville, Petaling Jaya, Velikie Luki, Pasadena, Azamgarh, Taunggyi, Morvi, Jiazi, Vienna, Edinburgh, Bhusawal, Bafoussam, Huangcun, Montevideo, Kabankalan, Brighton, Zhoukou, Jiroft, Pamanukan, Osmaniye, Toyohashi, Jahrom, Reading, Dimapur, Lages, Bintulu, Guangshui, Haridwar, Baranagar, Nilópolis, Bacoor, Spokane, Zhaocheng, Gillingham, Cap Haïtien, Chita, Barisal, Oldenburg, Sosnowiec, Anshan, Lower Hutt, Talkha, Vitória Da Conquista, Nalgonda, Debre Zeyit, Cikupa, Sur, Talcahuano, Mbuji Mayi, Plovdiv, Würzburg, Gujrat, Carmen, Swindon, Parbhani, Ahvaz, Nandurbar, Liancheng, Siverek, Rybinsk, Trincomalee, Fukaya, Gagnoa, Burhanpur, Shanghai, Bhubaneswar, Kishiwada, Rajamahendri, Vejalpur, Charlotte, Waru, Lasa, Lagos, Iráklion, Padang, Abilene, Kashipur, Wardha, Indramayu, Oslo, Liverpool, Gorzow Wielkopolski, Basti, Buenaventura, Downey, Serra, Villavicencio, Uruguaiana, Sapele, Phra Pradaeng, Mazyr, Tongliao, Mariara, Long Xuyên, Dhanbad, Yibin, Itagüí, Chupei, San Carlos De Bariloche, Bauchi, Sagamihara, Coimbra, Juba, Innsbruck, Kingston, Shreveport, Chelmsford, Babol, Winnipeg, Kota, Chaozhou, Hirosaki, Araruama, Pamulang, Xintai, Sujiatun, Luanda, Shiyan, Katowice, Enschede, Gyumri, Skopje, Orumiyeh, Thanyaburi, Pulandian, Pôrto Velho, Juliaca, Haora, Seremban, Inazawa, Ganganagar, Florence, Córdoba, Petrolina, Grenoble, Suining, Suzuka, Boston, Monywa, Irbil, Freetown, Cibadak, Qianguo, Hampton, Irbid, Montpellier, Perm, Nagpur, Zhangzhou, Jishu, Erzurum, Sekondi, Benxi, Atibaia, Marbella, Ahmadnagar, Killeen, Palanpur, Chas, Ferrara, Dunhua, Duisburg, Motihari, Sullana, Raleigh, Kasukabe, Witten, Viransehir, Toyokawa, Suriapet, Thiès, Ipatinga, Shantipur, Kollam, Kemang, Arjawinangun, Gonda, Tolyatti, Nanded, Deoria, Rybnik, Bilbao, Targu Mures, Mejicanos, Visakhapatnam, Chincha Alta, Bhiwani, Patiala, Kamalia, Sikasso, Itabuna, Concordia, Hat Yai, Termiz, Konya, Acarigua, Timisoara, Hagen, Komatsu, Americana, Eugene, Petrópolis, Huaibei, Bénin, Ujjain, Oldham, Moshi, Algeciras, Vryheid, Chikmagalur, Santa Marta, Tripoli, Botad, Oxford, Obregon, El Faiyûm, Taranto, Dos Hermanas, Walsall, Sutton Coldfield, Stockton, Carrollton, Tabuk, Raurkela, Teresina, Berkeley, Mataram, Cirebon, Cainta, Ogaki, Daliang, Hofu, Samarinda, Barranquilla, Zhytomyr, Seattle, Pietersburg, Lausanne, Rohtak, Santa Fe, Paseh, Worcester, Nacala, Syktyvkar, Hafizabad, Port Gentil, Taytay, Kakamigahara, Ciomas, Feira De Santana, Newcastle, Basildon, Linshui, Meiktila, Nossa Senhora Do Socorro, Bottrop, Zabrze, Djougou, Fuxin, Rach Gia, Purwokerto, Juarez, Punto Fijo, Aachen, Solingen, Göttingen, Wolverhampton, Aryanah, Banyuwangi, Novomoskovsk, Asfi, East Los Angeles, Tokyo, Shiraz, East London, Cagliari, Vijayawada, Lakhimpur, Dahuk, Voronezh, Neijiang, Jacareí, Zhoucun, Longjiang, Baicheng, Yuyao, Ijero, Brest, Rajkot, Kermanshah, Blitar, Tama, Madurai, Alor Setar, Bat Yam, Agartala, Bremen, Jember, Nogales, Kursk, Malabo, Alcalá De Henares, Perpignan, Peristérion, Kusatsu, Beppu, Abha, Mbouda, Bikaner, Iskenderun, West Jordan, Tali, Balti, Udon Thani, Ismailia, Ndola, Soka, Lowell, Kirkuk, Karlsruhe, Sassari, Kanchrapara, Maoming, Klerksdorp, Bertoua, Stavanger, Malmö, Nalchik, Charallave, Barasat, Cam Ranh, Xichang, Mbour, Belém, Shenzhen, Kansas City, Jamuria, Chittaurgarh, Leuwiliang, Baturaja, Kapra, Inisa, Leshan, Jerez, Gashua, Cotonou, Burewala, Bangkok, Garden Grove, Niamey, Hazaribag, Luqiao, Sukkur, Toronto, Bochum, Portland, Matsubara, Jimma, Vitória De Santo Antão, Parnamirim, Tiruppur, Malang, Moscow, Nizamabad, Formosa, Tallahassee, Los Teques, Kousséri, La Serena, Yakeshi, Gebze, Mitaka, Huambo, Surgut, Hulan, Manizales, Rondonópolis, Olomouc, Tshikapa, Port Saint Lucie, Zhangdian, Leicester, Plumbon, Vientiane, Pabna, Tighina, Jinchengjiang, Soubré, Penza, Zacatecas, Shikarpur, Saratov, Mabalacat, Zhoucheng, Yelahanka, Tauranga, Jhansi, Masjed E Soleyman, Novosibirsk, Qinhuangdao, Huangpu, Kendari, Sukaraja, Oaxaca, Raipur, Lübeck, Ruian, Fernando De La Mora, Iasi, Albury, Kuantan, Olongapo, Machala, Gudivada, Mossoró, Shaoyang, Quanzhou, Fianarantsoa, Bern, Delhi, Frankfurt, Gangawati, Damascus, Marília, Zhuhai, Franca, Hamilton, Guntakal, Lipetsk, Pforzheim, Novocherkassk, Izumi, Mianyang, Khardaha, Yanan, Hachinohe, Tebingtinggi, Chaoyang, Bissau, Zalantun, Shizuishan, Loa Janan, Choloma, Vitória, Guangyuan, São Gonçalo, Neyshabur, Bally, Monrovia, Zhaotong, Itapevi, Baoshan, Leiyang, Potsdam, Warri, Hanzhong, Aurora, São Vicente, Ludwigshafen, Metz, Afyonkarahisar, Itaquaquecetuba, Mesa, Digos, Fuyang, Addis Abeba, Purwakarta, Pitesti, Astrakhan, Knoxville, Milan, Torrejón De Ardoz, Xuchang, Araguaína, Las Tunas, Southend On Sea, Murwara, Caucaia, Dubai, Düsseldorf, Manzanillo, Eskisehir, Akola, Xingtai, Magangué, Baharampur, Shulin, Dhule, Chandigarh, Atyrau, Tegal, Bayrut, Citeureup, Luchou, Gaozhou, Bitung, Pachuca, Muzaffarnagar, Shakhty, Shimoga, Jamshedpur, Haicheng, General Escobedo, Uromi, Recklinghausen, Huddersfield, Ulubaria, Chenzhou, Bergisch Gladbach, Aswan, Salinas, Kalisz, Metairie, Mojokerto, Gurgaon, Yonkers, Vitoria, Itaguaí, Goiânia, Fresnillo, Charleroi, Fort Wayne, Kitami, Espoo, Bandar Maharani, Sultanpur, Hòa Bình, Warren, Taiyuan, San Nicolas, Panevezys, Chongqing, Zaporizhzhya, Bhagalpur, Rewari, Gandajika, Koidu, Utrecht, Salihorsk, Breda, Messina, Pasto, Purwodadi, Móstoles, Catia La Mar, Chihuahua, Semey, Liaoyang, Blantyre, Ramat Gan, Orizaba, Anchorage, Portoviejo, Ürümqi, Colima, Yantai, Tunis, Fushun, Ueda, Wiesbaden, Rancho Cucamonga, Jamalpur, San Diego, Nandyal, Yanji, Koblenz, Jinan, Jinchang, Coquimbo, Xalapa, Brunswick, Kaithal, Dekernes, Tumkur, Andijon, Olinda, Rafsanjan, Zaozhuang, Tunja, Karachi, Gulu, Dezful, Camaragibe, Kwekwe, Komaki, Guntur, Izhevsk, Quchan, Araraquara, Zhuji, Weihai, Makiyivka, Algiers, Yelets, Sunnyvale, Orsha, Abuja, Jaranwala, Camaçari, Craiova, Miyakonojo, Nice, Izmir, Tungi, Ube, Ashqelon, Izmit, Jiaojiang, Nanjing, Corpus Christi, Rayong, Kremenchuk, Allentown, Guna, Tacna, Patan, Jaramana, Sumedang, Sidoarjo, Rostock, Kryvyy Rih, Fortaleza, Perugia, Bekasi, Vologda, Richardson, Martapura, Ponta Grossa, Caxias, Rawalpindi, Vladivostok, Denton, San Salvador, Yueyang, Ruiru, Carúpano, Matadi, Shishou, Zelenodolsk, Ciamis, Peoria, Leverkusen, Yachiyo, Guacara, Sekudai, Vinh Long, Banda Aceh, San Pedro, Prabumulih, Cúcuta, Guanare, Lahore, Hajipur, Bengkulu, Parana, Cabanatuan, Gaborone, Ufa, Ruse, Pôrto Seguro, Siegen, Zanzibar, Yizheng, Karawang, Hosur, Dire Dawa, Salatiga, Satara, Besançon, Fullerton, Yidu, Ikire, Strasbourg, Singaraja, Emmen, Cheltenham, Santa Cruz Do Sul, Subang, Chimalhuacán, Khoy, Bordeaux, Karimnagar, Tartu, Panvel, Shillong, Puerto Plata, Lárisa, Cubatão, Biratnagar, Dos Quebradas, Jaén, Durban, Cagua, Podgorica, Reims, Muzaffarpur, Mbeya, Jieshi, Beaumont, Aksu, Teluknaga, Apopa, Sanchung, Paradise, Blagoveshchensk, Altay, Novi Sad, Hardoi, Ambarnath, Sterling Heights, Kediri, Alappuzha, Pakokku, Uji, Ibagué, Bragança Paulista, Kluang, Maanshan, Mathura, Exeter, Shuangyashan, Ahmadpur East, Kariya, Guarenas, Spanish Town, Durango, Dindigul, Jakarta, Holguín, Kolomna, Henderson, Yevpatoriya, Koriyama, Johannesburg, Novotroitsk, Slough, Sanmenxia, Nairobi, Praia Grande, Nueva San Salvador, Jilin, Ulm, Irapuato, Chandler, Buffalo, Apucarana, Sacramento, Zwolle, Itami, Sokoto, Chigasaki, Jingdezhen, Baleshwar, Puruliya, Cluj Napoca, Kasuga, Baliuag, Udupi, Guwahati, Beian, Pingxiang, Blackburn, Rotterdam, Engels, Watford, Floridablanca, Gardez, Cisaat, Thaton, Huaiyin, Tlalnepantla, El Progreso, Jiaozuo, Groningen, Matanzas, Spring Valley, Lafayette, Volzhskiy, Phagwara, Nanchong, Tubruq, Tegucigalpa, Jambi, Uitenhage, Shinyanga, Clarksville, Kurume, Veraval, Shahreza, Monclova, Daito, Copenhagen, Uvira, São Carlos, Ilhéus, Amagasaki, Parnaíba, Ulyanovsk, Palmdale, Nantong, Takoradi, Toamasina, Botshabelo, Selam, Bloemfontein, Rustenburg, Thanjavur, Sayama, Man, Hubli, Parma, Mau, Gejiu, Butembo, Khairpur, Madanapalle, Gilbert, Cotabato, Piedras Negras, Taubaté, Yinchuan, Bangalore, Mataró, Laohekou, Tianmen, Libreville, Cisarua, Montería, Riobamba, Huancayo, Guarapari, Ballia, Mardan, Daxian, Moradabad, Liège, Cabo Frio, Namur, Kisaran, Kalyan, Yaan, Aberdeen, Qinzhou, Gongzhuling, Serpukhov, Dublin, Honggang, Salvador, Numazu, Girón, Hoshiarpur, Ayacucho, Bayamo, Chon Buri, Rawang, Carolina, Tulsa, Tokat, Chorzow, Tanjung Morawa, Moreno Valley, Suleja, Caen, Xinxiang, Shah Alam, Jandira, Onitsha, Setúbal, Huntsville, Naga, Västerås, Dayton, Tarnow, Rio Cuarto, Türkmenabat, Taiping, Bareli, Zhuzhou, Ji Paraná, Kolhapur, Magelang, Tangshan, Paris, Iranshahr, Chishtian Mandi, Kawagoe, Yancheng, Sholapur, Kamensk Uralskiy, Sokodé, Khanpur, Akyab, Carapicuíba, Bidar, Wolfsburg, Phnum Pénh, Wroclaw, Shaoguan, Warsaw, Duma, Lawang, Kecskemét, Cilegon, Uyo, Oulu, Balurghat, Panipat, Bansbaria, Anqiu, Moga, London, Gandhinagar, Split, Paarl, Obuasi, Rivne, Antakya, Morogoro, Chernihiv, Louisville, Luancheng, Karamay, Ashdod, Varginha, Yekaterinburg, Kashihara, Jammu, Costa Mesa, Miskolc, Navoi, Cali, Pokhara, Mingaora, Bhind, Achalpur, Chitungwiza, Karaman, Taitung, Iquique, Khurja, El Mahalla El Kubra, Macaé, Naihati, Acuña, Tuxtla Gutiérrez, Machida, Sahiwal, Kiel, Durg, Burgos, Zonguldak, Kiev, Zurich, Kuito, Melbourne, Pereira, Jiangmen, Giugliano In Campania, Teresópolis, Takarazuka, Jaboatão, Kuhdasht, Gliwice, Cumaná, Lichinga, Rochester, Calgary, Lanzhou, Málaga, Taonan, Salzgitter, Yerevan, Fukuyama, Ajdabiya, Tirupati, Latina, Moundou, Maracaibo, Ponnani, Kohat, Constantine, Nancy, Ogbomosho, Binangonan, Kalmunai, Susah, Vigo, Reykjavík, Iruma, Viamão, Tumbes, Boma, Plano, Tuluá, Grogol, Baruta, Bonn, Zamboanga, Thái Nguyên, Honghu, Van, Zhaodong, Gaomi, Fort Worth, Qianjiang, Monterrey, Laiwu, Haifa, Dabrowa Gornicza, Odintsovo, Shashi, Kota Bahru, Leeds, Uppsala, Abadan, San Lorenzo, Ajmer, Nakhon Pathom, Zinder, Kelowna, Jiupu, Tangier, Overland Park, Haikou, Novo Hamburgo, Tekirdag, Rijeka, Huaihua, Aix En Provence, Petropavlovsk Kamchatskiy, Passo Fundo, Liaocheng, Idlib, Salt Lake City, Cary, Constanta, Burgas, Xining, Songea, Ikirun, Gent, Pemalang, Hathras, Luton, Reno, López Mateos, Bauru, Chimoio, Zielona Gora, Xiangdong, Krugersdorp, Chillan, Pakpattan, North Las Vegas, Quelimane, Ede, Brownsville, Gera, Vanderbijlpark, Coronel Fabriciano, Tokuyama, Roxas, Gijón, Dera Ghazi Khan, Campos, Huicheng, Wuning, Ho Chi Minh City, Luan, Bangaon, Villa Canales, Bellary, Katihar, Nakhon Ratchasima, São José Dos Campos, Wuda, Jamame, Duque De Caxias, Geelong, Poznan, Colombo, Butterworth, Kikwit, Fengshan, Vinh, Chicago, Zhezkazgan, Neiva, Malegaon, Chalco, Tiruvottiyur, Morelia, Jersey City, Almería, Long Beach, Isparta, Tangerang, Kurashiki, Jhang, Latur, Belgrade, Zaoyang, Cileunyi, Pyay, Wenzhou, Austin, Vung Tau, Padova, Winston Salem, Ulan Ude, Jaipur, Galati, Matola, Posadas, Sakai, Kaifeng, Pasuruan, Qiqihar, Lisbon, Salzburg, Maymyo, Zhucheng, Yiyang, Nelspruit, Guaíba, Aden, Lumajang, Jiujiang, Gonbad E Qabus, Soledad, Rangpur, Cachoeiro De Itapemirim, Pyatigorsk, Angeles, Odense, Kamagaya, Haibowan, Tondabayashi, Encheng, Guilin, Shymkent, Huntington Beach, Etawah, Ciampea, Nnewi, Jaunpur, Garza García, Uruapan, Khulna, Sochi, Gazni, Zhongshan, Syzran, Garanhuns, Mormugao, Hamadan, Bryansk, Orlando, Yazd, Rewa, Copiapo, Nobeoka, Pinar Del Río, Ichihara, Cianjur, Asyut, Ilam, Tucheng, Kulim, Kislovodsk, Puerto Vallarta, Halisahar, Capiatá, Titagarh, Orkney, Yangmei, Daska, Wuhu, Jiamusi, West Valley City, Eluru, Petrozavodsk, Musoma, Ciudad Guayana, Jaraguá Do Sul, Thrissur, Sheffield, Kumagaya, Huixquilucan, Nova Friburgo, Lexington Fayette, Qalyub, Sirsa, Shunyi, Semarang, Lembang, Kimberley, Chiniot, Gómez Palacio, Saitama, Funabashi, Cedar Rapids, Abidjan, Abbotsford, Yokkaichi, Maturín, Oceanside, Klang, Canoas, Rubtsovsk, Misratah, Gujranwala, Dumai, Colatina, Omsk, Lampang, Bamako, Alandur, Vinnitsa, Bucharest, Yogyakarta, Campo Grande, Guantánamo, Borujerd, Wollongong, Haarlem, Xianyang, Brasov, Wellington, Glazov, Pucallpa, Mutare, Tottori, Mufulira, Mawlamyine, Churu, Elizabeth, Elbasan, Rockford, Barbacena, Ahmadabad, Virginia, Xingyi, Zaria, Erode, Dewas, Astana, Hailar, Manta, Haldia, Kupang, Tarija, Jacobabad, Lubbock, Velluru, Tirana, Nakhon Si Thammarat, Cherkessk, Sibu, Ocumare Del Tuy, Pervouralsk, Pembroke Pines, Osasco, Toledo, Habikino, Evansville, Fürth, Northampton, Jiaozhou, Angren, Jolo, Tiruvannamalai, Riyadh, Sialkot, Kano, Bahawalnagar, Taichung, Gemena, Ouagadougou, Maceió, Cusco, Anand, Sincelejo, Edéa, Ciudad Bolívar, Tampa, Pangkah, Lakhnau, Dresden, Zaanstad, Godhra, Port Blair, San Pablo, Kamyshin, Recife, Paderborn, Fujinomiya, Kuytun, Magnitogorsk, Kerman, Nha Trang, Lemesos, Xiaolan, Piracicaba, Ostrava, Shimonoseki, Ganzhou, Yongan, Budaun, Kallithéa, Nis, Los Angeles, San Luis Potosí, Banjaran, Panihati, Antalya, Orël, Koronadal, Xinzhou, Leganés, Toungoo, Cincinnati, Linqing, Gojra, Thana, Amravati, Varna, Marabá, Pathankot, My Tho, Tambun, Sibiu, Paulista, Maler Kotla, Balakovo, Kashan, Nijmegen, Iseyin, Weinan, Acheng, Newark, Zhenjiang, Kulti, Gizeh, Fort Collins, Faisalabad, Wuxi, Ponce, Nzérékoré, Washington, Maradi, Kaohsiung, Dallas, Ivanovo, Chiclayo, Rosario, Tilburg, Houma, Shiliguri, Santa Clarita, Birmingham, Ziguinchor, Jalingo, Seoni, Nizhnevartovsk, Hino, Kaiyuan, Kaunas, Palwal, Waterloo, Nanpiao, Novocheboksarsk, Dese, Brisbane, Tanete, Ludhiana, Sakata, Tlaquepaque, Satu Mare, Pouso Alegre, Wuwei, Chattanooga, Bytom, Conselheiro Lafaiete, Tambov, Celaya, Bankura, Lyubertsy, Araras, Brakpan, Otaru, Cottbus, Eindhoven, Nefteyugansk, Edison, Guarulhos, Townsville, Wah, Indianapolis, Mwanza, Münster, Beira, Waw, Matsusaka, Murcia, Aracaju, Cascavel, Anaco, Osnabrück, Navsari, Badalona, Alagoinhas, Norilsk, Nizhniy Tagil, Ondo, Ikorodu, Ugep, Kismayo, Vihari, Taoyüan, Silchar, Akashi, Luohe, Getafe, Halle, Jujuy, Minna, Yaroslavl, Kurgan, Abohar, Ardabil, Baneh, San Bernardino, Unnao, Criciúma, Santa Catarina, Marand, Florianópolis, Abu Dhabi, Kashi, Amiens, Nangloi Jat, Deyang, Kamarhati, Amol, Tychy, Hong Gai, San Fernando, Santa Rosa, Szeged, Garut, Satna, Quito, Tyumen, Cibitung, Seoul, Curug, Do Rud, Cherepovets, Rialto, Ha Noi, Tehuacán, Banda, Sikar, Chapecó, Los Reyes, Ichikawa, The Hague, Leiden, Chesapeake, Armavir, Verona, Fez, Zapopan, São José, Jaffna, Albuquerque, Darmstadt, Alcobendas, Podolsk, Gdynia, Ipswich, Mahabad, Bukit Mertajam, Bojnurd, Memphis, Trondheim, Highlands Ranch, Punta Arenas, Jimeta, Vicenza, Pomona, Contagem, Badajoz, Huadian, Stockholm, Bremerhaven, Shahr E Kord, Apeldoorn, Aligarh, Hialeah, Aleppo, Bhairab Bazar, Caruaru, Kirov, Bhatpara, Dadiangas, Moriguchi, Sukabumi, Ulhasnagar, Opobo, Bhadreswar, Dushanbe, Foggia, Kokubunji, Jinhua, Malakal, Coral Springs, Boa Vista, Machilipatnam, Saga, Hailun, Tula, Rishra, Jhelum, Kumba, Guatire, Ejigbo, Zigong, Hengshui, Charleston, Taizhou, Kassala, Marawi, Moji Das Cruzes, Guayaquil, Zamora, Hermosillo, Gusau, Dawukou, Bandundu, Nagda, Kusti, Buraydah, Nova Iguaçu, Moers, Los Mochis, Guangzhou, Uzhhorod, Tieling, Oberhausen, Madras, Alberton, Bahir Dar, Tours, Asaka, Clermont Ferrand, Pacet, Leipzig, Cagayan De Oro, Robertsonpet, Little Rock, Oshogbo, Roseville, Le Havre, Khujand, Cordoba, Lublin, Hami, Palmira, Hamm, Hospet, Changchun, Fremont, Delmas, Yingcheng, Burbank, Southampton, Ciudad Valles, Changji, Korba, Parakou, Montreal, La Rioja, Potgietersrus, Marseille, Sumaré, Ust Ilimsk, Proddatur, Noginsk, Rome, Juiz De Fora, Hengyang, Dzerzhinsk, Bushehr, Lambaré, Jiutai, Bahawalpur, Hildesheim, Baghdad, Ternate, Heidelberg, Goma, Kazan, Tainan, Brasília, Rangoon, Granada, Narashino, Talca, Asunción, Juàzeiro, San Pédro, Shekhupura, Offa, Jhunjhunun, Sucre, Vila Velha, Sergiyev Posad, Ngaoundéré, Médéa, Lancaster, Kinshasa, Pécs, Jabalpur, Texcoco, Cairo, Haarlemmermeer, Cikarang, Bhiwandi, Ibarra, Beipiao, Amaigbo, Sari, Sarh, Haimen, Palhoça, Livingstone, Lincoln, Obninsk, Georgetown, Bantou, São João De Meriti, Dibrugarh, Benghazi, Santiago, Gainesville, Oxnard, Lvov, Changde, Madrid, Korla, San Pedro Sula, Mülheim, Canberra, Yichun, Brikama, Phan Thiet, Khartoum, Haldwani, Sanhsia, Trento, Tabriz, Orléans, Tachikawa, Saarbrücken, Hsintien, Toluca, Bhuj, Marivan, Kahramanmaras, Hefei, Mobile, Neuquen, Ranghulu, Peterborough, Madiun, Makurdi, Pingliang, Tucuman, Nagaoka, Anbu, Nishio, Ulaanbaatar, Visalia, Saint Paul, Almere, Tandil, Raichur, Sepatan, Palermo, Wazirabad, Belfast, Thanh Hóa, Shihezi, Anda, Tepic, Weru, Perbaungan, Trois Rivières, Bugama, Humen, Tonalá, Beni Suef, Velikiy Novgorod, Fontana, Wanxian, Paramaribo, Kresek, Zanjan, Vina Del Mar, Faizabad, Taicheng, Saharanpur, New Delhi, Kashiwa, Bolton, Santa Cruz, Kumbakonam, Chandausi, Komsomolsk Na Amure, Rancagua, Zuwarah, Bujumbura, Ann Arbor, Huzhou, Chavakachcheri, Valdivia, Hsinchu, Boshan, Patna, Ikare, Fort Lauderdale, Laiyang, Yangzhou, Huangyan, Mersin, Jetpur, São José Dos Pinhais, San Mateo, Kebumen, Chhapra, Kakinada, Maputo, Ratlam, Cambridge, Luziânia, Siauliai, Vinnytsya, Huizhou, Hengshan, Gondar, El Monte, Udgir, Gondal, Araucária, Ome, Laredo, Zhaoyang, Rajapalaiyam, Igboho, Liuzhou, Yining, Kaili, Maringá, Divinópolis, Guadalupe, Qarchak, Anjo, Aqtöbe, Fuji, Chakwal, Tarragona, Des Moines, Castanhal, Kumanovo, Jinxi, Melaka, Omuta, Kakogawa, Lashio, Metepec, Baltimore, Nsukka, Abeokuta, Dongli, Habra, Philadelphia, Si Racha, Arusha, Akron, Dumaguete, Lapu Lapu, Escondido, Blackpool, Århus, Meilu, Thiruvananthapuram, San Luis Río Colorado, Abomey Calavi, Sarajevo, Dandong, Mostar, Chinandega, Cabimas, Tétouan, Karaj, Wencheng, Santos, Valledupar, São Caetano Do Sul, Bergamo, Doha, Hortolândia, Xiangfan, Chitradurga, Khon Kaen, Fujieda, Xian, Reutlingen, Phoenix, Ebetsu, Baoji, Fayetteville, Likasi, Hargeysa, Bergen, Ixtapaluca, Isiro, Abengourou, Tver, Dijon, Turmero, Pingtung, Gelsenkirchen, São José Do Rio Prêto, Xuanzhou, Kasugai, Awassa, Siirt, Nawabganj, Sawai Madhopur, Yüanlin, Tamale, Soacha, Ota, Yichang, Cuautitlán Izcalli, Angarsk, Buzau, Olathe, Chengde, Hisar, Sabha, Xico, Brazzaville, Antwerp, Braila, Istanbul, Munich, Kunming, Calabar, Samut Prakan, Shagamu, Bogor, Maseru, Bida, Faridabad, Sharjah, Grand Rapids, Porto Alegre, Surendranagar, Tambaram, Soreang, Hassan, Dongying, Loudi, Adiwerna, Torrance, Niterói, Ilesha, Suzhou, Taman, Monza, Amroha, Stockport, Owo, Batman, Pali, Bene Beraq, Islamabad, Ekibastuz, Fuling, Multan, Uberaba, Ilebo, Ploiesti, Bhilai, Pekalongan, Palu, Bahadurgarh, Sabadell, Bridgeport, Kayseri, Rio Claro, Saransk, Beawar, Dasmariñas, Trieste, Brussels, Trabzon, Oyo, Cochabamba, Eslamshahr, Ecatepec, Bulawayo, Dundee, Tadepallegudem, Middelburg, Green Bay, Yenangyaung, Shenyang, Sabzevar, Vladimir, Durham, Guarujá, Nicolás Romero, Eldoret, Tema, Baoding, Ciego De Ávila, Yaoundé, Cileungsi, Korhogo, Akita, Mulhouse, Piatra Neamt, Kanpur, Tomsk, Tsuchiura, Ramnicu Valcea, Palma, Jibuti, Warqla, Guiyang, Kolpino, Bellevue, Ungaran, Nigel, Louga, Dakar, Resende, Chengdu, Tajimi, Hartford, Avadi, Scottsdale, Vallejo, Sunrise Manor, Nanchang, Cangzhou, Botosani, Amersfoort, Ottawa, Sancti Spíritus, Patos De Minas, Pátrai, Yaizu, Ejido, Awka, Várzea Grande, Offenbach, Kawasaki, Xiantao, Hanover, Saint Étienne, Sirjan, Wuxue, Tarsus, Ensenada, Londrina, Kot Addu, Montalban, Pati, Cariacica, Bandar E Anzali, Pate, Forlì, Mergui, Dehra Dun, Manzini, Fuyu, Jodhpur, Foshan, Abiko, Varanasi, Pondicherry, Kütahya, Corrientes, Brugge, Bello, Benoni, Aurangabad, Mahesana, Adoni, Mirzapur, Hirakata, Yuci, San Juan Del Río, Glasgow, Surat Thani, Jackson, Krefeld, Mwene Ditu, Tanggu, Metro, Lubumbashi, Liusha, Handan, Pringsewu, Jishou, Rasht, Kankan, Perth, La Romana, Obosi, Donghai, Lubango, Yulin, Tallinn, Bengbu, Chuncheng, Mexicali, Heihe, Maykop, Linfen, Yamoussoukro, Miri, Maba, Aktau, Çorlu, Indaiatuba, Port Au Prince, Ayer Itam, Tete, Kyzyl, Ghaziabad, Obihiro, Hitachi, San Francisco, Qitaihe, São Paulo, Narsingdi, Yushan, Sorocaba, Barra Mansa, Jinzhou, Nkongsamba, Waitakere, Palmas, Asansol, Yungkang, Sambalpur, George, Dalian, Villahermosa, Baiyin, Samara, Okrika, Vidisha, Nadiad, Anaheim, Ishinomaki, Plymouth, Boksburg, Agboville, Zlatoust, Novokuznetsk, Bharatpur, Shahjahanpur, Chofu, Huelva, Preston, Joliet, Flint, Macheng, Antipolo, Makasar, Naucalpan, Akishima, Gorgan, Puebla, Naples, Moratuwa, Qui Nhon, New Orleans, Braga, Madhyamgram, Huangzhou, Mönchengladbach, Sambhal, Esenyurt, Kawanishi, Fuchu, Cienfuegos, Masaya, Alwar, Narita, Accra, Handa, Bago, Jieshou, Richards Bay, Wufeng, Reynosa, Zhanjiang, Takaoka, Qandahar, Ingraj Bazar, Kitchener, São Leopoldo, Hohhot, Pueblo, Sevilla, Parsabad, Sabará, Nizhniy Novgorod, Portsmouth, Serekunda, Madison, Rostov Na Donu, Baripada, Maroua, Herat, Modesto, Chandrapur, Barinas, Imperatriz, Taboão Da Serra, Yavatmal, Weifang, Plock, Marrakesh, Waterbury, Depok, Saskatoon, Pathein, Niiza, Diadema, La Plata, Belford Roxo, Jian, Brits, Krasnoyarsk, Cairns, Nazilli, Limeira, Durrës, Tuzla, Mexico, Houston, Turin, Poltava, Shimla, Ebina, Hangu, Gandhidham, Beihai, Inegol, Bhimavaram, Tianjin, Baidyabati, Pskov, Lahad Datu, Yatsushiro, Tirunelveli, Pinsk, Lafia, Koszalin, Bagaha, Baku, Barrie, San Cristóbal, Chisinau, Solikamsk, Colchester, Shaki, Erlangen, Cúa, Bama, Sterlitamak, Brno, Venice, Budapest, Magé, Zelenograd, Culiacán, Le Mans, Kindia, Pingchen, Bohicon, Loja, Yao, Palembang, Chuzhou, Rancaekek, Longyan, Porbandar, Peshawar, Geneva, Shahe, Santa Clara, Cracow, Vladikavkaz, Valladolid, Malambo, Mirpur Khas, Gyor, Mahajanga, Kalol, Morena, Okara, Tongzhou, Daloa, Tbilisi, Rengasdengklok, Orekhovo Zuevo, Batangas, Zenica, Paterson, Umm Durman, Sanming, Jamnagar, Detroit, Somerset West, Betim, Matamoros, Talara, Hai Phong, Curitiba, Tiruchchirappalli, Kitakyushu, Panamá, Villeurbanne, Kaolack, Hadejia, Dera Ismail Khan, Stamford, Poá, Crawley, Palakkad, Cuenca, Pingdingshan, Anqing, Lalitpur, Medan, Shuangcheng, Loni, Hindupur, Qena, Kenitra, Rimini, Badaojiang, Bari, Pimpri, Tengzhou, Amarillo, Saveh, Itapecerica Da Serra, João Pessoa, Bijapur, Bethal, Saharsa, Ribeirão Das Neves, Catania, Sinnar, Sanandaj, Imabari, Hulan Ergi, Padalarang, Witbank, Huainan, Tarlac, Bata, Gdansk, Hsichih, Walbrzych, Nezahualcóyotl, Benguela, Las Vegas, Nakuru, Mahbubnagar, Santo André, Nkpor, Hanoi, Caxias Do Sul, Gboko, New Haven, Henzada, Khorramshahr, Bursa, Rampur, Öskemen, Iligan, Newport, Vancouver, Herne, Limoges, West Bromwich, Yokosuka, Ezhou, Grand Prairie, Tagum, Loum, Murmansk, Asgabat, Ruda Slaska, Longfeng, Ageo, Gombe, Joinville, Jind, Dhaulpur, Cancún, Irving, Garland, Laoag, Irvine, Bilaspur, Carrefour, Petropavl, Staryy Oskol, Remscheid, Wichita Falls, Pasir Gudang, Corona, Cuiabá, Balikpapan, Maastricht, Mashhad, Trier, Horlivka, Conakry, Tel Aviv Yafo, Vilnius, Campeche, Rio Grande, North Shore, Swansea, Osorno, Kroonstad, Soyapango, Nîmes, Jombang, Windsor, Dortmund, Majalaya, Alanya, Turku, Sasaram, Gomel, Linhares, Nampula, Atlanta, Odesa, Wuhan, Durgapur, Vizianagaram, Vereeniging, Springs, Quevedo, Nyíregyháza, Göteborg, Mauá, Cuernavaca, Chilpancingo, Zunyi, Longjing, Tijuana, Sogamoso, Licheng, Volgodonsk, Chaohu, Mishima, Oruro, Jalalabad, Bydgoszcz, Asahikawa, Dinajpur, Shaowu, Sherpur, Opole, Urfa, Salalah, Belgorod, Kamakura, Neuss, Jiangyin, Hyderabad, Freiburg, Hollywood, Piura, Zabol, Rangkasbitung, Girardot, Norfolk, Rajpur, Lianran, Apodaca, Lille, Kragujevac, Hachioji, Cebu, Oviedo, Gloucester, Salem, Karnal, Cape Coral, Ambato, Minsk, La Paz, Randfontein, Panzhihua, Managua, Niihama, Tokorozawa, Santander, Mendoza, Toda, El Limón, Kiryu, Antananarivo, Timon, Berbera, Pasarkemis, Oakland, Gazipur, Hoshangabad, Nazret, Satkhira, Prizren, Calama, Virar, Jacksonville, Singkawang, Baton Rouge, Dongling, Prague, Zhukovskiy, Jixi, Gravataí, Ilorin, Badlapur, Rzeszow, Potchefstroom, Taipei, Modakeke, La Ceiba, Essen, Camagüey, Thousand Oaks, Legnica, Tanga, Kisarazu, Hue, Dar Es Salaam, Suzano, Nouakchott, Puerto Cabello, Ilobu, San Miguelito, Agra, Diourbel, Kochi, Ferraz De Vasconcelos, Samsun, Muridke, Hanumangarh, Tapachula, Kabul, Delicias, Albacete, Maracanaú, Etah, Simi Valley, Guatemala, Yushu, Biysk, Genoa, Kure, Fuzhou, Victoria, Pristina, Palo Negro, Suihua, Tampere, Yangjiang, Itapetininga, Bogotá, Bratsk, Nehe, Itarsi, Ranchi, Mazatlán, Kabwe, Sabratah, Tieli, Itajaí, Zhaoqing, Johor Bahru, Barreiras, Pilibhit, Srinagar, Malolos, Kasur, Riga, Magdeburg, Bulandshahr, Ambala, Wahran, Volta Redonda, Tanta, San Antonio, Cherkasy, Peking, Makhachkala, Phitsanulok, Bila Tserkva, Kamoke, Nukus, Cardiff, Purworejo, Yingzhong, Surakarta, Mopti, Bobo Dioulasso, Birjand, Neftekamsk, Pittsburgh, Milagro, Saint Louis, Maxixe, Acapulco, Vanadzor, Debrecen, Maiduguri, Guatemala City, Neyagawa, Neyveli, Terni, Soweto, Kotte, Pindamonhangaba, Mentougou, Mandsaur, Dhaka, Tonk, Elista, Bhopal, Tacloban, Nanning, Koganei, Ancona, Kolar, Kpalimé, Cheboksary, Krasnodar, San Juan, Kumasi, Takatsuki, Qom, Toms River, Khandwa, Tawau, Hiroshima, Kaduna, Calamba, Tanshui, Khorramabad, Salto, Nakhodka, Farrukhabad, Tashkent, Da Lat, Lleida, Salta, Legaspi, Iloilo, Logroño, Mandya, Matsumoto, Kishi, Biên Hòa, Urayasu, Székesfehérvár, Chula Vista, Çorum, Hegang, Kisangani, Irkutsk, Binzhou, Ratisbon, San Bernardo, Bulaon, Qingdao, Ibb, Hamburg, Amritsar, Pak Kret, Babakan, Sarapul, São Bernardo Do Campo, Buon Me Thuot, Leninsk Kuznetskiy, Ica, Meycauayan, Danshui, Coacalco, Mogadishu, Dunedin, Kampala, Douala, Oktyabrskiy, Torreón, Springfield, Nonthaburi, Luxor, Ribeirão Pires, Prokopyevsk, Cicalengka, Davao, Wuzhou, Cam Pha, Suez, Araçatuba, Guadalajara, Provo, Iwatsuki, Wulanhaote, Fujimi, Aksaray, Tongchuan, Damoh, Joetsu, Tanza, Jundiaí, Graz, Saint Petersburg, Fujisawa, Kuching, Edirne, Fatehpur, Enugu, Jiddah, Richmond, Sorong, Singapore, Phalaborwa, Newport News, Ife, Sungai Petani, Alcorcón, Jining, Khlong Luang, Montes Claros, Katsina, Arnhem, Parung, Dagupan, Quebec, Luzhou, Antioch, Achinsk, Bokaro, Lucena, Amadora, Wloclawek, Serang, Leghorn, Guarapuava, Bihar, Bialystok, Modena, Klaten, Shilong, Rae Bareli, Kigoma, Ashikaga, Juazeiro Do Norte, Orange, Szczecin, Nazran, Kathmandu, Belawan, Ubon Ratchathani, Kaluga, Stoke On Trent, Didao, Mecca, Hrodna, Mesquite, Shaoxing, Drobeta Turnu Severin, Ussuriysk, Poole, Dharan, Ningbo, Temuco, Fuenlabrada, Erzincan, Usak, Saltillo, Virginia Beach, Tasikmalaya, Xinpu, Mercedes, Derbent, Rajshahi, Hagonoy, Malatya, Dehui, Czestochowa, Chernivtsi, Mudanjiang, Rizhao, Probolinggo, Bukan, Jiayuguan, Birigui, Santiago De Cuba, Cotia, Nishinomiya, Clearwater, Jalandhar, San Rafael, Jiangyou, Luanshya, Aalborg, Murom, Bharuch, Riverside, Ila, Birganj, Coatzacoalcos, Cartagena, Sumy, Bandar Penggaram, Daugavpils, Comodoro Rivadavia, Cuautla, Koshigaya, Ananindeua, Zouxian, Rongcheng, Gold Coast, Chandpur, Chizhou, Seversk, El Paso, Qujing, Coventry, Sakura, Linchuan, Dehri, Pingshan, Qunduz, Pescara, Dasoguz, Stuttgart, Mixco, Soc Trang, Ryazan, Kingston Upon Hull, Rotherham, Auckland, Nanyang, Tacoma, Envigado, Temirtau, Rabat, Tomakomai, Westonaria, Salamanca, Rio Branco, Munger, Anápolis, Rabak, Ongole, Ljubljana, Dordrecht, Cape Coast, Oyama, Qingyuan, Netanya, Valencia]
+Found 159 countries: [Benin, Papua New Guinea, Angola, Cambodia, Sudan, Kazakhstan, Paraguay, Portugal, Syria, Bahamas, Greece, Mongolia, Latvia, Iran, Morocco, Mali, Panama, Guatemala, Guyana, Iraq, Chile, Laos, Nepal, Argentina, Tanzania, Ukraine, Ghana, Zambia, Bahrain, Congo, India, Canada, Turkey, Belgium, Namibia, Taiwan, Finland, South Africa, Georgia, Central African Republic, Jamaica, Peru, Turkmenistan, Germany, Yemen, Puerto Rico, Eritrea, Hong Kong, United States, Guinea, Chad, Somalia, Congo (Democratic Republic Of The), Madagascar, Thailand, Libya, Equatorial Guinea, Costa Rica, Vietnam, Sweden, Malawi, Poland, Nigeria, Bulgaria, Jordan, Tunisia, Croatia, Sri Lanka, Uruguay, United Kingdom, United Arab Emirates, Kenya, Switzerland, Spain, Lebanon, Djibouti, Venezuela, Cuba, Liberia, Azerbaijan, Czech Republic, Burkina Faso, Mauritania, Swaziland, Côte D'Ivoire, Israel, Australia, Tajikistan, Estonia, Cameroon, Cyprus, Malaysia, Oman, Iceland, Bosnia And Herzegovina, Armenia, Gabon, Austria, South Korea, Mozambique, El Salvador, Brazil, Algeria, Slovenia, Lesotho, Colombia, Ecuador, Hungary, Japan, Moldova, Belarus, Mauritius, Albania, New Zealand, Senegal, Guinea Bissau, Italy, Honduras, Macedonia, Ethiopia, Haiti, Afghanistan, Burundi, Singapore, Egypt, Sierra Leone, Bolivia, Russia, Saudi Arabia, Netherlands, Pakistan, Gambia, China, Qatar, Ireland, Slovakia, France, Lithuania, Serbia, Reunion, Romania, Togo, Niger, Philippines, Rwanda, Uzbekistan, Burma, Bangladesh, Nicaragua, Norway, Botswana, Dominican Republic, Denmark, Mexico, Zimbabwe, Uganda, Suriname, Montenegro, Indonesia]
+
+Coldest country absolute: Russia
+Hottest country absolute: Algeria
+
+Coldest country average: Mongolia
+Hottest country average: Djibouti
+
+Country								Average Temperature
+-------------------------------------------------------
+Benin								26.975880208333326
+Papua New Guinea					24.855732278481014
+Angola								21.759715773235634
+Cambodia							26.91813629772837
+Sudan								28.072830827505825
+Kazakhstan							4.340299609693089
+Paraguay							22.784014312977096
+Portugal							14.749674965924584
+Syria								18.094597216677123
+Bahamas								24.78697831775701
+Greece								16.347482714233173
+Latvia								5.386615603284903
+Mongolia							-3.3654853195164076
+Morocco								17.29539940427836
+Iran								14.790532209512337
+Mali								27.59049083466809
+Panama								26.745667996011964
+Guyana								26.54984937439846
+Guatemala							19.17596265560166
+Iraq								19.884738137449162
+Chile								11.770133066906743
+Laos								24.1076642920748
+Nepal								18.119933213934946
+Argentina							16.999215885618387
+Tanzania							22.645595205003477
+Ukraine								7.822183953883207
+Zambia								20.93762319158264
+Ghana								26.319964426877476
+Bahrain								25.85560129096326
+Congo								23.866440922190204
+India								25.429224037736795
+Canada								4.900387156374224
+Turkey								12.951888167466654
+Belgium								9.726196958758234
+Namibia								19.635057097118462
+Finland								3.7116445356917245
+Taiwan								21.682916642514403
+South Africa						16.360848782206652
+Georgia								8.375597043951771
+Central African Republic			24.950858213256485
+Jamaica								26.409168621047943
+Turkmenistan						14.302487036478746
+Peru								16.57711496365847
+Germany								8.482790790263838
+Yemen								25.768407664453832
+Puerto Rico							25.297679923334933
+Eritrea								24.00151587777112
+Hong Kong							21.423696153846155
+Guinea								25.509399201596803
+United States						13.94933492360064
+Somalia								26.44614004062612
+Chad								27.18982939481268
+Congo (Democratic Republic Of The)	23.240345757415387
+Madagascar							22.116976179178135
+Thailand							26.69310977975822
+Equatorial Guinea					25.178324207492796
+Libya								19.85365172413793
+Costa Rica							24.852329749103944
+Sweden								5.665518003790272
+Vietnam								24.846825444785516
+Malawi								21.347872026498045
+Poland								7.6719722961066585
+Bulgaria							10.580413274975182
+Jordan								18.360980886539245
+Nigeria								26.584342534328584
+Tunisia								18.777488307066598
+Croatia								10.573466940408508
+Uruguay								17.42187094465649
+Sri Lanka							26.727753499911397
+United Kingdom						9.098373016610315
+United Arab Emirates				26.572680548234054
+Kenya								20.205170993284554
+Switzerland							7.541977258370183
+Spain								14.457233926198505
+Lebanon								18.75946075715605
+Djibouti							29.152790108564535
+Cuba								25.59688167009924
+Liberia								25.67318610816543
+Azerbaijan							11.113663814180928
+Venezuela							25.48242244956703
+Czech Republic						8.075891092861657
+Mauritania							27.021904935064935
+Burkina Faso						27.815294546436288
+Swaziland							21.203533368926852
+Côte D'Ivoire						25.788026983337485
+Israel								19.007696591476414
+Australia							16.70146214247646
+Tajikistan							8.810140854779412
+Estonia								4.695704832596336
+Cameroon							24.631562757558246
+Cyprus								19.034563765941485
+Malaysia							26.4347566243839
+Oman								25.565806295399515
+Iceland								1.5000886490022898
+Bosnia And Herzegovina				10.449959128237522
+Armenia								8.37559704395177
+Gabon								25.8957711815562
+Austria								6.285928363866077
+South Korea							10.681884541984733
+Mozambique							23.474416481606642
+El Salvador							25.262852550939826
+Brazil								21.90276297977392
+Algeria								17.763205946291563
+Slovenia							9.486257106759318
+Lesotho								14.04068019220502
+Colombia							22.683264177371726
+Ecuador								20.539170537428024
+Hungary								9.828791394679586
+Japan								13.402359587282998
+Moldova								8.672153295430615
+Belarus								6.1422531980416935
+Mauritius							23.522653983353152
+Albania								15.525828490208463
+New Zealand							12.841856587596457
+Senegal								25.984176694490817
+Guinea Bissau						27.05718546231962
+Honduras							23.975221142600095
+Italy								12.622415982312063
+Macedonia							9.57784301958307
+Ethiopia							20.61152529673099
+Haiti								26.37905045625335
+Afghanistan							13.816496896263578
+Burundi								20.806355820895526
+Singapore							26.523102826510723
+Egypt								21.48724903525698
+Sierra Leone						25.64101091005854
+Bolivia								11.352980175438597
+Russia								3.347267982873561
+Saudi Arabia						24.863508781107537
+Netherlands							9.096836083912406
+Pakistan							23.972701115482902
+Gambia								25.184094017094015
+Qatar								26.831705193482687
+Ireland								9.15390603284902
+China								12.542541204592172
+Slovakia							8.67710186355022
+Lithuania							6.105941503474415
+Serbia								9.909777742682671
+France								10.337918263494071
+Reunion								23.301403091557674
+Romania								8.89590614024005
+Togo								26.64435734543392
+Niger								28.145551671148674
+Philippines							26.516462467464862
+Rwanda								19.077631823461093
+Uzbekistan							11.94657381330911
+Burma								26.016839989290048
+Bangladesh							25.05251222557487
+Nicaragua							26.852526785714282
+Norway								3.612552747946936
+Botswana							18.9964981313401
+Dominican Republic					25.884052560376794
+Denmark								7.802639924194568
+Mexico								20.062045841746006
+Uganda								24.01932922954726
+Zimbabwe							19.822971358428806
+Suriname							26.4294749759384
+Montenegro							10.221040113708149
+Indonesia							25.990192956329214
+
+
+Country								Average temperature delta per year
+----------------------------------------------------------------------
+Benin								0.009155481809242798
+Globally							0.011998590910635158
+Papua New Guinea					0.004444321533923292
+Angola								0.010114798426745274
+Cambodia							0.013260324483775785
+Sudan								0.015320501474926269
+Kazakhstan							0.03539889380530972
+Paraguay							-0.008010766961651929
+Portugal							0.010182890855457222
+Syria								0.012809681837336717
+Bahamas								0.010799410029498488
+Greece								0.016179941002949852
+Latvia								0.019162794985250742
+Mongolia							0.031616519174041305
+Morocco								0.012530641592920378
+Iran								0.030467557209260716
+Mali								0.012739060963618553
+Panama								0.009216445427728594
+Guyana								0.007333333333333367
+Guatemala							0.011985496558505402
+Iraq								0.025486541297935057
+Chile								0.004413993362831815
+Laos								0.016651548672566338
+Nepal								0.00806405394016009
+Argentina							-0.0057967367256637516
+Tanzania							0.003982370022123965
+Ukraine								0.027814466568338275
+Zambia								-0.0026830752212389374
+Ghana								0.008884709931170154
+Bahrain								0.01804092920353982
+Congo								0.006041666666666706
+India								0.009143052757848005
+Canada								0.02096131760078663
+Turkey								0.017803393776389575
+Belgium								0.0019099241466498146
+Namibia								0.008478244837758142
+Finland								0.02662927728613568
+Taiwan								0.010776524090462111
+South Africa						-1.6542035398227142E-4
+Georgia								0.026229351032448372
+Central African Republic			0.00862647492625367
+Jamaica								0.00663585709603411
+Turkmenistan						0.04159869714847593
+Peru								6.399336283185742E-4
+Germany								0.00572449834298408
+Yemen								0.019233407079645985
+Puerto Rico							0.009478367748279261
+Eritrea								0.02025294985250742
+Hong Kong							0.015806047197640123
+Guinea								0.009630530973451379
+United States						0.016193889559036122
+Somalia								0.01081843657817112
+Chad								0.01245630530973449
+Congo (Democratic Republic Of The)	0.007175660510452763
+Madagascar							0.0016533308751228804
+Thailand							0.01491024020227561
+Equatorial Guinea					0.009049041297935123
+Libya								0.012490007374631296
+Costa Rica							0.009145526057030487
+Sweden								0.013795058997050134
+Vietnam								0.013646214355948932
+Malawi								-0.004627581120943925
+Poland								0.01298336826579724
+Bulgaria							0.020278761061946926
+Jordan								0.010756637168141613
+Nigeria								0.010962231352718038
+Tunisia								0.014183112094395265
+Croatia								0.01448266961651917
+Uruguay								-0.009058997050147496
+Sri Lanka							0.008132866273352924
+United Kingdom						0.0023689484643414755
+United Arab Emirates				0.013962758112094423
+Kenya								0.006397062438544734
+Switzerland							0.007257005899705022
+Spain								0.009074764011799394
+Lebanon								0.009076204523107177
+Djibouti							0.01953281710914455
+Cuba								0.008243134569462015
+Liberia								0.008324852507374662
+Azerbaijan							0.03304129793510323
+Venezuela							0.006879553834808242
+Czech Republic						0.012062168141592939
+Mauritania							0.01241371681415927
+Burkina Faso						0.011627396755162212
+Swaziland							0.001466814159292028
+Côte D'Ivoire						0.01000805536646248
+Israel								0.00989855784988531
+Australia							0.01005251790981877
+Tajikistan							0.03355070058997049
+Estonia								0.025138643067846626
+Cameroon							0.01122576204523103
+Cyprus								0.011637536873156334
+Malaysia							0.010550815818584037
+Oman								0.011085914454277233
+Iceland								0.017625000000000002
+Bosnia And Herzegovina				0.017165412979351077
+Armenia								0.026229351032448372
+Gabon								0.007725110619469049
+Austria								0.012002802359882011
+South Korea							0.013916297935103239
+Mozambique							-2.3482055063908043E-4
+El Salvador							0.010795231071779746
+Brazil								0.004141432019308071
+Algeria								0.013293879056047186
+Slovenia							0.014261799410029486
+Lesotho								-0.001231194690265502
+Colombia							0.008169738044618272
+Ecuador								0.003065322214658521
+Hungary								0.01785812028843004
+Japan								0.014678072060682676
+Moldova								0.022639995083579157
+Belarus								0.021389057890855462
+Mauritius							0.007506268436578161
+Albania								0.012850663716814212
+New Zealand							0.010825303179285485
+Senegal								0.005747188421828941
+Guinea Bissau						0.012210176991150486
+Honduras							0.012532841691248825
+Italy								0.010550015802781242
+Macedonia							0.0222529498525074
+Ethiopia							0.019351114388725034
+Haiti								0.004186283185840713
+Afghanistan							0.021013735250737506
+Burundi								0.0063860619469027135
+Singapore							0.009480457227138616
+Egypt								0.01151249805930757
+Sierra Leone						0.008195058997050145
+Bolivia								-0.004027101769911492
+Russia								0.030842199436502526
+Saudi Arabia						0.019006584492203948
+Netherlands							0.001656034906588011
+Pakistan							0.014179441027948644
+Gambia								0.002830752212389378
+Qatar								0.016671091445427683
+Ireland								0.00663126843657818
+China								0.021050394930911404
+Slovakia							0.016415744837758126
+Lithuania							0.014827876106194694
+Serbia								0.02096159046214356
+France								0.004930371189773829
+Reunion								0.008884587020648968
+Romania								0.020009764011799422
+Togo								0.008122603244837772
+Niger								0.016273967551622394
+Philippines							0.011509201270705646
+Rwanda								0.007608775811209468
+Uzbekistan							0.03684149151917405
+Burma								0.0096523967551622
+Bangladesh							0.007043083372147181
+Nicaragua							0.010305309734513277
+Norway								0.015128410766961654
+Botswana							-0.003569321533923296
+Dominican Republic					0.004942641756801046
+Denmark								0.0087634587020649
+Mexico								0.014635680544151443
+Uganda								0.009352261553588991
+Zimbabwe							-0.005099610198061574
+Suriname							0.007305678466076755
+Montenegro							0.01905014749262537
+Indonesia							0.0076439528023599145
+
+
+
+Timings:
+--------
+#size() took 0.001s
+#citites() took 0.251s
+#countries() took 0.121s
+#coldestCountryAbs() took 0.089s
+#hottestCountryAbs() took 0.088s
+#coldestCountryAvg() took 2.346s
+#hottestCountryAvg() took 3.333s
+#countriesAvgTemperature() took 1.206s
+#avgTemperatureDeltaPerYearPerCountry() took 4.668s

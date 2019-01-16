@@ -1,9 +1,5 @@
 package temperature;
 
-import temperature.IteratorTemperatures;
-import temperature.StreamTemperatures;
-import temperature.Temperatures;
-
 import java.io.File;
 import java.util.Arrays;
 import java.util.Date;
