@@ -216,7 +216,14 @@ public class Document {
 
     private static String[] tokenize(String content) {
         // assumptions as of the exercise: content has only lower case letters and single spaces
-        int wordCount = Stringulina.countSubstring(content, " ") + 1;
+
+        int wordCount = 1; // starting with one since there is one word more than spaces
+        /* count spaces in the content */ // copied from solution, in order to replace Stringulina dependency
+        for (int i = 0; i < content.length(); i++) {
+            if (content.charAt(i) == ' ') {
+                wordCount++;
+            }
+        }
 
         String[] tokenArray = new String[wordCount];
         int nextIndex = 0;
