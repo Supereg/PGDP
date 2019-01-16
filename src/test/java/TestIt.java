@@ -1,6 +1,6 @@
 public class TestIt {
 
-    private static final LinkedDocumentCollection COLLECTION = new LinkedDocumentCollection();
+    private static LinkedDocumentCollection collection = new LinkedDocumentCollection();
 
     public static void main(String[] args) {
         while (true) {
@@ -22,7 +22,7 @@ public class TestIt {
                     add(argument);
                     break;
                 case "list":
-                    COLLECTION.iterate(TestIt::list);
+                    collection.iterate(TestIt::list);
                     break;
                 case "count":
                     if (argument == null) {
@@ -41,10 +41,7 @@ public class TestIt {
                     query(argument);
                     break;
                 case "crawl":
-                    DocumentCollection result = COLLECTION.crawl();
-
-                    for (Document document: result)
-                        COLLECTION.appendDocument(document);
+                    collection = collection.crawl();
                     break;
                 case "pagerank":
                     pageRank();
@@ -61,7 +58,7 @@ public class TestIt {
         String content = split[1];
 
         Document document = new LinkedDocument(title, "de", "", new Date(), null, content, title);
-        COLLECTION.appendDocument(document);
+        collection.appendDocument(document);
     }
 
     private static void list(Document document) {
@@ -69,7 +66,7 @@ public class TestIt {
     }
 
     private static void count(String word) {
-        COLLECTION.iterate(document -> {
+        collection.iterate(document -> {
             WordCountsArray wordCounts = document.getWordCounts();
             int index = wordCounts.getIndexOfWord(word);
             int count = wordCounts.getCount(index);
@@ -79,21 +76,21 @@ public class TestIt {
     }
 
     private static void query(String queryString) {
-        COLLECTION.match(queryString);
+        collection.match(queryString);
 
         int index = 0;
-        for (Document document: COLLECTION) {
+        for (Document document: collection) {
             System.out.println((index + 1) + ". " + document.getTitle() + "; Relevanz: "
-                    + COLLECTION.getRelevance(index));
+                    + collection.getRelevance(index));
             index++;
         }
     }
 
     private static void pageRank() {
-        double[] pageRank = COLLECTION.pageRankRec(0.85);
+        double[] pageRank = collection.pageRankRec(0.85);
 
         int index = 0;
-        for (Document document: COLLECTION)
+        for (Document document: collection)
             System.out.println(document.getTitle() + "; PageRank: " + pageRank[index++]);
     }
 
