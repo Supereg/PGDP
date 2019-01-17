@@ -3,19 +3,30 @@ package testit;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import suchmaschine.DocumentCollectionTest;
 
 import java.io.*;
 import java.net.Socket;
-import java.net.UnknownHostException;
 
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 
 public class TestItServerTest {
 
+  public static final DocumentCollectionTest.FileContent[] FILE_CONTENTS = {
+          new DocumentCollectionTest.FileContent("A.txt", "blablabla link:B.txt tralalalal link:C.txt tetsetse ende"),
+          new DocumentCollectionTest.FileContent("B.txt", "ich bin B und verlinke link:Pinguine.txt niemanden, außer link:A.txt link:C.txt und link:D.txt"),
+          new DocumentCollectionTest.FileContent("C.txt", "dies ist die datei c die auf datei d verlinkt link:D.txt"),
+          new DocumentCollectionTest.FileContent("D.txt", "es ist so ein schoener tag.. verlink einfach mal auf datei c link:C.txt"),
+          new DocumentCollectionTest.FileContent("E.txt", "pinguine link:Pinguine.txt verlinken ueblich nur auf auf link:C.txt"),
+          new DocumentCollectionTest.FileContent("Pinguine.txt", "pinguine sind lustige tierchen link:Tierchen.txt aus dem ewigen eis"),
+          new DocumentCollectionTest.FileContent("Tierchen.txt", "tierchen sind kleine link:A.txt tiere")
+  };
+
   private static Thread testItServer;
   @BeforeClass
   public static void startTestItServer() throws IOException {
+    DocumentCollectionTest.createFiles(FILE_CONTENTS);
     testItServer = new Thread(() -> TestItServer.main(new String[0]));
     testItServer.start();
     try {
@@ -29,6 +40,7 @@ public class TestItServerTest {
   @AfterClass
   public static void stopTestItServer() {
     testItServer.stop();
+    DocumentCollectionTest.deleteFiles(FILE_CONTENTS);
   }
 
   private static void testPrompt(BufferedReader in) throws IOException {
