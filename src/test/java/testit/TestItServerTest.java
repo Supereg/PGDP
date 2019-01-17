@@ -2,16 +2,15 @@ package testit;
 
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import java.io.*;
 import java.net.Socket;
+import java.net.UnknownHostException;
 
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 
-@Ignore("This Test is complete bullshit")
 public class TestItServerTest {
 
   private static Thread testItServer;
@@ -19,6 +18,11 @@ public class TestItServerTest {
   public static void startTestItServer() throws IOException {
     testItServer = new Thread(() -> TestItServer.main(new String[0]));
     testItServer.start();
+    try {
+      Thread.sleep(1000); // ensure it is started
+    } catch (InterruptedException e) {
+      e.printStackTrace();
+    }
   }
 
   @SuppressWarnings("deprecation")
@@ -32,7 +36,7 @@ public class TestItServerTest {
     in.read(buf);
     assertArrayEquals(new char[] { '>', ' ' }, buf);
   }
-  
+
   private static void skipNewline(BufferedReader in) throws IOException {
     in.mark(100);
     char c = (char)in.read();
@@ -57,51 +61,64 @@ public class TestItServerTest {
       testPrompt(in);
       out.println("add D.txt:es ist so ein schoener tag.. verlink einfach mal auf datei c link:C.txt");
       testPrompt(in);
-      out.println("add E.txt:es ist so ein schoener tag.. verlink einfach mal auf datei c link:C.txt");
+      out.println("add E.txt:pinguine link:Pinguine.txt verlinken ueblich nur auf auf link:C.txt");
       testPrompt(in);
-      
+      out.println("crawl");
+      testPrompt(in);
+
       out.println("query einmal");
-      assertEquals("1. D.txt; Relevanz: 0.22502544161844423".substring(0, 30), in.readLine().trim().substring(0, 30));
-      assertEquals("2. E.txt; Relevanz: 0.22502544161844423".substring(0, 30), in.readLine().trim().substring(0, 30));
-      assertEquals("3. B.txt; Relevanz: 0.07999999999999996".substring(0, 30), in.readLine().trim().substring(0, 30)); // turned 0.08000000000000002 into 0.07999999999999996
-      assertEquals("4. A.txt; Relevanz: 0.07999999999999996".substring(0, 30), in.readLine().trim().substring(0, 30));
-      assertEquals("5. C.txt; Relevanz: 0.07999999999999996".substring(0, 30), in.readLine().trim().substring(0, 30));
+      assertEquals("1. D.txt; Relevanz: 0.28615880434508845".substring(0, 30), in.readLine().trim().substring(0, 30));
+      assertEquals("2. C.txt; Relevanz: 0.14554138926995028".substring(0, 30), in.readLine().trim().substring(0, 30));
+      assertEquals("3. A.txt; Relevanz: 0.03854293763345878".substring(0, 30), in.readLine().trim().substring(0, 30));
+      assertEquals("4. B.txt; Relevanz: 0.024952177065648565".substring(0, 30), in.readLine().trim().substring(0, 30));
+      assertEquals("5. Tierchen.txt; Relevanz: 0.02278451036368182".substring(0, 30), in.readLine().trim().substring(0, 30));
+      assertEquals("6. E.txt; Relevanz: 0.01917610382432923".substring(0, 30), in.readLine().trim().substring(0, 30));
+      assertEquals("7. Pinguine.txt; Relevanz: 0.01672127269676851".substring(0, 30), in.readLine().trim().substring(0, 30));
       skipNewline(in);
       testPrompt(in);
-//
+
       out.println("query datei");
-      assertEquals("1. C.txt; Relevanz: 0.1808485725501503".substring(0, 30), in.readLine().trim().substring(0, 30));
-      assertEquals("2. D.txt; Relevanz: 0.17408998424565625".substring(0, 30), in.readLine().trim().substring(0, 30));
-      assertEquals("3. E.txt; Relevanz: 0.17408998424565625".substring(0, 30), in.readLine().trim().substring(0, 30));
-      assertEquals("4. B.txt; Relevanz: 0.07999999999999996".substring(0, 30), in.readLine().trim().substring(0, 30));
-      assertEquals("5. A.txt; Relevanz: 0.07999999999999996".substring(0, 30), in.readLine().trim().substring(0, 30));
+      assertEquals("1. C.txt; Relevanz: 0.31378237144529836".substring(0, 30), in.readLine().trim().substring(0, 30));
+      assertEquals("2. D.txt; Relevanz: 0.24228781996357535".substring(0, 29), in.readLine().trim().substring(0, 29));
+      assertEquals("3. A.txt; Relevanz: 0.038542937633458785".substring(0, 30), in.readLine().trim().substring(0, 30));
+      assertEquals("4. B.txt; Relevanz: 0.02495217706564857".substring(0, 30), in.readLine().trim().substring(0, 30));
+      assertEquals("5. Tierchen.txt; Relevanz: 0.022784510363681825".substring(0, 30), in.readLine().trim().substring(0, 30));
+      assertEquals("6. E.txt; Relevanz: 0.01917610382432923".substring(0, 30), in.readLine().trim().substring(0, 30));
+      assertEquals("7. Pinguine.txt; Relevanz: 0.01672127269676851".substring(0, 30), in.readLine().trim().substring(0, 30));
       skipNewline(in);
       testPrompt(in);
-      
+
       out.println("list");
-      assertEquals("C.txt", in.readLine());
-      assertEquals("D.txt", in.readLine());
-      assertEquals("E.txt", in.readLine());
-      assertEquals("B.txt", in.readLine());
-      assertEquals("A.txt", in.readLine());
+
+      assertEquals("C.txt", in.readLine().trim());
+      assertEquals("D.txt", in.readLine().trim());
+      assertEquals("A.txt", in.readLine().trim());
+      assertEquals("B.txt", in.readLine().trim());
+      assertEquals("Tierchen.txt", in.readLine().trim());
+      assertEquals("E.txt", in.readLine().trim());
+      assertEquals("Pinguine.txt", in.readLine().trim());
       skipNewline(in);
       testPrompt(in);
-      
+
       out.println("count ein");
       assertEquals("C.txt: 0x", in.readLine().trim());
       assertEquals("D.txt: 1x", in.readLine().trim());
-      assertEquals("E.txt: 1x", in.readLine().trim());
-      assertEquals("B.txt: 0x", in.readLine().trim());
       assertEquals("A.txt: 0x", in.readLine().trim());
+      assertEquals("B.txt: 0x", in.readLine().trim());
+      assertEquals("Tierchen.txt: 0x", in.readLine().trim());
+      assertEquals("E.txt: 0x", in.readLine().trim());
+      assertEquals("Pinguine.txt: 0x", in.readLine().trim());
       skipNewline(in);
       testPrompt(in);
 
       out.println("pageRank");
-      assertEquals("C.txt; PageRank: 0.19999999999999987".substring(0, 30), in.readLine().trim().substring(0, 30)); // turned 0.2 into 0.19999999999999987
-      assertEquals("D.txt; PageRank: 0.19999999999999987".substring(0, 30), in.readLine().trim().substring(0, 30));
-      assertEquals("E.txt; PageRank: 0.19999999999999987".substring(0, 30), in.readLine().trim().substring(0, 30));
-      assertEquals("B.txt; PageRank: 0.19999999999999987".substring(0, 30), in.readLine().trim().substring(0, 30));
-      assertEquals("A.txt; PageRank: 0.19999999999999987".substring(0, 30), in.readLine().trim().substring(0, 30));
+      assertEquals("C.txt; PageRank: 0.3638534731748756".substring(0, 25), in.readLine().trim().substring(0, 25));
+      assertEquals("D.txt; PageRank: 0.3307040228654089".substring(0, 25), in.readLine().trim().substring(0, 25));
+      assertEquals("A.txt; PageRank: 0.09635734408364695".substring(0, 25), in.readLine().trim().substring(0, 25));
+      assertEquals("B.txt; PageRank: 0.06238044266412142".substring(0, 25), in.readLine().trim().substring(0, 25));
+      assertEquals("Tierchen.txt; PageRank: 0.05696127590920456".substring(0, 25), in.readLine().trim().substring(0, 25));
+      assertEquals("E.txt; PageRank: 0.047940259560823074".substring(0, 25), in.readLine().trim().substring(0, 25));
+      assertEquals("Pinguine.txt; PageRank: 0.041803181741921276".substring(0, 25), in.readLine().trim().substring(0, 25));
       skipNewline(in);
       testPrompt(in);
 
@@ -110,24 +127,22 @@ public class TestItServerTest {
     }
   }
 
-  @Test
-  public void testIntegrityOfChanges() {
-    assertEquals(0.08000000000000002, 0.07999999999999996, 10E-10); // 0.08000000000000002 into 0.07999999999999996
-    assertEquals(0.2, 0.19999999999999987, 10E-10); // 0.2 into 0.19999999999999987
-  }
-
   @Test(timeout = 3000)
   public void testSingle() throws IOException {
     /*
      * 4P
+     *
+     * Working directory für den Server: suchmaschine_testdocs
      */
     testClient();
   }
-  
+
   @Test(timeout = 10000)
   public void testMulti() throws IOException {
     /*
      * 1P Abzug, wenn dieser Test nicht funktioniert
+     *
+     * Working directory für den Server: suchmaschine_testdocs
      */
     testClient();
     testClient();
