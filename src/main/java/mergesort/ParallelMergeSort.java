@@ -17,56 +17,56 @@ public class ParallelMergeSort extends Thread {
     private final int high;
     private final int numberOfThreadLevels;
 
-    private final int partitionSize;
-
     public ParallelMergeSort(int[] numbers, int low, int high, int numberOfThreadLevels) {
         this.numbers = numbers;
         this.low = low;
         this.high = high;
         this.numberOfThreadLevels = numberOfThreadLevels;
-
-        this.partitionSize = high - low + 1;
     }
 
     @Override
     public void run() {
+        sortParallel(low, high, numberOfThreadLevels);
+    }
+
+    private void sortParallel(int low, int high, int numberOfThreadLevels) {
+        int partitionSize = high - low + 1;
         if (partitionSize == 1)
             return;
-        int middle = high;
 
-        ParallelMergeSort threadForSecondHalf = null;
-        if (numberOfThreadLevels > 0 ) {
-            middle = low + ((partitionSize - 1) / 2); // new middle index
+        if (numberOfThreadLevels > 0) {
+            numberOfThreadLevels /= 2; // cut thread level in half
+            int middle = low + ((partitionSize -1 ) / 2); // new middle index;
 
-            // start thread reaching from middle + 1 to high
-            threadForSecondHalf = new ParallelMergeSort(numbers, middle + 1, high, numberOfThreadLevels / 2);
+            // start thread reaching from low to middle
+            ParallelMergeSort threadForSecondHalf = new ParallelMergeSort(numbers, low, middle, numberOfThreadLevels);
             threadForSecondHalf.start();
-        }
 
-        // sort our half
-        sortNumbers(low, middle);
+            // sort other part recursively in parallel
+            sortParallel(middle + 1, high, numberOfThreadLevels);
 
-        if (threadForSecondHalf != null) { // if we starte a thread we need to merge both parts
             try {
-                threadForSecondHalf.join(); // waiting that it finished
+                threadForSecondHalf.join(); // wait for the thread to finish
             } catch (InterruptedException e) {
-                System.err.println("Interrupted while sorting in level " + numberOfThreadLevels);
+                System.err.println("Interrupted while trying to merge " + this.getName() + " and " + threadForSecondHalf.getName());
             }
-
-            // merging both groups
+            // merge both parts
             mergeGroups(low, middle, high);
+        }
+        else {
+            sort(low, high);
         }
     }
 
-    private void sortNumbers(int low, int high) {
+    private void sort(int low, int high) {
         int partitionSize = high - low + 1;
         if (partitionSize == 1)
             return;
 
         int middle = low + (partitionSize - 1) / 2;
 
-        sortNumbers(low, middle); // sort left group
-        sortNumbers(middle + 1, high); // sort right group
+        sort(low, middle); // sort left group
+        sort(middle + 1, high); // sort right group
         mergeGroups(low, middle, high); // merge both groups
     }
 
