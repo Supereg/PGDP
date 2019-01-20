@@ -104,25 +104,10 @@ public class StreamTemperatures extends Temperatures {
 
     @Override
     public Map<String, Double> countriesAvgTemperature() {
-        /* // Musterlösung, barely any difference
-            return temperaturesByCountry()
-                .entrySet()
-                .parallelStream()
-                .collect(Collectors.toMap(
-                        entry -> entry.getKey(),
-                        entry -> entry
-                                    .getValue()
-                                    .parallelStream()
-                                    .mapToDouble(Temperature::getAverageTemperature)
-                                    .average()
-                                    .getAsDouble()
-            ));
-         */
-
         return temperaturesByCountry().entrySet().parallelStream().collect(Collectors.toMap(
                 Entry::getKey,
-                temperatures -> temperatures.getValue().parallelStream().map(Temperature::getAverageTemperature).reduce(0D, Double::sum)
-                        / temperatures.getValue().size()
+                temperatures -> temperatures.getValue().parallelStream()
+                        .mapToDouble(Temperature::getAverageTemperature).average().orElse(0D)
         ));
     }
 
@@ -136,11 +121,11 @@ public class StreamTemperatures extends Temperatures {
                     );
                     // mapping year to average temp
                     @SuppressWarnings("deprecation")
-                    Map<Integer, Double> yearToAvgTemp = tempByCountryEntry.getValue().parallelStream().collect(
-                            Collectors.toMap(temperature -> temperature.getDate().getYear(), Temperature::getAverageTemperature, Double::sum)
-                    ).entrySet().parallelStream().filter(entry -> entry.getKey() >= 0).collect(
-                            Collectors.toMap(Entry::getKey, entry -> entry.getValue() / yearToTempSum.get(entry.getKey()))
-                    );
+                    Map<Integer, Double> yearToAvgTemp = tempByCountryEntry.getValue().parallelStream()
+                            .collect(Collectors.toMap(temperature -> temperature.getDate().getYear(), Temperature::getAverageTemperature, Double::sum))
+                            .entrySet().parallelStream()
+                            .filter(entry -> entry.getKey() >= 0) // filter >= year 1900
+                            .collect(Collectors.toMap(Entry::getKey, entry -> entry.getValue() / yearToTempSum.get(entry.getKey())));
 
 
                     List<Double> yearlyTempDeltas = yearToAvgTemp.entrySet().parallelStream()
@@ -150,13 +135,12 @@ public class StreamTemperatures extends Temperatures {
                             }).filter(Objects::nonNull).collect(Collectors.toList());
 
                     // sum all temperature deltas and divide by size
-                    return yearlyTempDeltas.parallelStream()
-                            .reduce(0D, Double::sum) / yearlyTempDeltas.size();
+                    return yearlyTempDeltas.parallelStream().mapToDouble(d -> d).average().orElse(0D);
                 })
         );
 
         // adding global key
-        Double globallyAvg = avgTempDeltaPerYear.values().parallelStream().reduce(0D, Double::sum) / avgTempDeltaPerYear.size();
+        Double globallyAvg = avgTempDeltaPerYear.values().parallelStream().mapToDouble(d -> d).average().orElse(0D);
         avgTempDeltaPerYear.put("Globally", globallyAvg);
 
         return avgTempDeltaPerYear;
