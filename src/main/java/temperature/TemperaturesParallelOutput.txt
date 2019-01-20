@@ -10,171 +10,171 @@ Hottest country average: Djibouti
 
 Country								Average Temperature
 -------------------------------------------------------
-Benin								26.975880208333326
+Benin								26.975880208333333
 Papua New Guinea					24.855732278481014
-Angola								21.759715773235634
-Cambodia							26.91813629772837
-Sudan								28.072830827505825
-Kazakhstan							4.340299609693089
-Paraguay							22.784014312977096
-Portugal							14.749674965924584
-Syria								18.094597216677123
+Angola								21.759715773235637
+Cambodia							26.918136297728374
+Sudan								28.07283082750583
+Kazakhstan							4.34029960969309
+Paraguay							22.7840143129771
+Portugal							14.74967496592458
+Syria								18.094597216677126
 Bahamas								24.78697831775701
 Greece								16.347482714233173
-Latvia								5.386615603284903
+Latvia								5.386615603284901
 Mongolia							-3.3654853195164076
-Morocco								17.29539940427836
-Iran								14.790532209512337
+Morocco								17.295399404278363
+Iran								14.790532209512339
 Mali								27.59049083466809
-Panama								26.745667996011964
-Guyana								26.54984937439846
-Guatemala							19.17596265560166
-Iraq								19.884738137449162
+Panama								26.745667996011967
+Guyana								26.549849374398462
+Guatemala							19.175962655601662
+Iraq								19.88473813744916
 Chile								11.770133066906743
-Laos								24.1076642920748
+Laos								24.107664292074798
 Nepal								18.119933213934946
 Argentina							16.999215885618387
-Tanzania							22.645595205003477
-Ukraine								7.822183953883207
+Tanzania							22.64559520500348
+Ukraine								7.822183953883209
 Zambia								20.93762319158264
-Ghana								26.319964426877476
-Bahrain								25.85560129096326
-Congo								23.866440922190204
-India								25.429224037736795
-Canada								4.900387156374224
-Turkey								12.951888167466654
+Ghana								26.31996442687747
+Bahrain								25.855601290963254
+Congo								23.866440922190197
+India								25.429224037736784
+Canada								4.900387156374221
+Turkey								12.951888167466652
 Belgium								9.726196958758234
 Namibia								19.635057097118462
 Finland								3.7116445356917245
-Taiwan								21.682916642514403
-South Africa						16.360848782206652
-Georgia								8.375597043951771
-Central African Republic			24.950858213256485
+Taiwan								21.682916642514414
+South Africa						16.360848782206656
+Georgia								8.375597043951768
+Central African Republic			24.95085821325648
 Jamaica								26.409168621047943
 Turkmenistan						14.302487036478746
-Peru								16.57711496365847
+Peru								16.577114963658474
 Germany								8.482790790263838
 Yemen								25.768407664453832
 Puerto Rico							25.297679923334933
 Eritrea								24.00151587777112
 Hong Kong							21.423696153846155
-Guinea								25.509399201596803
-United States						13.94933492360064
-Somalia								26.44614004062612
+Guinea								25.509399201596807
+United States						13.949334923600654
+Somalia								26.446140040626123
 Chad								27.18982939481268
-Congo (Democratic Republic Of The)	23.240345757415387
+Congo (Democratic Republic Of The)	23.24034575741539
 Madagascar							22.116976179178135
 Thailand							26.69310977975822
-Equatorial Guinea					25.178324207492796
-Libya								19.85365172413793
-Costa Rica							24.852329749103944
-Sweden								5.665518003790272
-Vietnam								24.846825444785516
+Equatorial Guinea					25.178324207492793
+Libya								19.853651724137933
+Costa Rica							24.85232974910394
+Sweden								5.665518003790273
+Vietnam								24.84682544478552
 Malawi								21.347872026498045
-Poland								7.6719722961066585
+Poland								7.671972296106658
 Bulgaria							10.580413274975182
 Jordan								18.360980886539245
-Nigeria								26.584342534328584
+Nigeria								26.584342534328588
 Tunisia								18.777488307066598
 Croatia								10.573466940408508
-Uruguay								17.42187094465649
-Sri Lanka							26.727753499911397
-United Kingdom						9.098373016610315
+Uruguay								17.421870944656487
+Sri Lanka							26.727753499911394
+United Kingdom						9.098373016610307
 United Arab Emirates				26.572680548234054
-Kenya								20.205170993284554
-Switzerland							7.541977258370183
+Kenya								20.205170993284558
+Switzerland							7.541977258370184
 Spain								14.457233926198505
 Lebanon								18.75946075715605
 Djibouti							29.152790108564535
-Cuba								25.59688167009924
+Cuba								25.59688167009923
 Liberia								25.67318610816543
-Azerbaijan							11.113663814180928
-Venezuela							25.48242244956703
-Czech Republic						8.075891092861657
+Azerbaijan							11.113663814180931
+Venezuela							25.482422449567036
+Czech Republic						8.075891092861655
 Mauritania							27.021904935064935
-Burkina Faso						27.815294546436288
-Swaziland							21.203533368926852
-Côte D'Ivoire						25.788026983337485
-Israel								19.007696591476414
-Australia							16.70146214247646
-Tajikistan							8.810140854779412
+Burkina Faso						27.815294546436284
+Swaziland							21.20353336892686
+Côte D'Ivoire						25.788026983337478
+Israel								19.00769659147642
+Australia							16.701462142476462
+Tajikistan							8.810140854779414
 Estonia								4.695704832596336
-Cameroon							24.631562757558246
+Cameroon							24.631562757558253
 Cyprus								19.034563765941485
-Malaysia							26.4347566243839
+Malaysia							26.43475662438391
 Oman								25.565806295399515
 Iceland								1.5000886490022898
-Bosnia And Herzegovina				10.449959128237522
+Bosnia And Herzegovina				10.449959128237525
 Armenia								8.37559704395177
-Gabon								25.8957711815562
+Gabon								25.895771181556192
 Austria								6.285928363866077
-South Korea							10.681884541984733
+South Korea							10.681884541984735
 Mozambique							23.474416481606642
-El Salvador							25.262852550939826
-Brazil								21.90276297977392
-Algeria								17.763205946291563
-Slovenia							9.486257106759318
-Lesotho								14.04068019220502
-Colombia							22.683264177371726
-Ecuador								20.539170537428024
-Hungary								9.828791394679586
-Japan								13.402359587282998
-Moldova								8.672153295430615
+El Salvador							25.26285255093982
+Brazil								21.902762979773943
+Algeria								17.763205946291556
+Slovenia							9.48625710675932
+Lesotho								14.040680192205018
+Colombia							22.68326417737173
+Ecuador								20.539170537428017
+Hungary								9.828791394679582
+Japan								13.402359587282971
+Moldova								8.672153295430617
 Belarus								6.1422531980416935
-Mauritius							23.522653983353152
+Mauritius							23.522653983353155
 Albania								15.525828490208463
 New Zealand							12.841856587596457
 Senegal								25.984176694490817
-Guinea Bissau						27.05718546231962
-Honduras							23.975221142600095
-Italy								12.622415982312063
-Macedonia							9.57784301958307
-Ethiopia							20.61152529673099
+Guinea Bissau						27.057185462319616
+Honduras							23.975221142600088
+Italy								12.622415982312068
+Macedonia							9.577843019583069
+Ethiopia							20.611525296730985
 Haiti								26.37905045625335
-Afghanistan							13.816496896263578
-Burundi								20.806355820895526
-Singapore							26.523102826510723
-Egypt								21.48724903525698
+Afghanistan							13.816496896263581
+Burundi								20.80635582089552
+Singapore							26.52310282651072
+Egypt								21.48724903525697
 Sierra Leone						25.64101091005854
 Bolivia								11.352980175438597
-Russia								3.347267982873561
-Saudi Arabia						24.863508781107537
-Netherlands							9.096836083912406
+Russia								3.3472679828735594
+Saudi Arabia						24.863508781107544
+Netherlands							9.096836083912402
 Pakistan							23.972701115482902
-Gambia								25.184094017094015
-Qatar								26.831705193482687
+Gambia								25.184094017094022
+Qatar								26.83170519348269
 Ireland								9.15390603284902
-China								12.542541204592172
-Slovakia							8.67710186355022
+China								12.542541204592178
+Slovakia							8.677101863550222
 Lithuania							6.105941503474415
-Serbia								9.909777742682671
+Serbia								9.90977774268267
 France								10.337918263494071
-Reunion								23.301403091557674
+Reunion								23.30140309155767
 Romania								8.89590614024005
-Togo								26.64435734543392
-Niger								28.145551671148674
-Philippines							26.516462467464862
-Rwanda								19.077631823461093
-Uzbekistan							11.94657381330911
+Togo								26.644357345433924
+Niger								28.14555167114868
+Philippines							26.516462467464866
+Rwanda								19.077631823461086
+Uzbekistan							11.946573813309106
 Burma								26.016839989290048
-Bangladesh							25.05251222557487
-Nicaragua							26.852526785714282
+Bangladesh							25.05251222557486
+Nicaragua							26.85252678571428
 Norway								3.612552747946936
-Botswana							18.9964981313401
-Dominican Republic					25.884052560376794
-Denmark								7.802639924194568
-Mexico								20.062045841746006
-Uganda								24.01932922954726
+Botswana							18.996498131340097
+Dominican Republic					25.88405256037679
+Denmark								7.802639924194567
+Mexico								20.062045841745988
+Uganda								24.019329229547257
 Zimbabwe							19.822971358428806
-Suriname							26.4294749759384
+Suriname							26.429474975938405
 Montenegro							10.221040113708149
-Indonesia							25.990192956329214
+Indonesia							25.99019295632924
 
 
 Country								Average temperature delta per year
 ----------------------------------------------------------------------
 Benin								0.009155481809242798
-Globally							0.011998590910635158
+Globally							0.011998590910635156
 Papua New Guinea					0.004444321533923292
 Angola								0.010114798426745274
 Cambodia							0.013260324483775785
@@ -186,7 +186,7 @@ Syria								0.012809681837336717
 Bahamas								0.010799410029498488
 Greece								0.016179941002949852
 Latvia								0.019162794985250742
-Mongolia							0.031616519174041305
+Mongolia							0.0316165191740413
 Morocco								0.012530641592920378
 Iran								0.030467557209260716
 Mali								0.012739060963618553
@@ -209,7 +209,7 @@ Canada								0.02096131760078663
 Turkey								0.017803393776389575
 Belgium								0.0019099241466498146
 Namibia								0.008478244837758142
-Finland								0.02662927728613568
+Finland								0.02662927728613569
 Taiwan								0.010776524090462111
 South Africa						-1.6542035398227142E-4
 Georgia								0.026229351032448372
@@ -262,7 +262,7 @@ Côte D'Ivoire						0.01000805536646248
 Israel								0.00989855784988531
 Australia							0.01005251790981877
 Tajikistan							0.03355070058997049
-Estonia								0.025138643067846626
+Estonia								0.025138643067846612
 Cameroon							0.01122576204523103
 Cyprus								0.011637536873156334
 Malaysia							0.010550815818584037
@@ -338,12 +338,12 @@ Indonesia							0.0076439528023599145
 
 Timings:
 --------
-#size() took 0.001s
-#citites() took 0.251s
-#countries() took 0.121s
-#coldestCountryAbs() took 0.089s
-#hottestCountryAbs() took 0.088s
-#coldestCountryAvg() took 2.346s
-#hottestCountryAvg() took 3.333s
-#countriesAvgTemperature() took 1.206s
-#avgTemperatureDeltaPerYearPerCountry() took 4.668s
+#size() took 0.0s
+#citites() took 0.191s
+#countries() took 0.118s
+#coldestCountryAbs() took 0.097s
+#hottestCountryAbs() took 0.11s
+#coldestCountryAvg() took 2.087s
+#hottestCountryAvg() took 2.225s
+#countriesAvgTemperature() took 2.066s
+#avgTemperatureDeltaPerYearPerCountry() took 4.331s
