@@ -1,11 +1,6 @@
 package suchmaschine.http;
 
-import de.andi.minijava.Terminal;
-import suchmaschine.Document;
-import suchmaschine.DocumentCollection;
-import suchmaschine.LinkedDocument;
-import suchmaschine.LinkedDocumentCollection;
-import suchmaschine.http.*;
+import suchmaschine.*;
 import suchmaschine.http.exceptions.InvalidHttpMethodException;
 import suchmaschine.http.exceptions.InvalidRequestException;
 

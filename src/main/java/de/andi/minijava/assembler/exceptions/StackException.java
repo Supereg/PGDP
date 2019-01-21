@@ -1,9 +1,0 @@
-package de.andi.minijava.assembler.exceptions;
-
-public class StackException extends InterpreterException {
-
-    public StackException(String message) {
-        super(message);
-    }
-
-}

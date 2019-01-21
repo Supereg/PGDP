@@ -1,0 +1,8 @@
+package codegen.exceptions;
+
+public class IllegalFunctionNameException extends CodeGenException {
+
+    public IllegalFunctionNameException(String functionName, String message) {
+        super("Illegal function name '" + functionName + "': " + message);
+    }
+}
