@@ -2,6 +2,7 @@ package codegen;
 
 import asm.Interpreter;
 import asm.Instruction;
+import asm.exceptions.InvalidJumpTargetException;
 import codegen.exceptions.*;
 import org.junit.Test;
 
@@ -261,7 +262,7 @@ public class CodegenTest {
         runProgram(program);
     }
 
-    @Test(expected = MissingReturnStatementException.class)
+    @Test(expected = InvalidJumpTargetException.class)
     public void testMissingReturnStatement() {
         Program program = new Program(new Function[] {
                 new Function("main", new String[0], new Declaration[] {new Declaration("a", "b", "result")}, new Statement[] {
@@ -272,15 +273,6 @@ public class CodegenTest {
                                 new Assignment("result", new Number(2))),
                         //new Return(new Variable("result"))
                 })
-        });
-
-        runProgram(program);
-    }
-
-    @Test(expected = MissingReturnStatementException.class)
-    public void testEmptyFunction() {
-        Program program = new Program(new Function[] {
-                new Function("main", new String[0], new Declaration[0], new Statement[0])
         });
 
         runProgram(program);

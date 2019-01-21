@@ -367,7 +367,7 @@ public class InterpreterTest {
         }
     }
 
-    @Test(expected = IllegalProgramCounterException.class)
+    @Test(expected = InvalidJumpTargetException.class)
     public void illegalJumpNegative() {
         Instruction[] instructions = {
                 new Ldi(-1), // load true
@@ -377,7 +377,7 @@ public class InterpreterTest {
         run(instructions);
     }
 
-    @Test(expected = IllegalProgramCounterException.class)
+    @Test(expected = InvalidJumpTargetException.class)
     public void illegalJumpPositive() {
         Instruction[] instructions = {
                 new Ldi(-1), // load true

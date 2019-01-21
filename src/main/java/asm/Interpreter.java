@@ -52,7 +52,6 @@ public class Interpreter implements AsmVisitor {
             } catch (InterpreterException e) {
                 throw e; // needs to be rethrown otherwise catch(Exception e) would handle it
             } catch (ArrayIndexOutOfBoundsException e) {
-                e.printStackTrace();
                 throw new IllegalProgramCounterException("End of program stream, but program didn't halt itself");
             } catch (Exception e) {
                 throw new KernelPanicException(e);

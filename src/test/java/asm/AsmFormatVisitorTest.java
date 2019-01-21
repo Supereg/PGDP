@@ -1,6 +1,5 @@
 package asm;
 
-import asm.*;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
@@ -21,7 +20,7 @@ public class AsmFormatVisitorTest {
         assertEquals("Unexpected format for assembler",
                 "0: LDI 33\n" +
                         "1: LDI 11\n" +
-                        "2: ADD", format);
+                        "2: ADD\n", format);
     }
 
     @Test
@@ -70,7 +69,7 @@ public class AsmFormatVisitorTest {
                 "15: CALL 1\n" +
                 "16: LFS 0\n" +
                 "17: MUL\n" +
-                "18: RETURN 1", format(instructions));
+                "18: RETURN 1\n", format(instructions));
     }
 
     @Test
@@ -160,7 +159,7 @@ public class AsmFormatVisitorTest {
                 "26: BRC 14\n" +
                 "27: LFS -1\n" +
                 "28: NOP\n" +
-                "29: RETURN 3", format(instructions));
+                "29: RETURN 3\n", format(instructions));
     }
 
     @Test
@@ -183,7 +182,7 @@ public class AsmFormatVisitorTest {
                 "4: PUSH 1\n" +
                 "5: PUSH 0\n" +
                 "6: POP 0\n" +
-                "7: POP 1", format(instructions));
+                "7: POP 1\n", format(instructions));
     }
 
     private String format(Instruction[] instructions) {
