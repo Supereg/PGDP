@@ -25,7 +25,7 @@ public class Webserver {
 
     @SuppressWarnings("Duplicates")
     public static void main(String[] args) {
-        try (ServerSocket serverSocket = new ServerSocket(80)) {
+        try (ServerSocket serverSocket = new ServerSocket(8000)) {
             //noinspection EndlessStream,ResultOfMethodCallIgnored
             Stream.iterate(0, i -> 0).peek(i -> {
                 System.out.println("Waiting for client...");
