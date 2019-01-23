@@ -142,4 +142,19 @@ public class AsmFormatVisitor implements AsmVisitor {
         formatBuilder.append("HALT");
     }
 
+    @Override
+    public void visit(Alloc alloc) {
+        formatBuilder.append("ALLOC");
+    }
+
+    @Override
+    public void visit(LFH lfh) {
+        formatBuilder.append("LFH");
+    }
+
+    @Override
+    public void visit(STH sth) {
+        formatBuilder.append("STH");
+    }
+
 }

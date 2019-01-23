@@ -55,4 +55,13 @@ public interface ProgramVisitor {
 
     void visit(UnaryCondition unaryCondition);
 
+
+    void visit(ArrayAllocator arrayAllocator);
+
+    void visit(ArrayAccess arrayAccess);
+
+    void visit(ArrayIndexAssignment arrayIndexAssignment);
+
+    void visit(ArrayLength arrayLength);
+
 }

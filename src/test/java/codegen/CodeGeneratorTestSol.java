@@ -11,14 +11,14 @@ import java.util.function.BiFunction;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
-@FunctionalInterface
-interface TriFunction<A,B,C,R> {
-    R apply(A a, B b, C c);
-}
-
 public class CodeGeneratorTestSol {
 
-  public void testProgram(Program program, int expectedRetVal) {
+    @FunctionalInterface
+    interface TriFunction<A,B,C,R> {
+        R apply(A a, B b, C c);
+    }
+
+  private void testProgram(Program program, int expectedRetVal) {
     CodeGenerationVisitor cgv = new CodeGenerationVisitor();
     program.accept(cgv);
     int retVal = new Interpreter(cgv.getProgram()).execute();
@@ -30,9 +30,9 @@ public class CodeGeneratorTestSol {
     /*
      * 1P
      */
-    Program p = new Program(new Function[] { new Function("main", new String[] {}, new Declaration[] {}, new Statement[] {
+    Program p = new Program(new Function("main", new String[] {}, new Declaration[] {}, new Statement[] {
             new Return(new Binary(new Binary(new Number(5), Binop.Minus, new Number(3)), Binop.MultiplicationOperator,
-                new Unary(Unop.Minus, new Binary(new Number(3), Binop.Plus, new Number(18)))))     })});
+                new Unary(Unop.Minus, new Binary(new Number(3), Binop.Plus, new Number(18)))))     }));
     
     testProgram(p, -42);
   }
@@ -42,7 +42,7 @@ public class CodeGeneratorTestSol {
     /*
      * 2P
      */
-    Program p = new Program(new Function[] { new Function("main", new String[] {}, new Declaration[] {
+    Program p = new Program(new Function("main", new String[] {}, new Declaration[] {
         new Declaration("a"), new Declaration("b"), new Declaration("c"), new Declaration("d")
         }, new Statement[] {
         new Assignment("a", new Number(7)),
@@ -51,8 +51,8 @@ public class CodeGeneratorTestSol {
         new Assignment("d", new Number(18)),
         new Assignment("a", new Binary(new Binary(new Variable("a"), Binop.Modulo, new Variable("b")), Binop.MultiplicationOperator,
             new Unary(Unop.Minus, new Binary(new Variable("c"), Binop.Plus, new Variable("d"))))),
-        new Return(new Variable("a")) 
-     })});
+        new Return(new Variable("a"))
+     }));
 
     testProgram(p, -42);
   }
@@ -62,13 +62,13 @@ public class CodeGeneratorTestSol {
     /*
      * 2P
      */
-    Program p = new Program(new Function[] { new Function("main", new String[] {}, new Declaration[] {new Declaration("i")}, new Statement[] {
+    Program p = new Program(new Function("main", new String[] {}, new Declaration[] {new Declaration("i")}, new Statement[] {
         new IfThenElse(new BinaryCondition(new Comparison(new Number(3), Comp.Less, new Number(7)), Bbinop.And, new True()), new Composite(new Statement[] {
           new Assignment("i", new Number(1)),
           new While(new Comparison(new Variable("i"), Comp.Less, new Number(1000)), new Assignment("i", new Binary(new Variable("i"), Binop.Plus, new Number(2))), false),
-          new Return(new Variable("i")) 
+          new Return(new Variable("i"))
         }), new Return(new Number(1))),
-     })});
+     }));
 
     testProgram(p, 1001);
   }
@@ -87,37 +87,25 @@ public class CodeGeneratorTestSol {
     });
     
     Function sub = new Function("sub", new String[] { "a", "b"}, new Declaration[] {}, new Statement[] {
-        new Return(new Binary(new Variable("a"), Binop.Plus, new Call("neg", new Expression[] { new Variable("b") })))
+        new Return(new Binary(new Variable("a"), Binop.Plus, new Call("neg", new Variable("b"))))
      });
     
     Function f = new Function("f", new String[] { "a", "b", "c", "d", "e", "f"}, new Declaration[] {}, new Statement[] {
-        new Return(new Call("add", new Expression[] {
-            new Variable("a"),
-            new Call("sub", new Expression[] {
-                new Variable("b"),
-                new Call("sub", new Expression[] {
-                  new Variable("c"),
-                  new Call("add", new Expression[] {
-                    new Variable("d"),
-                       new Call("sub", new Expression[] {
-                         new Variable("e"),
-                         new Call("neg", new Expression[] {
-                           new Variable("f"),
-                         })
-                       })
-                  })
-                })
-            })
-        }))
+        new Return(new Call("add", new Variable("a"),
+                new Call("sub", new Variable("b"),
+                        new Call("sub", new Variable("c"),
+                                new Call("add", new Variable("d"),
+                                        new Call("sub", new Variable("e"),
+                                                new Call("neg", new Variable("f"))))))))
     });
     
     Function main = new Function("main", new String[] {}, new Declaration[] {}, new Statement[] {
-        new Return(new Call("f", new Expression[] { new Number(2), new Number(4), new Number(8), new Number(16),
-            new Number(32), new Number(64) }))    });
+        new Return(new Call("f", new Number(2), new Number(4), new Number(8), new Number(16),
+                new Number(32), new Number(64)))    });
     
-    Program p1 = new Program(new Function[] { main, add, neg, sub, f });
-    Program p2 = new Program(new Function[] { f, add, main, neg, sub });
-    Program p3 = new Program(new Function[] { add, f, main, sub, neg });
+    Program p1 = new Program(main, add, neg, sub, f);
+    Program p2 = new Program(f, add, main, neg, sub);
+    Program p3 = new Program(add, f, main, sub, neg);
     
     testProgram(p1, 110);
     testProgram(p2, 110);
@@ -183,7 +171,7 @@ public class CodeGeneratorTestSol {
     /*
      * 1P Abzug, falls dieser Test scheitert (ab insg. <= 4 Punkten bei dieser Aufgabe kein Abzug mehr)
      */
-    Program p = new Program(new Function[] { new Function("main", new String[] {}, new Declaration[] {new Declaration("i"), new Declaration("j"), new Declaration("k")}, new Statement[] {
+    Program p = new Program(new Function("main", new String[] {}, new Declaration[] {new Declaration("i"), new Declaration("j"), new Declaration("k")}, new Statement[] {
         new IfThenElse(new BinaryCondition(new Comparison(new Number(3), Comp.Less, new Number(7)), Bbinop.And, new True()), new Composite(new Statement[] {
           new Assignment("i", new Number(1)),
           new Assignment("j", new Number(2)),
@@ -197,9 +185,9 @@ public class CodeGeneratorTestSol {
                 }), false)
               }), false),
           }), false),
-          new Return(new Binary(new Variable("i"), Binop.Plus, new Binary(new Variable("j"), Binop.Plus, new Variable("k")))) 
+          new Return(new Binary(new Variable("i"), Binop.Plus, new Binary(new Variable("j"), Binop.Plus, new Variable("k"))))
         }), new Return(new Number(1))),
-     })});
+     }));
 
     testProgram(p, 3537);
   }
@@ -212,11 +200,11 @@ public class CodeGeneratorTestSol {
      */
     
     Program p = new Program(
-        new Function[] { new Function("main", new String[] {}, new Declaration[] { new Declaration("i") },
-            new Statement[] { new IfThenElse(new Comparison(new Read(), Comp.NotEquals, new Number(0)),
-                new Return(new Number(37)),
-                new Composite(new Statement[] {
-                    new Return(new Binary(new Call("main", new Expression[] {}), Binop.Plus, new Number(5))) })) }) });
+            new Function("main", new String[] {}, new Declaration[] { new Declaration("i") },
+                new Statement[] { new IfThenElse(new Comparison(new Read(), Comp.NotEquals, new Number(0)),
+                    new Return(new Number(37)),
+                    new Composite(new Statement[] {
+                        new Return(new Binary(new Call("main"), Binop.Plus, new Number(5))) })) }));
 
     InputStream in = System.in;
     try {
@@ -246,11 +234,11 @@ public class CodeGeneratorTestSol {
                 new Assignment("second", new Variable("temp")),
                 new Assignment("i", new Binary(new Variable("i"), Binop.Plus, new Number(1)))
               }), false),
-              new Return(new Binary(new Variable("first"), Binop.Plus, new Call("crazyFib", new Expression[] { new Binary(new Variable("n"), Binop.Minus, new Number(2)) })))
+              new Return(new Binary(new Variable("first"), Binop.Plus, new Call("crazyFib", new Binary(new Variable("n"), Binop.Minus, new Number(2)))))
           });
       Function main = new Function("main", new String[] {}, new Declaration[] {},
-          new Statement[] {new Return(new Call("crazyFib", new Expression[] { new Number(n)} ))});
-      return new Program(new Function[] { main, crazyFib });
+          new Statement[] {new Return(new Call("crazyFib", new Number(n)))});
+      return new Program(main, crazyFib);
     };
 
     testProgram(getFibProgram.apply(0), 0);
@@ -271,7 +259,7 @@ public class CodeGeneratorTestSol {
               new Return(new Number(1)),
               new Return(new Number(0))) 
        });
-      return new Program(new Function[] { main });
+      return new Program(main);
     };
     
     testProgram(getProgram.apply(1, Comp.Equals, 1), 1);
@@ -310,10 +298,10 @@ public class CodeGeneratorTestSol {
     Function main = new Function("main", new String[] {}, new Declaration[] {}, new Statement[] {
       new ExpressionStatement(new Number(42)),
       new ExpressionStatement(new Write(new Number(5))),
-      new ExpressionStatement(new Call("foo", new Expression[] {})),
+      new ExpressionStatement(new Call("foo")),
       new Return(new Number(0))
     });
-    Program p = new Program(new Function[] { main, foo });
+    Program p = new Program(main, foo);
     
     testProgram(p, 0);
     
@@ -335,7 +323,7 @@ public class CodeGeneratorTestSol {
           }), doWhile),
           new Return(new Variable("result"))
        });
-      return new Program(new Function[] { main });
+      return new Program(main);
     };
     
     testProgram(getProgram.apply(true), 2);
@@ -359,9 +347,8 @@ public class CodeGeneratorTestSol {
           new Statement[] {ggtSwap, ggtWhile, new Return(new Variable("a"))});
       Function mainFunctionGgt =
           new Function("main", new String[] {}, new Declaration[] {}, new Statement[] {
-              new Return(new Call("ggt", new Expression[] {new Number(a), new Number(b)}))});
-      Program ggtProgram = new Program(new Function[] {ggt, mainFunctionGgt});
-      return ggtProgram;
+              new Return(new Call("ggt", new Number(a), new Number(b)))});
+        return new Program(ggt, mainFunctionGgt);
     };
     
     testProgram(getGgtProgram.apply(12, 18), 6);
@@ -380,13 +367,12 @@ public class CodeGeneratorTestSol {
           new Return(new Number(1)));
       Statement fakRec =
           new Return(new Binary(new Variable("n"), Binop.MultiplicationOperator, new Call("fak",
-              new Expression[] {new Binary(new Variable("n"), Binop.Minus, new Number(1))})));
+                  new Binary(new Variable("n"), Binop.Minus, new Number(1)))));
       Function fakFunc = new Function("fak", new String[] {"n"}, new Declaration[] {},
           new Statement[] {fakRecEnd, fakRec});
       Function mainFunctionFak = new Function("main", new String[] {}, new Declaration[] {},
-          new Statement[] {new Return(new Call("fak", new Expression[] {new Number(n)}))});
-      Program fakProgram = new Program(new Function[] {mainFunctionFak, fakFunc});
-      return fakProgram;
+          new Statement[] {new Return(new Call("fak", new Number(n)))});
+        return new Program(mainFunctionFak, fakFunc);
     };
     
     testProgram(getFakProgram.apply(3), 6);
@@ -399,8 +385,7 @@ public class CodeGeneratorTestSol {
   
   @Test
   public void SwitchSheetExample() {
-    BiFunction<Integer, Integer, Program> getSwitch = (x, y) -> {
-    return new Program(new Function[] {new Function("main", new String[] {},
+    BiFunction<Integer, Integer, Program> getSwitch = (x, y) -> new Program(new Function("main", new String[] {},
         new Declaration[] { new Declaration("x", "y", "z") },
         new Statement[] {
                 new Assignment("x", new Number(x)),
@@ -415,10 +400,10 @@ public class CodeGeneratorTestSol {
                                                                 new Assignment("z", new Binary(new Variable("z"), Binop.Plus, new Number(1))),
                                                                 new Break()
                                                         })),
-                                                new SwitchCase(new Number(2), 
+                                                new SwitchCase(new Number(2),
                                                         new Assignment("z", new Binary(new Variable("z"), Binop.Plus, new Number(2)))
                                                 )
-                                        }, 
+                                        },
                                                 null,
                                                 new Variable("y")),
                                         new Break()
@@ -429,8 +414,7 @@ public class CodeGeneratorTestSol {
                     new Assignment("z", new Binary(new Variable("z"), Binop.Plus, new Number(1))),
                         new Variable("x")),
                 new Return(new Variable("z"))
-        })});
-    };
+        }));
     
     testProgram(getSwitch.apply(1, 1), 1);
     testProgram(getSwitch.apply(1, 2), 2);
@@ -452,7 +436,7 @@ public class CodeGeneratorTestSol {
               new SwitchCase(new Number(8), new Return(new Number(33))),
           }, new Return(new Number(55)), new Number(a))
        });
-      return new Program(new Function[] { main });
+      return new Program(main);
     };
     
     testProgram(getSwitch.apply(1), 42);
@@ -482,7 +466,7 @@ public class CodeGeneratorTestSol {
         }, new Assignment("a", new Number(55)), new Read()),
         new Return(new Number(0))
      });
-    Program p = new Program(new Function[] { main });
+    Program p = new Program(main);
     
     InputStream in = System.in;
     try {
@@ -517,7 +501,7 @@ public class CodeGeneratorTestSol {
           }, new Assignment("a", new Number(55)), new Number(a)),
           new Return(new Variable("a"))
        });
-      return new Program(new Function[] { main });
+      return new Program(main);
     };
     
     testProgram(getSwitch.apply(1), 142);
@@ -531,8 +515,7 @@ public class CodeGeneratorTestSol {
     /*
      * 2P
      */
-    TriFunction<Integer, Integer, Integer, Program> getSwitch = (x, y, k) -> {
-    return new Program(new Function[] {new Function("main", new String[] {},
+    TriFunction<Integer, Integer, Integer, Program> getSwitch = (x, y, k) -> new Program(new Function("main", new String[] {},
         new Declaration[] { new Declaration("x", "y", "z", "k") },
         new Statement[] {
                 new Assignment("x", new Number(x)),
@@ -558,10 +541,10 @@ public class CodeGeneratorTestSol {
                                                                 }, null, new Variable("k")),
                                                                 new Break()
                                                         })),
-                                                new SwitchCase(new Number(2), 
+                                                new SwitchCase(new Number(2),
                                                         new Assignment("z", new Binary(new Variable("z"), Binop.Plus, new Number(2)))
                                                 )
-                                        }, 
+                                        },
                                                 null,
                                                 new Variable("y")),
                                         new Break()
@@ -584,10 +567,10 @@ public class CodeGeneratorTestSol {
                                                     }, null, new Variable("k")),
                                                     new Break()
                                             })),
-                                    new SwitchCase(new Number(2), 
+                                    new SwitchCase(new Number(2),
                                             new Assignment("z", new Binary(new Variable("z"), Binop.Plus, new Number(2)))
                                     )
-                            }, 
+                            },
                                     null,
                                     new Binary(new Variable("y"), Binop.Plus, new Number(2)))
                         }))
@@ -595,8 +578,7 @@ public class CodeGeneratorTestSol {
                     new Assignment("z", new Binary(new Variable("z"), Binop.Plus, new Number(1))),
                         new Variable("x")),
                 new Return(new Variable("z"))
-        })});
-    };
+        }));
     
     testProgram(getSwitch.apply(1, 1, 5), 1);
     testProgram(getSwitch.apply(1, 2, 5), 2);
@@ -615,7 +597,7 @@ public class CodeGeneratorTestSol {
     /*
      * 1P Abzug, falls dieser Test scheitert (ab insg. <= 2 Punkten bei dieser Aufgabe kein Abzug mehr)
      */
-    Program p1 = new Program(new Function[] { new Function("main", new String[] {}, new Declaration[] {new Declaration("a")}, new Statement[] {
+    Program p1 = new Program(new Function("main", new String[] {}, new Declaration[] {new Declaration("a")}, new Statement[] {
         new Assignment("a", new Number(0)),
         new Switch(new SwitchCase[] {
             new SwitchCase(new Number(5), new Composite(new Statement[] {
@@ -632,11 +614,11 @@ public class CodeGeneratorTestSol {
             })),
         }, null, new Variable("a")),
         new Return(new Variable("a"))
-     })});
+     }));
 
     testProgram(p1, 5);
     
-    Program p2 = new Program(new Function[] { new Function("main", new String[] {}, new Declaration[] {new Declaration("a")}, new Statement[] {
+    Program p2 = new Program(new Function("main", new String[] {}, new Declaration[] {new Declaration("a")}, new Statement[] {
         new Assignment("a", new Number(0)),
         new Switch(new SwitchCase[] {
             new SwitchCase(new Number(8), new Composite(new Statement[] {
@@ -653,11 +635,11 @@ public class CodeGeneratorTestSol {
             })),
         }, null, new Variable("a")),
         new Return(new Variable("a"))
-     })});
+     }));
     
     testProgram(p2, 5);
     
-    Program p3 = new Program(new Function[] { new Function("main", new String[] {}, new Declaration[] {new Declaration("a")}, new Statement[] {
+    Program p3 = new Program(new Function("main", new String[] {}, new Declaration[] {new Declaration("a")}, new Statement[] {
         new Assignment("a", new Number(0)),
         new Switch(new SwitchCase[] {
             new SwitchCase(new Number(5), new Composite(new Statement[] {
@@ -668,7 +650,7 @@ public class CodeGeneratorTestSol {
             })),
         }, null, new Variable("a")),
         new Return(new Variable("a"))
-     })});
+     }));
     
     testProgram(p3, 5);
   }

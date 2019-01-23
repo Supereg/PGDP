@@ -1,7 +1,5 @@
 package utils;
 
-import utils.MatrixVectorOperations;
-
 import java.util.Arrays;
 
 import static org.junit.Assert.*;
@@ -166,7 +164,7 @@ public class MatricesTest {
         expected = new int[][] { { 0, 1, 2 }, { 1, 0, 2 }, { 1, 2, 0 }, { 0, 2, 1 }, { 2, 0, 1 }, { 2, 1, 0 } };
         assertTrue(msg, isEqual(permutations, expected));
 
-        // Todo: REVISE! (Wichtig: Reihenfolge mag bei Studis anders sein!)
+        // REVISE! (Wichtig: Reihenfolge mag bei Studis anders sein!)
         permutations = MatrixVectorOperations.permutations(4);
         expected = new int[][] { { 0, 1, 2, 3 }, { 0, 1, 3, 2 }, { 0, 2, 1, 3 }, { 0, 2, 3, 1 }, { 0, 3, 1, 2 },
                 { 0, 3, 2, 1 }, { 1, 0, 2, 3 }, { 1, 0, 3, 2 }, { 1, 2, 0, 3 }, { 1, 2, 3, 0 }, { 1, 3, 0, 2 }, { 1, 3, 2, 0 },

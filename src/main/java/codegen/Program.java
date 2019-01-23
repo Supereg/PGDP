@@ -4,7 +4,7 @@ public class Program {
 
     private Function[] functions;
 
-    public Program(Function[] functions) {
+    public Program(Function... functions) {
         this.functions = functions;
     }
 

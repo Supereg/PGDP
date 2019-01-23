@@ -46,4 +46,10 @@ public interface AsmVisitor {
 
     void visit(Halt halt);
 
+    void visit(Alloc alloc);
+
+    void visit(LFH lfh);
+
+    void visit(STH sth);
+
 }

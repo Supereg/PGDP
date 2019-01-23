@@ -37,12 +37,12 @@ public class CodeGenerationVisitor implements ProgramVisitor {
 
         // indexing function names
         for (Function function: program.getFunctions()) {
-            CGFunction cgFunction = new CGFunction(function.getName(), function.getParameters());
+            CGFunction cgFunction = new CGFunction(function.getName(), function.getReturnType(), function.getParameters());
             if (indexedFunctions.put(function.getName(), cgFunction) != null) // assert that previous value is null
                 throw new IllegalFunctionNameException(function.getName(), "name already exists");
 
             if (function.getName().equals("main")) {
-                if (function.getParameters().length != 0) // it's only the real main function if it has no parameters
+                if (function.getParameters().length != 0 || !function.getReturnType().equals(Type.Int)) // it's only the real main function if it has no parameters and returns int
                     continue;
                 mainFunction = function;
             }
@@ -85,9 +85,9 @@ public class CodeGenerationVisitor implements ProgramVisitor {
             currentFunction.setInstructionIndex(instructionList.size()); // save index of start of function
 
             // check that no parameters overlap
-            for (String parameter: function.getParameters()) {
+            for (Parameter parameter: function.getParameters()) {
                 if (!currentFunction.addParameter(parameter))
-                    throw new IllegalParameterNameException(parameter);
+                    throw new IllegalParameterNameException(parameter.getName());
             }
             // parse declarations
             for (Declaration declaration: function.getDeclarations()) {
@@ -421,6 +421,37 @@ public class CodeGenerationVisitor implements ProgramVisitor {
             instructionList.add(new Not());
         else
             throw new UnsupportedOperationException(unaryCondition.getOperator().name());
+    }
+
+    @Override
+    public void visit(ArrayAllocator arrayAllocator) {
+        arrayAllocator.getSize().accept(this);
+        instructionList.add(new Alloc());
+    }
+
+    @Override
+    public void visit(ArrayAccess arrayAccess) {
+        arrayAccess.getArray().accept(this);
+        arrayAccess.getIndex().accept(this);
+        instructionList.add(new Add());
+        instructionList.add(new LFH());
+    }
+
+    @Override
+    public void visit(ArrayIndexAssignment arrayIndexAssignment) {
+        arrayIndexAssignment.getExpression().accept(this);
+        arrayIndexAssignment.getArray().accept(this);
+        arrayIndexAssignment.getIndex().accept(this);
+        instructionList.add(new Add());
+        instructionList.add(new STH());
+    }
+
+    @Override
+    public void visit(ArrayLength arrayLength) {
+        instructionList.add(new Ldi(1));
+        arrayLength.getArray().accept(this);
+        instructionList.add(new Sub());
+        instructionList.add(new LFH());
     }
 
     private void addNotInstruction() {

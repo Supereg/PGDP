@@ -1,5 +1,7 @@
 package codegen.utils;
 
+import codegen.Parameter;
+import codegen.Type;
 import codegen.exceptions.VariableNotFoundException;
 
 import java.util.*;
@@ -7,7 +9,9 @@ import java.util.*;
 public class CGFunction {
 
     private final String name;
-    private final List<String> parameters;
+    private final Type returnType;
+
+    private final List<Parameter> parameters;
     private final List<CGDeclaration> declarations;
 
     private Set<String> variables;
@@ -15,8 +19,10 @@ public class CGFunction {
     private int instructionIndex; // index only set after whole program is assembled
     private boolean instructionIndexSet;
 
-    public CGFunction(String name, String[] parameters) {
+    public CGFunction(String name, Type returnType, Parameter[] parameters) {
         this.name = name;
+        this.returnType = returnType;
+
         this.parameters = new ArrayList<>(parameters.length);
         Collections.addAll(this.parameters, parameters);
         this.variables = new HashSet<>(parameters.length);
@@ -28,6 +34,10 @@ public class CGFunction {
         return name;
     }
 
+    public Type getReturnType() {
+        return returnType;
+    }
+
     public boolean isMain() {
         return name.equals("main");
     }
@@ -36,8 +46,8 @@ public class CGFunction {
         return parameters.size();
     }
 
-    public boolean addParameter(String name) {
-        return variables.add(name);
+    public boolean addParameter(Parameter parameter) {
+        return variables.add(parameter.getName());
     }
 
     public boolean addDeclaration(String name) {
@@ -63,7 +73,7 @@ public class CGFunction {
         if (declIndex >= 0)
             return declIndex + 1; // local variables begin at 1
         else {
-            int parameterIndex = parameters.indexOf(name);
+            int parameterIndex = parameters.indexOf(new Parameter(Type.Int, name));
 
             if (parameterIndex < 0)
                 throw new VariableNotFoundException(name);

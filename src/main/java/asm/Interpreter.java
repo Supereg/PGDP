@@ -1,6 +1,7 @@
 package asm;
 
 import asm.exceptions.*;
+import asm.exceptions.NegativeMemoryAllocationException;
 import codegen.Terminal;
 
 public class Interpreter implements AsmVisitor {
@@ -8,11 +9,14 @@ public class Interpreter implements AsmVisitor {
     private final Instruction[] instructions;
 
     private final int[] stack = new int[128];
+    private final int[] heap = new int[1024];
 
     private int r0;
     private int r1;
 
     private int stackPointer = -1;
+    private int heapPointer = 0; // next free cell
+
     private int programCounter;
     private int framePointer = -1;
 
@@ -50,6 +54,7 @@ public class Interpreter implements AsmVisitor {
             } catch (HaltException e) {
                 break;
             } catch (InterpreterException e) {
+                // System.err.println("Error on line " + (programCounter - 1)); // debug
                 throw e; // needs to be rethrown otherwise catch(Exception e) would handle it
             } catch (ArrayIndexOutOfBoundsException e) {
                 throw new IllegalProgramCounterException("End of program stream, but program didn't halt itself");
@@ -58,8 +63,8 @@ public class Interpreter implements AsmVisitor {
             }
         }
 
-        //if (stackPointer > 0)
-        //    System.err.println("WARNING! More than one element on stack after termination!");
+//        if (stackPointer > 0)
+//            System.err.println("WARNING! More than one element on stack after termination!");
 
         return popValueFromStack(); // when the program has nothing to return, it will return with StackUnderflowException
     }
@@ -76,15 +81,6 @@ public class Interpreter implements AsmVisitor {
             throw new StackOverflowException();
         stack[stackPointer] = element;
     }
-
-    /*
-    private void jump(int programAddress) {
-        if (programAddress < 0 || programAddress >= stack.length)
-            throw new IllegalProgramCounterException("" + programAddress);
-
-        this.programCounter = programAddress;
-    }
-    */
 
     private void allowDecl() {
         declarationAllowed = declarationAllowedSet = true;
@@ -298,6 +294,44 @@ public class Interpreter implements AsmVisitor {
     @Override
     public void visit(Halt halt) {
         throw new HaltException();
+    }
+
+    @Override
+    public void visit(Alloc alloc) {
+        int size = popValueFromStack();
+
+        if (size < 0)
+            throw new NegativeMemoryAllocationException();
+        if (heap.length - (heapPointer + size + 1) <= 0)
+            throw new OutOfMemoryException();
+
+        heap[heapPointer++] = size; // save the size one BEFORE the array address
+
+        int address = heapPointer;
+        heapPointer += size;
+
+        pushValueToStack(address);
+    }
+
+    @Override
+    public void visit(LFH lfh) {
+        int address = popValueFromStack();
+        if (address < 0 || address >= heapPointer)
+            throw new InvalidHeapAccessException();
+
+        int value = heap[address];
+        pushValueToStack(value);
+    }
+
+    @Override
+    public void visit(STH sth) {
+        int address = popValueFromStack();
+        if (address < 0 || address >= heapPointer)
+            throw new InvalidHeapAccessException();
+
+        int value = popValueFromStack();
+
+        heap[address] = value;
     }
 
 }

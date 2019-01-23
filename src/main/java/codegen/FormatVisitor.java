@@ -32,9 +32,10 @@ public class FormatVisitor implements ProgramVisitor {
     public void visit(Function function) {
         formatBuilder.append("int ").append(function.getName()).append("(");
 
-        String[] parameters = function.getParameters();
+        Parameter[] parameters = function.getParameters();
         for (int i = 0; i < parameters.length; i++) {
-            formatBuilder.append("int ").append(parameters[i]);
+            var parameter = parameters[i];
+            formatBuilder.append(parameter.getType()).append(" ").append(parameter.getName());
 
             if (i < parameters.length - 1)
                 formatBuilder.append(", ");
@@ -317,6 +318,39 @@ public class FormatVisitor implements ProgramVisitor {
     public void visit(UnaryCondition unaryCondition) {
         formatBuilder.append(unaryCondition.getOperator());
         bracketCondition(unaryCondition.getOperand());
+    }
+
+    @Override
+    public void visit(ArrayAllocator arrayAllocator) {
+        formatBuilder.append("new int[");
+        arrayAllocator.getSize().accept(this);
+        formatBuilder.append("]");
+    }
+
+    @Override
+    public void visit(ArrayAccess arrayAccess) {
+        arrayAccess.getArray().accept(this);
+        formatBuilder.append("[");
+        arrayAccess.getIndex().accept(this);
+        formatBuilder.append("]");
+    }
+
+    @Override
+    public void visit(ArrayIndexAssignment arrayIndexAssignment) {
+        appendTabs();
+        arrayIndexAssignment.getArray().accept(this);
+        formatBuilder.append("[");
+        arrayIndexAssignment.getIndex().accept(this);
+        formatBuilder.append("] = ");
+        arrayIndexAssignment.getExpression().accept(this);
+        formatBuilder.append(";");
+    }
+
+    @Override
+    public void visit(ArrayLength arrayLength) {
+        formatBuilder.append("length(");
+        arrayLength.getArray().accept(this);
+        formatBuilder.append(")");
     }
 
     private void bracketCondition(Condition condition) {

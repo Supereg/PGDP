@@ -1,13 +1,15 @@
 package codegen;
 
+import codegen.CodeGeneratorTestSol.TriFunction;
 import org.junit.Test;
+
 import java.lang.reflect.Method;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.nio.file.Path;
-import java.util.List;
+import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.List;
 
 public class FormatTestSol {
   private static void printProgram(Program prog) {
@@ -36,7 +38,7 @@ public class FormatTestSol {
         new String[] {},
         new Declaration[] {},
         new Statement[] {
-          new ExpressionStatement(new Write(new Call("sum", new Expression[] { new Read(), new Read() }))),
+          new ExpressionStatement(new Write(new Call("sum", new Read(), new Read()))),
           new Return(new Number(0))
     });
     
@@ -47,7 +49,7 @@ public class FormatTestSol {
           new Return(new Binary(new Variable("a"), Binop.Plus, new Variable("b")))
     });
     
-    printProgram(new Program(new Function[] { sum, main }));
+    printProgram(new Program(sum, main));
   }
   
   private static Program getGgtProgram(int a, int b) {
@@ -65,8 +67,8 @@ public class FormatTestSol {
         new Statement[] {ggtSwap, ggtWhile, new Return(new Variable("a"))});
     Function mainFunctionGgt =
         new Function("main", new String[] {}, new Declaration[] {}, new Statement[] {
-            new Return(new Call("ggt", new Expression[] {new Number(a), new Number(b)}))});
-    Program ggtProgram = new Program(new Function[] {ggt, mainFunctionGgt});
+            new Return(new Call("ggt", new Number(a), new Number(b)))});
+    Program ggtProgram = new Program(ggt, mainFunctionGgt);
     return ggtProgram;
   }
 
@@ -75,12 +77,12 @@ public class FormatTestSol {
         new Return(new Number(1)));
     Statement fakRec =
         new Return(new Binary(new Variable("n"), Binop.MultiplicationOperator, new Call("fak",
-            new Expression[] {new Binary(new Variable("n"), Binop.Minus, new Number(1))})));
+                new Binary(new Variable("n"), Binop.Minus, new Number(1)))));
     Function fakFunc = new Function("fak", new String[] {"n"}, new Declaration[] {},
         new Statement[] {fakRecEnd, fakRec});
     Function mainFunctionFak = new Function("main", new String[] {}, new Declaration[] {},
-        new Statement[] {new Return(new Call("fak", new Expression[] {new Number(n)}))});
-    Program fakProgram = new Program(new Function[] {mainFunctionFak, fakFunc});
+        new Statement[] {new Return(new Call("fak", new Number(n)))});
+    Program fakProgram = new Program(mainFunctionFak, fakFunc);
     return fakProgram;
   }
   
@@ -102,7 +104,7 @@ public class FormatTestSol {
               new Return(new Number(1)),
               new Return(new Number(0))) 
        });
-      return new Program(new Function[] { main });
+      return new Program(main);
     };
     
     printProgram(getProgram.apply(1, Comp.Equals, 10));
@@ -120,7 +122,7 @@ public class FormatTestSol {
           }), doWhile),
           new Return(new Variable("result"))
        });
-      return new Program(new Function[] { main });
+      return new Program(main);
     };
 
     printProgram(getProgram.apply(true));
@@ -204,7 +206,7 @@ public class FormatTestSol {
   private static void testSwitch() {
     System.out.println("+++++++++ testSwitch");
     TriFunction<Integer, Integer, Integer, Program> getSwitch = (x, y, k) -> {
-    return new Program(new Function[] {new Function("main", new String[] {},
+    return new Program(new Function("main", new String[] {},
         new Declaration[] { new Declaration("x", "y", "z", "k") },
         new Statement[] {
                 new Assignment("x", new Number(x)),
@@ -230,10 +232,10 @@ public class FormatTestSol {
                                                                 }, null, new Variable("k")),
                                                                 new Break()
                                                         })),
-                                                new SwitchCase(new Number(2), 
+                                                new SwitchCase(new Number(2),
                                                         new Assignment("z", new Binary(new Variable("z"), Binop.Plus, new Number(2)))
                                                 )
-                                        }, 
+                                        },
                                                 null,
                                                 new Variable("y")),
                                         new Break()
@@ -256,10 +258,10 @@ public class FormatTestSol {
                                                     }, null, new Variable("k")),
                                                     new Break()
                                             })),
-                                    new SwitchCase(new Number(2), 
+                                    new SwitchCase(new Number(2),
                                             new Assignment("z", new Binary(new Variable("z"), Binop.Plus, new Number(2)))
                                     )
-                            }, 
+                            },
                                     null,
                                     new Binary(new Variable("y"), Binop.Plus, new Number(2)))
                         }))
@@ -267,7 +269,7 @@ public class FormatTestSol {
                     new Assignment("z", new Binary(new Variable("z"), Binop.Plus, new Number(1))),
                         new Variable("x")),
                 new Return(new Variable("z"))
-        })});
+        }));
     };
     
     

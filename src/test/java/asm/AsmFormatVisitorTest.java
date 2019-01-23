@@ -172,7 +172,10 @@ public class AsmFormatVisitorTest {
                 new Push(1),
                 new Push(0),
                 new Pop(0),
-                new Pop(1)
+                new Pop(1),
+                new Alloc(),
+                new LFH(),
+                new STH(),
         };
 
         assertEquals("Unexpected format for assembler", "0: DIV\n" +
@@ -182,7 +185,10 @@ public class AsmFormatVisitorTest {
                 "4: PUSH 1\n" +
                 "5: PUSH 0\n" +
                 "6: POP 0\n" +
-                "7: POP 1\n", format(instructions));
+                "7: POP 1\n" +
+                "8: ALLOC\n" +
+                "9: LFH\n" +
+                "10: STH\n", format(instructions));
     }
 
     private String format(Instruction[] instructions) {
