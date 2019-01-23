@@ -103,9 +103,6 @@ public class CodeGenerationVisitor implements ProgramVisitor {
                 statement = function.getStatements()[i];
                 statement.accept(this);
             }
-
-            //if (!(statement instanceof codegen.Return)) // check if function ends with return statement
-            //    throw new MissingReturnStatementException(currentFunction.getName());
         } finally {
             currentFunction = null;
         }
@@ -137,7 +134,7 @@ public class CodeGenerationVisitor implements ProgramVisitor {
     @Override
     public void visit(IfThen ifThen) {
         ifThen.getCond().accept(this);
-        addNotInstruction(); // compare if condition is false -> we jump behind the THEN block
+        instructionList.add(new Not()); // compare if condition is false -> we jump behind the THEN block
         int brcIndex = instructionList.size(); // save position at which BRC got inserted
         instructionList.add(new Nop()); // gets overwritten by brc instruction later
 
@@ -152,7 +149,7 @@ public class CodeGenerationVisitor implements ProgramVisitor {
     @Override
     public void visit(IfThenElse ifThenElse) {
         ifThenElse.getCond().accept(this);
-        addNotInstruction(); // compare if condition is false -> we jump to the ELSE block
+        instructionList.add(new Not()); // compare if condition is false -> we jump to the ELSE block
         int brcIndex = instructionList.size(); // save position at which BRC got inserted
         instructionList.add(new Nop()); // gets overwritten by brc instruction later
 
@@ -183,7 +180,7 @@ public class CodeGenerationVisitor implements ProgramVisitor {
         else {
             int cmpIndex = instructionList.size();
             whileStatement.getCondition().accept(this);
-            addNotInstruction();
+            instructionList.add(new Not());
             int brcIndex = instructionList.size();
             instructionList.add(new Nop()); // gets overwritten by brc instruction later
 
@@ -452,15 +449,6 @@ public class CodeGenerationVisitor implements ProgramVisitor {
         arrayLength.getArray().accept(this);
         instructionList.add(new Sub());
         instructionList.add(new LFH());
-    }
-
-    private void addNotInstruction() {
-        Instruction lastOne = instructionList.get(instructionList.size() - 1);
-
-        if (lastOne instanceof Not)
-            instructionList.remove(instructionList.size() - 1);
-        else
-            instructionList.add(new Not());
     }
 
 }

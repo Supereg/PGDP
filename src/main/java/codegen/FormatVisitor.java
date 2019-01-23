@@ -28,6 +28,7 @@ public class FormatVisitor implements ProgramVisitor {
         }
     }
 
+    @SuppressWarnings("Duplicates")
     @Override
     public void visit(Function function) {
         formatBuilder.append("int ").append(function.getName()).append("(");
@@ -88,9 +89,10 @@ public class FormatVisitor implements ProgramVisitor {
         formatBuilder.append(";");
     }
 
+    @SuppressWarnings("Duplicates")
     @Override
     public void visit(Composite composite) {
-        int magic = formatBuilder.lastIndexOf("@");
+        /*int magic = formatBuilder.lastIndexOf("@");
         if (magic == formatBuilder.length() - 1) {
             formatBuilder.deleteCharAt(magic);
         }
@@ -99,15 +101,34 @@ public class FormatVisitor implements ProgramVisitor {
                 throw new RuntimeException("Found an unresolved magic character at " + magic);
 
             appendTabs();
-        }
+        }*/
 
-        formatBuilder.append("{");
+        // formatBuilder.append("{");
+
+        // currentTabs++;
+        var statements = composite.getStatements();
+        for (int i = 0; i < statements.length; i++) {
+            statements[i].accept(this);
+
+            if (i < statements.length - 1)
+                formatBuilder.append("\n");
+        }
+        // currentTabs--;
+
+        // formatBuilder.append("\n");
+        // appendTabs();
+        // formatBuilder.append("}");
+    }
+
+    @Override
+    public void visit(IfThen ifThen) {
+        appendTabs();
+        formatBuilder.append("if (");
+        ifThen.getCond().accept(this);
+        formatBuilder.append(") {\n");
 
         currentTabs++;
-        for (Statement statement: composite.getStatements()) {
-            formatBuilder.append("\n");
-            statement.accept(this);
-        }
+        ifThen.getThenBranch().accept(this);
         currentTabs--;
 
         formatBuilder.append("\n");
@@ -116,69 +137,51 @@ public class FormatVisitor implements ProgramVisitor {
     }
 
     @Override
-    public void visit(IfThen ifThen) {
-        appendTabs();
-        formatBuilder.append("if (");
-        ifThen.getCond().accept(this);
-        formatBuilder.append(")");
-
-        Statement then = ifThen.getThenBranch();
-        if (then == null)
-            formatBuilder.append(";");
-        else
-            formatBody(then);
-    }
-
-    @Override
     public void visit(IfThenElse ifThenElse) {
         this.visit((IfThen) ifThenElse);
 
-        if (ifThenElse.getThenBranch() instanceof Composite)
-            formatBuilder.append(" else");
-        else {
-            formatBuilder.append("\n");
-            appendTabs();
-            formatBuilder.append("else");
-        }
+        formatBuilder.append(" else {\n");
 
-        Statement elseBranch = ifThenElse.getElseBranch();
-        if (elseBranch == null)
-            formatBuilder.append(";");
-        else
-            formatBody(elseBranch);
+        currentTabs++;
+        ifThenElse.getElseBranch().accept(this);
+        currentTabs--;
+
+        formatBuilder.append("\n");
+        appendTabs();
+        formatBuilder.append("}");
     }
 
     @Override
     public void visit(While whileStatement) {
         appendTabs();
-
-        if (whileStatement.isDoWhile()) {
-            formatBuilder.append("do");
-            formatBody(whileStatement.getBody());
-
-            if (whileStatement.getBody() instanceof Composite)
-                formatBuilder.append(" while (");
-            else {
-                formatBuilder.append("\n");
-                appendTabs();
-                formatBuilder.append("while (");
-            }
-
-            whileStatement.getCondition().accept(this);
-            formatBuilder.append(");");
-        }
+        if (whileStatement.isDoWhile())
+            formatBuilder.append("do {\n");
         else {
             formatBuilder.append("while (");
             whileStatement.getCondition().accept(this);
-            formatBuilder.append(")");
-            formatBody(whileStatement.getBody());
+            formatBuilder.append(") {\n");
         }
+
+        currentTabs++;
+        whileStatement.getBody().accept(this);
+        currentTabs--;
+
+        formatBuilder.append("\n");
+
+        appendTabs();
+        if (whileStatement.isDoWhile()) {
+            formatBuilder.append("} while (");
+            whileStatement.getCondition().accept(this);
+            formatBuilder.append(");");
+        }
+        else
+            formatBuilder.append("}");
     }
 
     @Override
     public void visit(Switch switchStatement) {
         appendTabs();
-        formatBuilder.append("switch ("); // correct would be "switch ("
+        formatBuilder.append("switch (");
         switchStatement.getSwitchExpression().accept(this);
         formatBuilder.append(") {");
 
@@ -187,16 +190,23 @@ public class FormatVisitor implements ProgramVisitor {
         for (SwitchCase switchCase: switchStatement.getCases()) {
             formatBuilder.append("\n");
             appendTabs();
-            formatBuilder.append("case ").append(switchCase.getNumber().getValue()).append(":");
+            formatBuilder.append("case ")
+                    .append(switchCase.getNumber().getValue())
+                    .append(":\n");
 
-            formatBody(switchCase.getCaseStatement());
+            currentTabs++;
+            switchCase.getCaseStatement().accept(this);
+            currentTabs--;
         }
 
         if (switchStatement.getDefault() != null) {
             formatBuilder.append("\n");
             appendTabs();
-            formatBuilder.append("default:");
-            formatBody(switchStatement.getDefault());
+            formatBuilder.append("default:\n");
+
+            currentTabs++;
+            switchStatement.getDefault().accept(this);
+            currentTabs--;
         }
 
         currentTabs--;
@@ -238,28 +248,20 @@ public class FormatVisitor implements ProgramVisitor {
         formatBuilder.append(number.getValue());
     }
 
+    @SuppressWarnings("Duplicates")
     @Override
     public void visit(Binary binary) {
-        bracketOperand(binary.getLhs());
+        formatBuilder.append("(");
+        binary.getLhs().accept(this);
         formatBuilder.append(" ").append(binary.getOperator()).append(" ");
-        bracketOperand(binary.getRhs());
+        binary.getRhs().accept(this);
+        formatBuilder.append(")");
     }
 
     @Override
     public void visit(Unary unary) {
         formatBuilder.append(unary.getOperator());
-        bracketOperand(unary.getOperand());
-    }
-
-    private void bracketOperand(Expression operand) {
-        if (operand instanceof Binary) {
-            // additionally we could check if we can leave out the brackets when same operations are used
-            formatBuilder.append("(");
-            operand.accept(this);
-            formatBuilder.append(")");
-        }
-        else
-            operand.accept(this);
+        unary.getOperand().accept(this);
     }
 
     @Override
@@ -300,24 +302,30 @@ public class FormatVisitor implements ProgramVisitor {
         formatBuilder.append("false");
     }
 
+    @SuppressWarnings("Duplicates")
     @Override
     public void visit(BinaryCondition binaryCondition) {
-        bracketCondition(binaryCondition.getLhs());
+        formatBuilder.append("(");
+        binaryCondition.getLhs().accept(this);
         formatBuilder.append(" ").append(binaryCondition.getOperator()).append(" ");
-        bracketCondition(binaryCondition.getRhs());
+        binaryCondition.getRhs().accept(this);
+        formatBuilder.append(")");
     }
 
+    @SuppressWarnings("Duplicates")
     @Override
     public void visit(Comparison comparison) {
-        bracketOperand(comparison.getLhs());
+        formatBuilder.append("(");
+        comparison.getLhs().accept(this);
         formatBuilder.append(" ").append(comparison.getOperator()).append(" ");
-        bracketOperand(comparison.getRhs());
+        comparison.getRhs().accept(this);
+        formatBuilder.append(")");
     }
 
     @Override
     public void visit(UnaryCondition unaryCondition) {
         formatBuilder.append(unaryCondition.getOperator());
-        bracketCondition(unaryCondition.getOperand());
+        unaryCondition.getOperand().accept(this);
     }
 
     @Override
@@ -351,28 +359,6 @@ public class FormatVisitor implements ProgramVisitor {
         formatBuilder.append("length(");
         arrayLength.getArray().accept(this);
         formatBuilder.append(")");
-    }
-
-    private void bracketCondition(Condition condition) {
-        if (condition instanceof BinaryCondition || condition instanceof Comparison) {
-            formatBuilder.append("(");
-            condition.accept(this);
-            formatBuilder.append(")");
-        }
-        else
-            condition.accept(this);
-    }
-
-    private void formatBody(Statement statement) {
-        if (statement instanceof Composite) {
-            formatBuilder.append(" ");
-            formatBuilder.append("@");
-            statement.accept(this);
-        }
-        else {
-            formatBuilder.append("\n").append("  ");
-            statement.accept(this);
-        }
     }
 
     private void appendTabs() {
