@@ -28,14 +28,13 @@ public class FormatVisitor implements ProgramVisitor {
         }
     }
 
-    @SuppressWarnings("Duplicates")
     @Override
     public void visit(Function function) {
         formatBuilder.append("int ").append(function.getName()).append("(");
 
         Parameter[] parameters = function.getParameters();
         for (int i = 0; i < parameters.length; i++) {
-            var parameter = parameters[i];
+            Parameter parameter = parameters[i];
             formatBuilder.append(parameter.getType()).append(" ").append(parameter.getName());
 
             if (i < parameters.length - 1)
@@ -89,35 +88,15 @@ public class FormatVisitor implements ProgramVisitor {
         formatBuilder.append(";");
     }
 
-    @SuppressWarnings("Duplicates")
     @Override
     public void visit(Composite composite) {
-        /*int magic = formatBuilder.lastIndexOf("@");
-        if (magic == formatBuilder.length() - 1) {
-            formatBuilder.deleteCharAt(magic);
-        }
-        else {
-            if (magic >= 0)
-                throw new RuntimeException("Found an unresolved magic character at " + magic);
-
-            appendTabs();
-        }*/
-
-        // formatBuilder.append("{");
-
-        // currentTabs++;
-        var statements = composite.getStatements();
+        Statement[] statements = composite.getStatements();
         for (int i = 0; i < statements.length; i++) {
             statements[i].accept(this);
 
             if (i < statements.length - 1)
                 formatBuilder.append("\n");
         }
-        // currentTabs--;
-
-        // formatBuilder.append("\n");
-        // appendTabs();
-        // formatBuilder.append("}");
     }
 
     @Override

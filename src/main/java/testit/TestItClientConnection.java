@@ -7,7 +7,6 @@ import java.io.PrintWriter;
 import java.net.Socket;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
-import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 
 public class TestItClientConnection implements Runnable {
@@ -18,15 +17,15 @@ public class TestItClientConnection implements Runnable {
     private final int port;
 
     private Socket socket;
-    private final BiConsumer<ErrorType, String> errorMessageConsumer;
+    private final Consumer<String> connectionEndedConsumer;
 
     private boolean active;
 
-    public TestItClientConnection(String hostname, int port, BiConsumer<ErrorType, String> errorMessageConsumer) {
+    public TestItClientConnection(String hostname, int port, Consumer<String> connectionEndedConsumer) {
         this.hostname = hostname;
         this.port = port;
 
-        this.errorMessageConsumer = errorMessageConsumer;
+        this.connectionEndedConsumer = connectionEndedConsumer;
     }
 
     public void connect() throws IOException {
@@ -107,8 +106,7 @@ public class TestItClientConnection implements Runnable {
                             if (currentCommand != null)
                                 currentCommand.sendResponse(output);
                             else
-                                errorMessageConsumer.accept(ErrorType.MESSAGE,
-                                        "Got unexpected output from client before command was executed: " + output);
+                                System.err.println("Got unexpected output from client before command was executed: " + output);
 
                             state = TestItClientState.UNDEFINED; // don't know what comes next, maybe a command promt?
                         }
@@ -120,12 +118,12 @@ public class TestItClientConnection implements Runnable {
                 System.out.println("End of stream");
         } catch (IOException e) {
             active = false;
-            errorMessageConsumer.accept(ErrorType.CONNECTION_ENDED, "Error establishing connection: " + e.getMessage());
+            connectionEndedConsumer.accept("Error establishing connection: " + e.getMessage());
             return;
         }
 
         active = false;
-        errorMessageConsumer.accept(ErrorType.CONNECTION_ENDED, null);
+        connectionEndedConsumer.accept(null);
     }
 
 }

@@ -1,6 +1,5 @@
 package testit;
 
-import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -104,21 +103,16 @@ public class TestItUI extends Frame implements ActionListener {
         }
     }
 
-    private void connectionErrorOccurred(ErrorType type, String message) {
-        System.err.println("Connection error " +type + ": " + message);
-        if (type.equals(ErrorType.MESSAGE))
-            JOptionPane.showMessageDialog(null, message, "Error!", JOptionPane.ERROR_MESSAGE);
-        else if (type.equals(ErrorType.CONNECTION_ENDED)) {
-            infoLabel.setText(message != null? "Disconnected: " + message: "Disconnected!");
-            infoLabel.setForeground(Color.RED);
-            pack();
+    private void connectionErrorOccurred(String message) {
+        infoLabel.setText(message != null? "Disconnected: " + message: "Disconnected!");
+        infoLabel.setForeground(Color.RED);
+        pack();
 
-            setUIEnabled(false);
-            exit.setEnabled(true);
+        setUIEnabled(false);
+        exit.setEnabled(true);
 
-            for (Frame frame: frameList)
-                frame.dispose();
-        }
+        for (Frame frame: frameList)
+            frame.dispose();
     }
 
     private void exitApplication() {
