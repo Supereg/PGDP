@@ -4,12 +4,7 @@ public class ParallelMergeSort extends Thread {
 
     public static void mergeSort(int[] arr, int numberOfThreadLevels) {
         ParallelMergeSort sortThread = new ParallelMergeSort(arr, 0, arr.length - 1, numberOfThreadLevels);
-        sortThread.start();
-        try {
-            sortThread.join();
-        } catch (InterruptedException e) {
-            System.err.println("Couldn't sort array. Got interrupted!");
-        }
+        sortThread.run();
     }
 
     private final int[] numbers;
