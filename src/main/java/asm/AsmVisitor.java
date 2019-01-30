@@ -48,8 +48,8 @@ public interface AsmVisitor {
 
     void visit(Alloc alloc);
 
-    void visit(LFH lfh);
+    void visit(Lfh lfh);
 
-    void visit(STH sth);
+    void visit(Sth sth);
 
 }

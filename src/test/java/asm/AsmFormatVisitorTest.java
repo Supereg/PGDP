@@ -35,7 +35,7 @@ public class AsmFormatVisitorTest {
                 // Ist n == 1?
                 new Ldi(1), // 4
                 new Lfs(0),
-                new Cmp(CompareOperation.EQUALS),
+                new Cmp(CompareType.EQ),
                 new Not(),
                 new Brc(11), // Sprung zum rekursiven Aufruf
                 new Ldi(1),
@@ -97,7 +97,7 @@ public class AsmFormatVisitorTest {
                 // Lade Argument b auf den Stack
                 new Lfs(0),
                 // Ist !(b >= a), also b < a, ...
-                new Cmp(CompareOperation.LESS),
+                new Cmp(CompareType.LT),
                 new Brc(14), // ... zur Hauptschleife springen; updated 31->14
                 // Sonst: Tauschen von a und b
                 new Lfs(0),
@@ -119,7 +119,7 @@ public class AsmFormatVisitorTest {
                 // Schleifenbedingung auswerten
                 new Ldi(0),
                 new Lfs(0),
-                new Cmp(CompareOperation.EQUALS),
+                new Cmp(CompareType.EQ),
                 new Not(),
                 // Rücksprung zur Schleife, wenn Bedingung hält
                 new Brc(14), // 31->14
@@ -174,8 +174,8 @@ public class AsmFormatVisitorTest {
                 new Pop(0),
                 new Pop(1),
                 new Alloc(),
-                new LFH(),
-                new STH(),
+                new Lfh(),
+                new Sth(),
         };
 
         assertEquals("Unexpected format for assembler", "0: DIV\n" +

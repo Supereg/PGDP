@@ -2,13 +2,13 @@ package asm;
 
 public class Cmp extends Instruction {
 
-    private CompareOperation operator;
+    private CompareType operator;
 
-    public Cmp(CompareOperation operator) {
+    public Cmp(CompareType operator) {
         this.operator = operator;
     }
 
-    public CompareOperation getOperator() {
+    public CompareType getOperator() {
         return operator;
     }
 

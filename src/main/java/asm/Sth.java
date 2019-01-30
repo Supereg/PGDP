@@ -1,6 +1,6 @@
 package asm;
 
-public class STH extends Instruction {
+public class Sth extends Instruction {
 
     @Override
     public void accept(AsmVisitor visitor) {

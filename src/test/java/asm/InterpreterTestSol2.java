@@ -4,12 +4,81 @@ import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 
-public class InterpreterTestSol {
+public class InterpreterTestSol2 {
+  @Test
+  public void testAllocZero() {
+    /*
+     * 0.5P
+     */
+
+    Instruction[] program = {
+      new Ldi(0),
+      new Alloc(),
+      new Pop(0),
+      new Ldi(1),
+      new Alloc(),
+      new Pop(1),
+      new Push(0),
+      new Push(1),
+      new Cmp(CompareType.EQ),
+      new Halt()
+    };
+    Interpreter intp = new Interpreter(program);
+    assertEquals(0, intp.execute());
+  }
+  
+  @Test
+  public void testHeapSimple() {
+    /*
+     * 0.5P
+     */
+
+    Instruction[] program = {
+      new Ldi(2),
+      new Alloc(),
+      new Pop(0),
+      new Ldi(42),
+      new Push(0),
+      new Sth(),
+      new Push(0),
+      new Lfh(),
+      new Halt()
+    };
+    Interpreter intp = new Interpreter(program);
+    assertEquals(42, intp.execute());
+  }
+
+  /*
+  @Test
+  public void testExceptions() {
+    /*
+     * 0.25 Punkte pro Exception (korrekte Unterklasse, korrekt geworfen), max. 0.5P insgesamt
+     /
+    
+    fail("Bitte Exceptions manuell prüfen!");
+  }
+  */
+
+  /*
+  @Test
+  public void testTests() {
+    /*
+     * 1P Abzug ohne Tests (zusammen mit Code-Generator)
+     * 
+     * Achtung: Die Tests müssen JUnit verwenden!
+     /
+    
+    fail("Bitte JUnit-Tests prüfen!");
+  }
+  */
+  
+  /*
+   * Alte Tests
+   */
+  
+  
   @Test
   public void testExpr() {
-    /*
-     * 1.5P
-     */
     Instruction[] program = {
       new Ldi(5),
       new Ldi(2),
@@ -25,9 +94,6 @@ public class InterpreterTestSol {
   
   @Test
   public void testVariables() {
-    /*
-     * 1.5P
-     */
     Instruction[] program = {
       new Decl(3),
       new Ldi(5),
@@ -50,9 +116,6 @@ public class InterpreterTestSol {
   
   @Test
   public void testControlFlow() {
-    /*
-     * 1.5P
-     */
     Instruction[] program = {
         new Decl(1),
         new Decl(1),
@@ -126,9 +189,6 @@ public class InterpreterTestSol {
 
   @Test
   public void testFunctionCalls() {
-    /*
-     * 1.5P
-     */
     Instruction[] program = {
         new Ldi(26),
         new Call(0),
@@ -180,50 +240,8 @@ public class InterpreterTestSol {
     assertEquals(110, intp.execute());
   }
 
-  /*
-  @Test
-  public void testExceptions() {
-    /*
-     * 0.25 Punkte pro Exception (korrekte Unterklasse, korrekt geworfen), max. 1P insgesamt
-     * /
-    
-    fail("Bitte Exceptions manuell prüfen!");
-  }
-  */
-
-  /*
-  @Test
-  public void testVisitor() {
-    /*
-     * Wichtige Punkte beim Visitor-Pattern:
-     * 
-     * - Genau ein accept() pro konkreter Unterklasse (-0.5 bei mehreren accepts)
-     * - Keine Verwendung von instanceof, um durch die Hierarchie zu navigieren
-     * - ...
-     * 
-     * Insg. max. 2 Punkte Abzug, max. 4 Punkte auf dem gesamten Blatt
-     * /
-    
-    fail("Bitte manuell prüfen, dass das Visitor-Pattern korrekt verwendet wurde");
-  }
-  */
-
-  /*
-  @Test
-  public void testTests() {
-    /*
-     * 1P Abzug ohne Tests
-     * /
-    
-    fail("Bitte Tests prüfen!");
-  }
-  */
-
   @Test
   public void testFib() {
-    /*
-     * 1P Abzug, falls dieser Test scheitert (ab insg. <= 4 Punkten bei dieser Aufgabe kein Abzug mehr)
-     */
     Instruction[] program = {
         new Ldi(3),
         new Call(0),

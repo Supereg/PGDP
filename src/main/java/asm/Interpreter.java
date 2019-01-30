@@ -189,10 +189,10 @@ public class Interpreter implements AsmVisitor {
 
         boolean evaluation;
         switch (cmp.getOperator()) {
-            case LESS:
+            case LT:
                 evaluation = o1 < o2;
                 break;
-            case EQUALS:
+            case EQ:
                 evaluation = o1 == o2;
                 break;
             default:
@@ -314,7 +314,7 @@ public class Interpreter implements AsmVisitor {
     }
 
     @Override
-    public void visit(LFH lfh) {
+    public void visit(Lfh lfh) {
         int address = popValueFromStack();
         if (address < 0 || address >= heapPointer)
             throw new InvalidHeapAccessException();
@@ -324,7 +324,7 @@ public class Interpreter implements AsmVisitor {
     }
 
     @Override
-    public void visit(STH sth) {
+    public void visit(Sth sth) {
         int address = popValueFromStack();
         if (address < 0 || address >= heapPointer)
             throw new InvalidHeapAccessException();

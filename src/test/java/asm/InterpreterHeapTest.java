@@ -62,7 +62,7 @@ public class InterpreterHeapTest {
                 new Ldi(123),
                 new Alloc(),
                 new Sub(),
-                new LFH(),
+                new Lfh(),
                 new Halt(),
         };
 
@@ -76,7 +76,7 @@ public class InterpreterHeapTest {
                 new Alloc(),
                 new Pop(0),
                 new Ldi(-1),
-                new LFH(),
+                new Lfh(),
                 new Halt(),
         };
 
@@ -87,7 +87,7 @@ public class InterpreterHeapTest {
     public void testOutOfRangLFH0() {
         Instruction[] instructions = new Instruction[] {
                 new Ldi(0),
-                new LFH(),
+                new Lfh(),
                 new Halt(),
         };
 
@@ -101,7 +101,7 @@ public class InterpreterHeapTest {
                 new Alloc(),
                 new Pop(0),
                 new Ldi(1025),
-                new LFH(),
+                new Lfh(),
                 new Halt(),
         };
 
@@ -116,9 +116,9 @@ public class InterpreterHeapTest {
                 new Pop(0),
                 new Ldi(23),
                 new Ldi(1),
-                new STH(),
+                new Sth(),
                 new Ldi(1),
-                new LFH(),
+                new Lfh(),
                 new Halt(),
         };
 
@@ -133,7 +133,7 @@ public class InterpreterHeapTest {
                 new Pop(0),
                 new Ldi(22),
                 new Ldi(-1),
-                new STH(),
+                new Sth(),
                 new Halt(),
         };
 
@@ -145,7 +145,7 @@ public class InterpreterHeapTest {
         Instruction[] instructions = new Instruction[] {
                 new Ldi(42),
                 new Ldi(0),
-                new STH(),
+                new Sth(),
                 new Halt(),
         };
 
@@ -160,7 +160,7 @@ public class InterpreterHeapTest {
                 new Pop(0),
                 new Ldi(42),
                 new Ldi(1025),
-                new STH(),
+                new Sth(),
                 new Halt(),
         };
 

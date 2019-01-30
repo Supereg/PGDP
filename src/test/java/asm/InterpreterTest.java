@@ -196,7 +196,7 @@ public class InterpreterTest {
         Instruction[] instructions0 = {
                 new Ldi(123),
                 new Ldi(100),
-                new Cmp(CompareOperation.LESS),
+                new Cmp(CompareType.LT),
                 new Halt()
         };
 
@@ -205,7 +205,7 @@ public class InterpreterTest {
         Instruction[] instructions1 = {
                 new Ldi(100),
                 new Ldi(100),
-                new Cmp(CompareOperation.EQUALS),
+                new Cmp(CompareType.EQ),
                 new Halt()
         };
 
@@ -218,7 +218,7 @@ public class InterpreterTest {
                 new Ldi(734), // 0
                 new Ldi(28), // 1
                 new Ldi(14), // 2
-                new Cmp(CompareOperation.LESS), // 3
+                new Cmp(CompareType.LT), // 3
                 new Brc(7), // 4
                 new Ldi(1), // 5
                 new Add(), // 6
@@ -290,7 +290,7 @@ public class InterpreterTest {
                 // Lade Argument b auf den Stack
                 new Lfs(0),
                 // Ist !(b >= a), also b < a, ...
-                new Cmp(CompareOperation.LESS),
+                new Cmp(CompareType.LT),
                 new Brc(14), // ... zur Hauptschleife springen; updated 31->14
                 // Sonst: Tauschen von a und b
                 new Lfs(0),
@@ -312,7 +312,7 @@ public class InterpreterTest {
                 // Schleifenbedingung auswerten
                 new Ldi(0),
                 new Lfs(0),
-                new Cmp(CompareOperation.EQUALS),
+                new Cmp(CompareType.EQ),
                 new Not(),
                 // Rücksprung zur Schleife, wenn Bedingung hält
                 new Brc(14), // 31->14
@@ -347,7 +347,7 @@ public class InterpreterTest {
                     // Ist n == 1?
                     new Ldi(1), // 4
                     new Lfs(0),
-                    new Cmp(CompareOperation.EQUALS),
+                    new Cmp(CompareType.EQ),
                     new Not(),
                     new Brc(11), // Sprung zum rekursiven Aufruf
                     new Ldi(1),

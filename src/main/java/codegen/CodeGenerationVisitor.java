@@ -208,7 +208,7 @@ public class CodeGenerationVisitor implements ProgramVisitor {
         for (SwitchCase switchCase: switchStatement.getCases()) {
             instructionList.add(new Push(0));
             switchCase.getNumber().accept(this);
-            instructionList.add(new Cmp(CompareOperation.EQUALS));
+            instructionList.add(new Cmp(CompareType.EQ));
 
             int brcIndex = instructionList.size();
             instructionList.add(new Nop());
@@ -390,20 +390,20 @@ public class CodeGenerationVisitor implements ProgramVisitor {
 
         switch (comparison.getOperator()) {
             case Equals:
-                instructionList.add(new Cmp(CompareOperation.EQUALS));
+                instructionList.add(new Cmp(CompareType.EQ));
                 break;
             case NotEquals:
-                instructionList.add(new Cmp(CompareOperation.EQUALS));
+                instructionList.add(new Cmp(CompareType.EQ));
                 instructionList.add(new Not());
                 break;
             case LessEqual:
             case GreaterEqual:
-                instructionList.add(new Cmp(CompareOperation.LESS));
+                instructionList.add(new Cmp(CompareType.LT));
                 instructionList.add(new Not());
                 break;
             case Less:
             case Greater:
-                instructionList.add(new Cmp(CompareOperation.LESS));
+                instructionList.add(new Cmp(CompareType.LT));
                 break;
             default:
                 throw new codegen.exceptions.UnsupportedOperationException(comparison.getOperator().name());
@@ -431,7 +431,7 @@ public class CodeGenerationVisitor implements ProgramVisitor {
         arrayAccess.getArray().accept(this);
         arrayAccess.getIndex().accept(this);
         instructionList.add(new Add());
-        instructionList.add(new LFH());
+        instructionList.add(new Lfh());
     }
 
     @Override
@@ -440,7 +440,7 @@ public class CodeGenerationVisitor implements ProgramVisitor {
         arrayIndexAssignment.getArray().accept(this);
         arrayIndexAssignment.getIndex().accept(this);
         instructionList.add(new Add());
-        instructionList.add(new STH());
+        instructionList.add(new Sth());
     }
 
     @Override
@@ -448,7 +448,7 @@ public class CodeGenerationVisitor implements ProgramVisitor {
         instructionList.add(new Ldi(1));
         arrayLength.getArray().accept(this);
         instructionList.add(new Sub());
-        instructionList.add(new LFH());
+        instructionList.add(new Lfh());
     }
 
 }

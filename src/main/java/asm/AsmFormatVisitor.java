@@ -148,12 +148,12 @@ public class AsmFormatVisitor implements AsmVisitor {
     }
 
     @Override
-    public void visit(LFH lfh) {
+    public void visit(Lfh lfh) {
         formatBuilder.append("LFH");
     }
 
     @Override
-    public void visit(STH sth) {
+    public void visit(Sth sth) {
         formatBuilder.append("STH");
     }
 
