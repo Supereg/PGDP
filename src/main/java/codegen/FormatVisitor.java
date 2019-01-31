@@ -30,7 +30,7 @@ public class FormatVisitor implements ProgramVisitor {
 
     @Override
     public void visit(Function function) {
-        formatBuilder.append("int ").append(function.getName()).append("(");
+        formatBuilder.append(function.getReturnType()).append(" ").append(function.getName()).append("(");
 
         Parameter[] parameters = function.getParameters();
         for (int i = 0; i < parameters.length; i++) {
@@ -65,7 +65,7 @@ public class FormatVisitor implements ProgramVisitor {
     @Override
     public void visit(Declaration declaration) {
         // tabs are handled in #visit(function)
-        formatBuilder.append("int ");
+        formatBuilder.append(declaration.getType()).append(" ");
 
         String[] names = declaration.getNames();
         for (int i = 0; i < names.length; i++) {
@@ -257,6 +257,9 @@ public class FormatVisitor implements ProgramVisitor {
 
     @Override
     public void visit(Call call) {
+        if (call.isFork())
+            formatBuilder.append("fork:");
+
         formatBuilder.append(call.getFunctionName()).append("(");
 
         Expression[] arguments = call.getArguments();
@@ -338,6 +341,32 @@ public class FormatVisitor implements ProgramVisitor {
         formatBuilder.append("length(");
         arrayLength.getArray().accept(this);
         formatBuilder.append(")");
+    }
+
+    @Override
+    public void visit(Join join) {
+        formatBuilder.append("join(");
+        join.getThreadId().accept(this);
+        formatBuilder.append(")");
+    }
+
+    @Override
+    public void visit(Synchronized synchronizedInstruction) {
+        appendTabs();
+        formatBuilder.append("synchronized (");
+        synchronizedInstruction.getMutex().accept(this);
+        formatBuilder.append(") {");
+
+        currentTabs++;
+        for (Statement statement: synchronizedInstruction.getCriticalSection()) {
+            formatBuilder.append("\n");
+            statement.accept(this);
+        }
+        currentTabs--;
+
+        formatBuilder.append("\n");
+        appendTabs();
+        formatBuilder.append("}");
     }
 
     private void appendTabs() {

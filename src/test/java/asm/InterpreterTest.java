@@ -1,7 +1,7 @@
 package asm;
 
-import asm.exceptions.*;
 import asm.exceptions.ArithmeticException;
+import asm.exceptions.*;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;

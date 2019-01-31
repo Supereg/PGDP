@@ -255,7 +255,7 @@ public class CodeGenerationVisitor implements ProgramVisitor {
     @Override
     public void visit(ExpressionStatement expressionStatement) {
         expressionStatement.getExpression().accept(this);
-        instructionList.add(new Pop(0));
+        instructionList.add(new Pop(0)); // does not override anything (r0 used by switch statement)
     }
 
 
@@ -344,7 +344,8 @@ public class CodeGenerationVisitor implements ProgramVisitor {
 
         int ldiIndex = instructionList.size();
         instructionList.add(new Nop()); // will be replaced with new Ldi(functionAddress)
-        instructionList.add(new asm.Call(call.getArguments().length));
+        int argumentsCount = call.getArguments().length;
+        instructionList.add(call.isFork()? new Fork(argumentsCount): new asm.Call(argumentsCount));
 
         generatedCalls.add(new CGFunctionCall(call.getFunctionName(), ldiIndex));
     }
@@ -449,6 +450,26 @@ public class CodeGenerationVisitor implements ProgramVisitor {
         arrayLength.getArray().accept(this);
         instructionList.add(new Sub());
         instructionList.add(new Lfh());
+    }
+
+    @Override
+    public void visit(Join join) {
+        join.getThreadId().accept(this);
+        instructionList.add(new asm.Join());
+    }
+
+    @Override
+    public void visit(Synchronized synchronizedInstruction) {
+        synchronizedInstruction.getMutex().accept(this);
+        instructionList.add(new Pop(1)); // r1 isn't used by anything else => no need to save anything :)
+        instructionList.add(new Push(1));
+        instructionList.add(new Lock());
+
+        for (Statement statement: synchronizedInstruction.getCriticalSection())
+            statement.accept(this);
+
+        instructionList.add(new Push(1));
+        instructionList.add(new Unlock());
     }
 
 }

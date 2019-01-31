@@ -176,6 +176,10 @@ public class AsmFormatVisitorTest {
                 new Alloc(),
                 new Lfh(),
                 new Sth(),
+                new Fork(23),
+                new Join(),
+                new Lock(),
+                new Unlock(),
         };
 
         assertEquals("Unexpected format for assembler", "0: DIV\n" +
@@ -188,7 +192,11 @@ public class AsmFormatVisitorTest {
                 "7: POP 1\n" +
                 "8: ALLOC\n" +
                 "9: LFH\n" +
-                "10: STH\n", format(instructions));
+                "10: STH\n" +
+                "11: FORK 23\n" +
+                "12: JOIN\n" +
+                "13: LOCK\n" +
+                "14: UNLOCK\n", format(instructions));
     }
 
     private String format(Instruction[] instructions) {

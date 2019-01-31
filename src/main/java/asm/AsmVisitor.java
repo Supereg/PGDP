@@ -52,4 +52,12 @@ public interface AsmVisitor {
 
     void visit(Sth sth);
 
+    void visit(Fork fork);
+
+    void visit(Join join);
+
+    void visit(Lock lock);
+
+    void visit(Unlock unlock);
+
 }

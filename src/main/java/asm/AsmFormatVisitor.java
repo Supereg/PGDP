@@ -157,4 +157,24 @@ public class AsmFormatVisitor implements AsmVisitor {
         formatBuilder.append("STH");
     }
 
+    @Override
+    public void visit(Fork fork) {
+        formatBuilder.append("FORK ").append(fork.getArgumentCount());
+    }
+
+    @Override
+    public void visit(Join join) {
+        formatBuilder.append("JOIN");
+    }
+
+    @Override
+    public void visit(Lock lock) {
+        formatBuilder.append("LOCK");
+    }
+
+    @Override
+    public void visit(Unlock unlock) {
+        formatBuilder.append("UNLOCK");
+    }
+
 }

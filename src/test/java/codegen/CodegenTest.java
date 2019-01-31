@@ -1,7 +1,7 @@
 package codegen;
 
-import asm.Interpreter;
 import asm.Instruction;
+import asm.Interpreter;
 import asm.exceptions.InvalidJumpTargetException;
 import codegen.exceptions.*;
 import org.junit.Test;

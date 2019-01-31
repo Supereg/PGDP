@@ -64,4 +64,8 @@ public interface ProgramVisitor {
 
     void visit(ArrayLength arrayLength);
 
+    void visit(Join join);
+
+    void visit(Synchronized synchronizedInstruction);
+
 }
