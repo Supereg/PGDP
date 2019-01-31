@@ -1,8 +1,6 @@
-package produerconsumer;
+package producerconsumer;
 
 import org.junit.Test;
-import producerconsumer.Queue;
-import producerconsumer.Worker;
 
 import java.util.ArrayList;
 import java.util.List;
