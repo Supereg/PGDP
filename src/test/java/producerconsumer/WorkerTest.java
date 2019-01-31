@@ -29,7 +29,7 @@ public class WorkerTest {
 
     @Test
     public void testWorker() throws InterruptedException {
-        for (int j = 0; j < 3; j++) {
+        for (int j = 0; j < 2; j++) {
             int workerLevels = RANDOM.nextInt(10) + 1;
             List<Integer> in = new ArrayList<>(QUEUE_FIXED_LENGTH);
             List<Integer> out = new ArrayList<>(QUEUE_FIXED_LENGTH);
@@ -46,7 +46,7 @@ public class WorkerTest {
 
     @Test
     public void testWorker2() throws InterruptedException {
-        for (int j = 0; j < 3; j++) {
+        for (int j = 0; j < 2; j++) {
             int workerLevels = RANDOM.nextInt(10) + 1;
             List<Integer> in = new ArrayList<>(QUEUE_FIXED_LENGTH);
             List<Integer> out = new ArrayList<>(QUEUE_FIXED_LENGTH);
@@ -63,7 +63,7 @@ public class WorkerTest {
 
     @Test
     public void testWorker3() throws InterruptedException {
-        for (int j = 0; j < 3; j++) {
+        for (int j = 0; j < 2; j++) {
             int workerLevels = RANDOM.nextInt(10) + 1;
             List<Integer> in = new ArrayList<>(QUEUE_FIXED_LENGTH);
             List<Integer> out = new ArrayList<>(QUEUE_FIXED_LENGTH);
